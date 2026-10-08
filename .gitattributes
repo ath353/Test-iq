@@ -1,0 +1,2 @@
+# Thống nhất ký tự xuống dòng LF cho mọi file văn bản (tránh lệch giữa Windows và Linux/Vercel)
+* text=auto eol=lf

@@ -1,0 +1,37 @@
+/* CSS toàn cục: biến màu, font chữ, căn chỉnh khung trang. */
+
+/* Biến màu dùng chung, chế độ sáng */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1f2328;
+  --color-muted: #59636e;
+
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Chế độ tối: tự đổi theo cài đặt hệ điều hành */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0d1117;
+    --color-text: #e6edf3;
+    --color-muted: #9198a1;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+/* Khung nội dung chính: căn giữa, giới hạn chiều rộng, có lề hai bên trên điện thoại */
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.app p {
+  color: var(--color-muted);
+}
