@@ -1,0 +1,78 @@
+/* Giao diện thẻ xem lại một câu hỏi. */
+
+.review-item {
+  border: 1px solid var(--color-border);
+  border-left-width: 4px; /* viền trái dày, màu theo trạng thái */
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.review-item--correct {
+  border-left-color: var(--color-success);
+}
+
+.review-item--wrong {
+  border-left-color: var(--color-danger);
+}
+
+.review-item--skipped {
+  border-left-color: var(--color-muted);
+}
+
+/* Dòng tiêu đề bấm để mở/đóng */
+.review-item__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.review-item__index {
+  font-weight: 600;
+}
+
+.review-item__prompt {
+  flex: 1;
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+.review-item__status {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.review-item--correct .review-item__status {
+  color: var(--color-success);
+}
+
+.review-item--wrong .review-item__status {
+  color: var(--color-danger);
+}
+
+.review-item--skipped .review-item__status {
+  color: var(--color-muted);
+}
+
+.review-item__body {
+  padding: 0 16px 12px;
+}
+
+.review-item__body p {
+  margin: 0 0 8px;
+}
+
+.review-item__steps-title {
+  color: var(--color-muted);
+}
+
+.review-item__steps {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.review-item__steps li + li {
+  margin-top: 4px;
+}

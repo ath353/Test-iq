@@ -72,6 +72,8 @@ export interface TestResult {
   correctCount: number
   /** Thời gian thực tế đã dùng, tính bằng giây. */
   durationSec: number
+  /** true nếu bài được tự động nộp do hết giờ. */
+  timedOut: boolean
   /** Thời điểm nộp bài, dạng chuỗi ISO (để lưu localStorage được). */
   finishedAt: string
 }

@@ -11,6 +11,7 @@
   --color-primary-soft: #ddf4ff; /* nền nhạt của màu chủ đạo */
   --color-on-primary: #ffffff; /* chữ đặt trên nền màu chủ đạo */
   --color-danger: #cf222e; /* cảnh báo: sắp hết giờ, câu sai */
+  --color-success: #1a7f37; /* câu đúng */
 
   font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
@@ -30,6 +31,7 @@
     --color-primary-soft: #1a2d48;
     --color-on-primary: #0d1117;
     --color-danger: #f85149;
+    --color-success: #3fb950;
   }
 }
 

@@ -1,0 +1,96 @@
+/* Giao diện màn hình kết quả. */
+
+.result-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Thông báo hết giờ */
+.result-page__notice {
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--color-danger);
+  border-radius: 8px;
+  color: var(--color-danger);
+}
+
+/* Khối tổng quan */
+.result-page__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+/* Điểm số chữ to */
+.result-page__score {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-page__score-total {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.result-page__percent {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+/* Bảng chỉ số phụ: 4 cột, trên điện thoại tự xuống 2 cột */
+.result-page__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.result-page__stats dt {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.result-page__stats dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.result-page__stat--correct {
+  color: var(--color-success);
+}
+
+.result-page__stat--wrong {
+  color: var(--color-danger);
+}
+
+.result-page__stat-limit {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+/* Danh sách xem lại */
+.result-page__review {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result-page__review h2 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+}
