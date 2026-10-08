@@ -25,7 +25,10 @@
 | 6 | Sơ đồ biến đổi (Diagrammatic) | Code tự sinh + SVG | Sau MVP |
 | 7 | Xoay hình (Spatial) | Code tự sinh + SVG | Sau MVP |
 
-**Nguyên tắc dữ liệu:** Không sao chép đề có bản quyền (SHL, sách luyện thi…). Chỉ tham khảo dạng bài và tự tạo.
+**Nguyên tắc dữ liệu:**
+- Không sao chép đề có bản quyền (SHL, sách luyện thi…). Chỉ tham khảo dạng bài và tự tạo.
+- **Mọi câu hỏi bắt buộc có lời giải từng bước** (trường `explanationSteps`): nêu quy luật và cách tính ra đáp án.
+  Ít nhất 1 bước, không bước nào rỗng. Mỗi bộ sinh đề phải có test kiểm tra điều này.
 
 ---
 
@@ -97,7 +100,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 
 ```
 src/
-├── types/          # Kiểu dữ liệu dùng chung (Question, Answer, Result…)
+├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…)
 ├── generators/     # Bộ sinh đề tự động, mỗi dạng một file + file test
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
 ├── components/     # Component giao diện dùng lại
@@ -105,6 +108,18 @@ src/
 ├── hooks/          # Custom hooks (đồng hồ đếm ngược…)
 └── utils/          # Hàm tiện ích (random, chấm điểm, lưu trữ…)
 ```
+
+### Lệnh thường dùng
+
+| Lệnh | Tác dụng |
+|------|----------|
+| `npm run dev` | Chạy bản phát triển tại http://localhost:5173 |
+| `npm run build` | Kiểm tra kiểu + build vào `dist` |
+| `npm run lint` | Kiểm tra code bằng oxlint |
+| `npm run test` | Chạy toàn bộ test một lần |
+| `npm run test:watch` | Chạy test, tự chạy lại khi sửa code |
+
+File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `random.ts` và `random.test.ts`).
 
 ---
 
@@ -116,13 +131,13 @@ src/
 |------|----------|---------------------|------------|
 | 0.1 | Tạo file CLAUDE.md | Người dùng đồng ý nội dung file | ✅ (commit cùng 0.2) |
 | 0.2 | Khởi tạo Git + dự án Vite React TS, dọn code mẫu | `npm run dev` chạy, hiện trang trống có tiêu đề | ✅ |
-| 0.3 | Tạo cấu trúc thư mục + kiểu dữ liệu chung (`Question`, `Option`…) + cài Vitest | `npm run test` chạy được, type rõ ràng có comment | ⬜ |
+| 0.3 | Tạo cấu trúc thư mục + kiểu dữ liệu chung (`Question`, `Option`…) + cài Vitest | `npm run test` chạy được, type rõ ràng có comment | ✅ |
 
 ### Giai đoạn 1: MVP dạng Dãy số
 
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
-| 1.1 | Bộ sinh dãy số: các quy luật cơ bản (cộng, nhân, cộng tăng dần, bình phương, xen kẽ) | Có test, đáp án luôn đúng, đáp án nhiễu không trùng | ⬜ |
+| 1.1 | Bộ sinh dãy số: các quy luật cơ bản (cộng, nhân, cộng tăng dần, bình phương, xen kẽ) | Có test: đáp án luôn đúng, đáp án nhiễu không trùng, lời giải từng bước không rỗng | ⬜ |
 | 1.2 | Màn hình làm bài: hiển thị câu hỏi, 4 đến 5 lựa chọn, chuyển câu | Làm được 1 bài 10 câu | ⬜ |
 | 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ⬜ |
 | 1.4 | Chấm điểm + màn hình kết quả + lời giải từng câu | Thấy điểm, câu sai, lời giải | ⬜ |
@@ -159,4 +174,5 @@ src/
 | 2026-10-08 | Comment tiếng Việt, tên biến tiếng Anh | Người dùng dễ kiểm soát code |
 | 2026-10-08 | Git, commit sau mỗi bước được duyệt | Dễ quay lại khi sai |
 | 2026-10-08 | Thêm bước 1.6 deploy Vercel cuối giai đoạn 1 | Có link online sớm để thử trên điện thoại, phát hiện lỗi môi trường thật |
+| 2026-10-08 | Lời giải dạng từng bước (`explanationSteps: string[]`) thay cho một đoạn văn | Người dùng dễ theo dõi cách giải |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
