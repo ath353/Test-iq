@@ -1,21 +1,30 @@
-// Màn hình làm bài: hiển thị từng câu, chọn đáp án, chuyển câu và nộp bài.
-// Đồng hồ đếm ngược (bước 1.3) và chấm điểm (bước 1.4) sẽ được thêm sau.
+// Màn hình làm bài: hiển thị từng câu, chọn đáp án, chuyển câu, đếm ngược thời gian và nộp bài.
+// Chấm điểm (bước 1.4) sẽ được thêm sau.
 import { useState } from 'react'
 import QuestionCard from '../components/QuestionCard'
 import QuestionNavigator from '../components/QuestionNavigator'
+import Timer from '../components/Timer'
+import { useCountdown } from '../hooks/useCountdown'
 import type { Question, UserAnswer } from '../types/question'
 import './TestPage.css'
 
 interface TestPageProps {
   questions: Question[]
-  /** Gọi khi người dùng nộp bài, kèm câu trả lời cho mọi câu (câu bỏ trống có selectedOptionId = null). */
-  onSubmit: (answers: UserAnswer[]) => void
+  /** Tổng thời gian làm bài (giây). Hết giờ thì tự nộp bài. */
+  timeLimitSec: number
+  /**
+   * Gọi khi nộp bài (người dùng bấm nộp hoặc hết giờ).
+   * @param answers Câu trả lời cho mọi câu (câu bỏ trống có selectedOptionId = null).
+   * @param durationSec Thời gian thực tế đã dùng (giây).
+   * @param timedOut true nếu nộp do hết giờ.
+   */
+  onSubmit: (answers: UserAnswer[], durationSec: number, timedOut: boolean) => void
 }
 
 /**
- * TestPage: quản lý trạng thái bài làm (câu đang xem, đáp án đã chọn).
+ * TestPage: quản lý trạng thái bài làm (câu đang xem, đáp án đã chọn, thời gian còn lại).
  */
-function TestPage({ questions, onSubmit }: TestPageProps) {
+function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
   // Vị trí câu đang xem, bắt đầu từ 0
   const [currentIndex, setCurrentIndex] = useState(0)
   // Đáp án đã chọn, dạng { mã câu hỏi: mã lựa chọn }. Câu chưa chọn thì không có trong object.
@@ -31,21 +40,31 @@ function TestPage({ questions, onSubmit }: TestPageProps) {
     setSelected((prev) => ({ ...prev, [question.id]: optionId }))
   }
 
-  /** Nộp bài: hỏi xác nhận nếu còn câu bỏ trống, rồi chuyển đáp án sang dạng UserAnswer[]. */
+  // Đồng hồ: hết giờ thì nộp bài ngay, không hỏi xác nhận
+  const { remainingSec, getElapsedSec } = useCountdown(timeLimitSec, () => submit(true))
+
+  /**
+   * Gửi bài làm: chuyển đáp án sang dạng UserAnswer[] kèm thời gian đã dùng.
+   * @param timedOut true nếu nộp do hết giờ.
+   */
+  function submit(timedOut: boolean) {
+    const answers = questions.map((q) => ({
+      questionId: q.id,
+      selectedOptionId: selected[q.id] ?? null,
+    }))
+    onSubmit(answers, timedOut ? timeLimitSec : getElapsedSec(), timedOut)
+  }
+
+  /** Người dùng bấm nộp: hỏi xác nhận nếu còn câu bỏ trống. */
   function handleSubmit() {
     const unanswered = questions.length - answeredCount
     if (unanswered > 0 && !window.confirm(`Bạn còn ${unanswered} câu chưa trả lời. Vẫn nộp bài?`)) return
-    onSubmit(
-      questions.map((q) => ({
-        questionId: q.id,
-        selectedOptionId: selected[q.id] ?? null,
-      })),
-    )
+    submit(false)
   }
 
   return (
     <div className="test-page">
-      {/* Dòng trạng thái: câu đang xem và số câu đã trả lời */}
+      {/* Dòng trạng thái: câu đang xem, số câu đã trả lời, thời gian còn lại */}
       <header className="test-page__header">
         <span>
           Câu <strong>{currentIndex + 1}</strong> / {questions.length}
@@ -53,6 +72,7 @@ function TestPage({ questions, onSubmit }: TestPageProps) {
         <span className="test-page__answered">
           Đã trả lời: {answeredCount} / {questions.length}
         </span>
+        <Timer remainingSec={remainingSec} />
       </header>
 
       {/* Thanh tiến độ: tỉ lệ số câu đã trả lời */}

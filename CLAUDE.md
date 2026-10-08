@@ -107,8 +107,8 @@ src/
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình (TestPage: làm bài; sắp có Trang chủ, Kết quả)
-├── hooks/          # Custom hooks (đồng hồ đếm ngược…)
-└── utils/          # Hàm tiện ích (random, chấm điểm, lưu trữ…)
+├── hooks/          # Custom hooks (useCountdown: đồng hồ đếm ngược)
+└── utils/          # Hàm tiện ích (random.ts, time.ts; sắp có chấm điểm, lưu trữ)
 ```
 
 ### Lệnh thường dùng
@@ -141,7 +141,7 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 |------|----------|---------------------|------------|
 | 1.1 | Bộ sinh dãy số: các quy luật cơ bản (cộng, nhân, cộng tăng dần, bình phương, xen kẽ) | Có test: đáp án luôn đúng, đáp án nhiễu không trùng, lời giải từng bước không rỗng | ✅ |
 | 1.2 | Màn hình làm bài: hiển thị câu hỏi, 4 đến 5 lựa chọn, chuyển câu | Làm được 1 bài 10 câu | ✅ |
-| 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ⬜ |
+| 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ✅ |
 | 1.4 | Chấm điểm + màn hình kết quả + lời giải từng câu | Thấy điểm, câu sai, lời giải | ⬜ |
 | 1.5 | Trang chủ: chọn dạng bài, số câu, thời gian | Đi hết luồng Trang chủ → Làm bài → Kết quả | ⬜ |
 | 1.6 | Deploy lên Vercel: đẩy code lên GitHub, kết nối Vercel, ghi link vào file này | Mở được web qua link online, push là tự cập nhật | ⬜ |
@@ -180,4 +180,6 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 2026-10-08 | Dãy số: 5 lựa chọn A–E; dễ = cộng/nhân đều, trung bình = cộng tăng dần/bình phương, khó = xen kẽ | Giống bài SHL; độ khó tăng theo số bước suy luận |
 | 2026-10-08 | Đáp án nhiễu ưu tiên "lỗi sai thường gặp" của từng quy luật | Đáp án nhiễu hợp lý, không bị loại dễ dàng |
 | 2026-10-08 | Màn hình làm bài cho phép quay lại câu trước, nhảy câu, nộp sớm; hỏi xác nhận khi còn câu bỏ trống | Thuận tiện khi luyện tập; có thể thêm chế độ "không quay lại" giống SHL sau |
+| 2026-10-08 | Thời gian mặc định 45 giây/câu; đồng hồ tính theo thời điểm kết thúc | Gần với bài SHL; không bị chạy chậm khi chuyển tab |
+| 2026-10-08 | Hết giờ tự nộp không hỏi xác nhận; còn ≤ 60 giây thì đồng hồ chuyển đỏ | Giống bài thi thật |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

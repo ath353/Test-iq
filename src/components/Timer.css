@@ -1,0 +1,11 @@
+/* Giao diện đồng hồ đếm ngược. */
+
+.timer {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums; /* các chữ số rộng bằng nhau, đồng hồ không bị "nhảy" */
+}
+
+/* Sắp hết giờ: chữ màu cảnh báo */
+.timer--warning {
+  color: var(--color-danger);
+}
