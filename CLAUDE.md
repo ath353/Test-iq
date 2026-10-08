@@ -101,7 +101,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 ```
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…)
-├── generators/     # Bộ sinh đề tự động, mỗi dạng một file + file test
+├── generators/     # Bộ sinh đề tự động, mỗi dạng một file + file test (numberSeries.ts)
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
 ├── components/     # Component giao diện dùng lại
 ├── pages/          # Các màn hình (Trang chủ, Làm bài, Kết quả)
@@ -137,7 +137,7 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
-| 1.1 | Bộ sinh dãy số: các quy luật cơ bản (cộng, nhân, cộng tăng dần, bình phương, xen kẽ) | Có test: đáp án luôn đúng, đáp án nhiễu không trùng, lời giải từng bước không rỗng | ⬜ |
+| 1.1 | Bộ sinh dãy số: các quy luật cơ bản (cộng, nhân, cộng tăng dần, bình phương, xen kẽ) | Có test: đáp án luôn đúng, đáp án nhiễu không trùng, lời giải từng bước không rỗng | ✅ |
 | 1.2 | Màn hình làm bài: hiển thị câu hỏi, 4 đến 5 lựa chọn, chuyển câu | Làm được 1 bài 10 câu | ⬜ |
 | 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ⬜ |
 | 1.4 | Chấm điểm + màn hình kết quả + lời giải từng câu | Thấy điểm, câu sai, lời giải | ⬜ |
@@ -175,4 +175,6 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 2026-10-08 | Git, commit sau mỗi bước được duyệt | Dễ quay lại khi sai |
 | 2026-10-08 | Thêm bước 1.6 deploy Vercel cuối giai đoạn 1 | Có link online sớm để thử trên điện thoại, phát hiện lỗi môi trường thật |
 | 2026-10-08 | Lời giải dạng từng bước (`explanationSteps: string[]`) thay cho một đoạn văn | Người dùng dễ theo dõi cách giải |
+| 2026-10-08 | Dãy số: 5 lựa chọn A–E; dễ = cộng/nhân đều, trung bình = cộng tăng dần/bình phương, khó = xen kẽ | Giống bài SHL; độ khó tăng theo số bước suy luận |
+| 2026-10-08 | Đáp án nhiễu ưu tiên "lỗi sai thường gặp" của từng quy luật | Đáp án nhiễu hợp lý, không bị loại dễ dàng |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
