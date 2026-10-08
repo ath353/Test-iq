@@ -95,6 +95,8 @@ Mong muốn: <kết quả đúng phải ra sao>
 - Tên biến, hàm, file bằng **tiếng Anh**: `camelCase` cho biến/hàm, `PascalCase` cho component và type.
 - Mỗi file một trách nhiệm chính. Bộ sinh đề là **hàm thuần** (không phụ thuộc React) để dễ test.
 - Không dùng `any` trong TypeScript.
+- **CSS:** biến màu khai báo trong `src/index.css` (có cả chế độ tối), component chỉ dùng `var(--color-…)`, không viết mã màu trực tiếp.
+  Tên class theo kiểu BEM: `khoi__phan-tu--bien-the` (ví dụ `option__label`, `option--selected`).
 
 ### Cấu trúc thư mục (dự kiến, cập nhật khi thay đổi)
 
@@ -103,8 +105,8 @@ src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…)
 ├── generators/     # Bộ sinh đề tự động, mỗi dạng một file + file test (numberSeries.ts)
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
-├── components/     # Component giao diện dùng lại
-├── pages/          # Các màn hình (Trang chủ, Làm bài, Kết quả)
+├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator), mỗi component kèm file .css cùng tên
+├── pages/          # Các màn hình (TestPage: làm bài; sắp có Trang chủ, Kết quả)
 ├── hooks/          # Custom hooks (đồng hồ đếm ngược…)
 └── utils/          # Hàm tiện ích (random, chấm điểm, lưu trữ…)
 ```
@@ -138,7 +140,7 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
 | 1.1 | Bộ sinh dãy số: các quy luật cơ bản (cộng, nhân, cộng tăng dần, bình phương, xen kẽ) | Có test: đáp án luôn đúng, đáp án nhiễu không trùng, lời giải từng bước không rỗng | ✅ |
-| 1.2 | Màn hình làm bài: hiển thị câu hỏi, 4 đến 5 lựa chọn, chuyển câu | Làm được 1 bài 10 câu | ⬜ |
+| 1.2 | Màn hình làm bài: hiển thị câu hỏi, 4 đến 5 lựa chọn, chuyển câu | Làm được 1 bài 10 câu | ✅ |
 | 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ⬜ |
 | 1.4 | Chấm điểm + màn hình kết quả + lời giải từng câu | Thấy điểm, câu sai, lời giải | ⬜ |
 | 1.5 | Trang chủ: chọn dạng bài, số câu, thời gian | Đi hết luồng Trang chủ → Làm bài → Kết quả | ⬜ |
@@ -177,4 +179,5 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 2026-10-08 | Lời giải dạng từng bước (`explanationSteps: string[]`) thay cho một đoạn văn | Người dùng dễ theo dõi cách giải |
 | 2026-10-08 | Dãy số: 5 lựa chọn A–E; dễ = cộng/nhân đều, trung bình = cộng tăng dần/bình phương, khó = xen kẽ | Giống bài SHL; độ khó tăng theo số bước suy luận |
 | 2026-10-08 | Đáp án nhiễu ưu tiên "lỗi sai thường gặp" của từng quy luật | Đáp án nhiễu hợp lý, không bị loại dễ dàng |
+| 2026-10-08 | Màn hình làm bài cho phép quay lại câu trước, nhảy câu, nộp sớm; hỏi xác nhận khi còn câu bỏ trống | Thuận tiện khi luyện tập; có thể thêm chế độ "không quay lại" giống SHL sau |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

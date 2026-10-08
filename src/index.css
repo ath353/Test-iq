@@ -1,10 +1,15 @@
-/* CSS toàn cục: biến màu, font chữ, căn chỉnh khung trang. */
+/* CSS toàn cục: biến màu, font chữ, căn chỉnh khung trang, kiểu nút dùng chung. */
 
 /* Biến màu dùng chung, chế độ sáng */
 :root {
   --color-bg: #ffffff;
+  --color-surface: #f6f8fa; /* nền thẻ, khối nội dung */
   --color-text: #1f2328;
-  --color-muted: #59636e;
+  --color-muted: #59636e; /* chữ phụ, chú thích */
+  --color-border: #d1d9e0;
+  --color-primary: #0969da; /* màu chủ đạo: nút chính, lựa chọn đang chọn */
+  --color-primary-soft: #ddf4ff; /* nền nhạt của màu chủ đạo */
+  --color-on-primary: #ffffff; /* chữ đặt trên nền màu chủ đạo */
 
   font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;
@@ -16,8 +21,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #0d1117;
+    --color-surface: #151b23;
     --color-text: #e6edf3;
     --color-muted: #9198a1;
+    --color-border: #3d444d;
+    --color-primary: #4493f8;
+    --color-primary-soft: #1a2d48;
+    --color-on-primary: #0d1117;
   }
 }
 
@@ -32,6 +42,39 @@ body {
   padding: 32px 16px;
 }
 
-.app p {
+.app__subtitle {
   color: var(--color-muted);
+}
+
+/* Nút dùng chung. Thêm class button--primary cho nút hành động chính. */
+.button {
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button--primary {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+}
+
+/* Viền hiện rõ khi dùng bàn phím (Tab) để di chuyển giữa các nút */
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

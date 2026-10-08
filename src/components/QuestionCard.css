@@ -1,0 +1,75 @@
+/* Giao diện thẻ câu hỏi và các nút lựa chọn. */
+
+.question-card {
+  padding: 24px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.question-card__instruction {
+  margin: 0 0 8px;
+  color: var(--color-muted);
+}
+
+/* Đề bài: chữ to, số đều nhau để dễ nhìn dãy số */
+.question-card__prompt {
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+
+/* Lưới lựa chọn: tự xuống dòng trên điện thoại */
+.question-card__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: var(--color-primary);
+}
+
+/* Lựa chọn đang được chọn: viền và nền màu chủ đạo */
+.option--selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+/* Ô tròn chứa nhãn A, B, C… */
+.option__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-border);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.option--selected .option__label {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.option__content {
+  font-variant-numeric: tabular-nums;
+}

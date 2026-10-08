@@ -1,0 +1,42 @@
+/* Giao diện màn hình làm bài. */
+
+.test-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.test-page__header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.test-page__answered {
+  color: var(--color-muted);
+}
+
+/* Thanh tiến độ */
+.test-page__progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.test-page__progress-bar {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.2s;
+}
+
+.test-page__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.test-page__submit-early {
+  align-self: flex-start;
+}

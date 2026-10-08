@@ -1,0 +1,32 @@
+/* Giao diện bảng số thứ tự câu hỏi. */
+
+.navigator {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.navigator__item {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* Câu đã trả lời: nền màu nhạt */
+.navigator__item--answered {
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary);
+}
+
+/* Câu đang xem: viền đậm */
+.navigator__item--current {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  font-weight: 700;
+}
