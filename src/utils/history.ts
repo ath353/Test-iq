@@ -79,6 +79,19 @@ export function addToHistory(result: TestResult, storage?: KeyValueStorage | nul
   return saveWithEviction(entries, storage)
 }
 
+/**
+ * Đếm số lần mỗi câu hỏi đã xuất hiện trong lịch sử: { mã câu: số lần }.
+ * Dùng để ra đề ưu tiên câu ít gặp (Logic, Ngôn ngữ có mã câu cố định như 'lg-012', 'vb-031').
+ * @param entries Lịch sử.
+ */
+export function countSeenQuestions(entries: HistoryEntry[]): Map<string, number> {
+  const seen = new Map<string, number>()
+  for (const { result } of entries) {
+    for (const q of result.questions) seen.set(q.id, (seen.get(q.id) ?? 0) + 1)
+  }
+  return seen
+}
+
 /** Xóa toàn bộ lịch sử. */
 export function clearHistory(storage?: KeyValueStorage | null): void {
   removeKey(KEY, storage)

@@ -150,13 +150,35 @@ export function bankItemToQuestion(item: BankQuestion, category: QuestionCategor
   }
 }
 
+/** Số lần mỗi câu đã xuất hiện trong các bài đã làm: { mã câu: số lần }. Câu không có trong bảng = chưa gặp. */
+export type SeenCounts = ReadonlyMap<string, number>
+
 /**
- * Ra đề từ ngân hàng: chọn ngẫu nhiên `count` câu khác nhau (theo độ khó nếu có), rồi chuyển thành câu hỏi.
+ * Chọn `count` phần tử, ƯU TIÊN phần tử ít gặp nhất:
+ *   1. Xáo trộn ngẫu nhiên.
+ *   2. Sắp xếp theo số lần đã gặp, tăng dần (phép sắp xếp của JavaScript giữ nguyên thứ tự ngẫu nhiên
+ *      giữa các phần tử gặp cùng số lần, nên trong cùng một mức vẫn ngẫu nhiên).
+ *   3. Lấy `count` phần tử đầu.
+ * Kết quả: chưa gặp lần nào được chọn trước; hết câu chưa gặp mới đến câu gặp 1 lần, rồi 2 lần…
+ * @param pool Các phần tử để chọn (mỗi phần tử có mã id).
+ * @param count Số phần tử cần.
+ * @param seen Số lần đã gặp của từng mã.
+ */
+export function pickLeastSeen<T extends { id: string }>(pool: T[], count: number, seen: SeenCounts): T[] {
+  return shuffle(pool)
+    .sort((a, b) => (seen.get(a.id) ?? 0) - (seen.get(b.id) ?? 0))
+    .slice(0, count)
+}
+
+/**
+ * Ra đề từ ngân hàng: chọn `count` câu khác nhau (theo độ khó nếu có), ưu tiên câu ít gặp nhất,
+ * rồi chuyển thành câu hỏi (thứ tự câu trong bài vẫn ngẫu nhiên).
  * @param bank Ngân hàng câu hỏi.
  * @param count Số câu cần.
  * @param difficulty Độ khó; bỏ trống (hỗn hợp) thì chọn trong toàn bộ ngân hàng.
  * @param category Dạng bài.
  * @param instruction Lời dẫn của dạng bài.
+ * @param seen Số lần mỗi câu đã gặp (từ lịch sử); bỏ trống thì coi như chưa gặp câu nào.
  * @throws Lỗi nếu ngân hàng không đủ câu (trang chủ đã khóa lựa chọn này, lỗi chỉ xảy ra khi gọi sai).
  */
 export function pickFromBank(
@@ -165,12 +187,12 @@ export function pickFromBank(
   difficulty: Difficulty | undefined,
   category: QuestionCategory,
   instruction: string,
+  seen: SeenCounts = new Map(),
 ): Question[] {
   const pool = difficulty ? bank.filter((q) => q.difficulty === difficulty) : bank
   if (pool.length < count) {
     throw new Error(`Ngân hàng chỉ có ${pool.length} câu, không đủ ${count} câu`)
   }
-  return shuffle(pool)
-    .slice(0, count)
-    .map((item) => bankItemToQuestion(item, category, instruction))
+  // Chọn câu ít gặp nhất, rồi xáo lại để câu chưa gặp không luôn đứng đầu bài
+  return shuffle(pickLeastSeen(pool, count, seen)).map((item) => bankItemToQuestion(item, category, instruction))
 }

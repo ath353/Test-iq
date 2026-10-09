@@ -4,6 +4,7 @@
 
 import type { DifficultySetting, Question, QuestionCategory, TestConfig } from '../types/question'
 import { generateAbstractQuestions } from './abstract'
+import type { SeenCounts } from './bank'
 import { countLogicalQuestions, generateLogicalQuestions } from './logical'
 import { generateNumberSeriesQuestions } from './numberSeries'
 import { generateNumericalQuestions } from './numerical'
@@ -17,10 +18,12 @@ function toDifficulty(setting: DifficultySetting) {
 /**
  * Sinh bộ câu hỏi theo cấu hình.
  * @param config Cấu hình bài làm (dạng bài, số câu, độ khó).
+ * @param seen Số lần mỗi câu đã gặp trong lịch sử; dạng dùng ngân hàng (Logic, Ngôn ngữ) ưu tiên câu ít gặp nhất.
+ *   Dạng sinh bằng code không cần (đề luôn mới).
  * @returns Danh sách câu hỏi.
  * @throws Lỗi nếu dạng bài chưa được hỗ trợ, hoặc ngân hàng không đủ câu.
  */
-export function generateQuestions(config: TestConfig): Question[] {
+export function generateQuestions(config: TestConfig, seen?: SeenCounts): Question[] {
   const difficulty = toDifficulty(config.difficulty)
 
   switch (config.category) {
@@ -29,9 +32,9 @@ export function generateQuestions(config: TestConfig): Question[] {
     case 'numerical':
       return generateNumericalQuestions(config.questionCount, difficulty)
     case 'logical':
-      return generateLogicalQuestions(config.questionCount, difficulty)
+      return generateLogicalQuestions(config.questionCount, difficulty, seen)
     case 'verbal':
-      return generateVerbalQuestions(config.questionCount, difficulty)
+      return generateVerbalQuestions(config.questionCount, difficulty, seen)
     case 'abstract':
       return generateAbstractQuestions(config.questionCount, difficulty)
     default:

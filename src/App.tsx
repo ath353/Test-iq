@@ -10,7 +10,7 @@ import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
 import type { QuestionCategory, TestConfig, TestResult } from './types/question'
 import { type ActiveTest, clearActiveTest, loadActiveTest, saveActiveTest } from './utils/activeTest'
-import { addToHistory, clearHistory, type HistoryEntry, loadHistory } from './utils/history'
+import { addToHistory, clearHistory, countSeenQuestions, type HistoryEntry, loadHistory } from './utils/history'
 import { gradeTest } from './utils/scoring'
 
 /**
@@ -55,7 +55,8 @@ function App() {
     const attempt = attemptCount + 1
     const test: ActiveTest = {
       config,
-      questions: generateQuestions(config),
+      // Truyền số lần đã gặp từng câu, để dạng Logic / Ngôn ngữ ưu tiên câu chưa làm
+      questions: generateQuestions(config, countSeenQuestions(loadHistory())),
       startAt: Date.now(),
       selected: {},
       currentIndex: 0,

@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { generateQuestions } from '../generators'
 import type { TestConfig, TestResult } from '../types/question'
-import { addToHistory, clearHistory, isHistoryEntry, loadHistory, MAX_HISTORY } from './history'
+import { addToHistory, clearHistory, countSeenQuestions, isHistoryEntry, loadHistory, MAX_HISTORY } from './history'
 import { gradeTest } from './scoring'
 import { type KeyValueStorage, STORAGE_PREFIX, writeJson } from './storage'
 
@@ -92,5 +92,20 @@ describe('clearHistory', () => {
     addToHistory(makeResult(1), storage)
     clearHistory(storage)
     expect(loadHistory(storage)).toEqual([])
+  })
+})
+
+describe('countSeenQuestions', () => {
+  it('đếm số lần mỗi câu xuất hiện qua các bài', () => {
+    const r1 = makeResult(1, 'logical')
+    const r2 = makeResult(2, 'logical')
+    const seen = countSeenQuestions([
+      { id: '1', result: r1 },
+      { id: '2', result: r2 },
+    ])
+    for (const q of r1.questions) {
+      const expected = 1 + (r2.questions.some((x) => x.id === q.id) ? 1 : 0)
+      expect(seen.get(q.id)).toBe(expected)
+    }
   })
 })

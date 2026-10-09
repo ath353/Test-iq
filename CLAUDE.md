@@ -231,7 +231,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 3.2 | Lưu lịch sử kết quả trên trình duyệt (tối đa 200 bài gần nhất) | Nộp bài xong, tải lại trang, kết quả vẫn còn | ✅ |
 | 3.3 | Trang lịch sử: danh sách bài đã làm, xem lại chi tiết + lời giải | Mở lại được một bài cũ, xem đủ lời giải | ✅ |
 | 3.4 | Thống kê: % đúng theo dạng / độ khó, tiến bộ qua các lần làm, dạng yếu nhất | Thấy rõ dạng nào cần luyện thêm | ✅ |
-| 3.5 | Ưu tiên câu chưa làm cho Logic và Ngôn ngữ | Làm liên tiếp nhiều bài ít gặp lại câu cũ | ⬜ |
+| 3.5 | Ưu tiên câu chưa làm cho Logic và Ngôn ngữ | Làm liên tiếp nhiều bài ít gặp lại câu cũ | ✅ |
 | 3.6 | Thi thử tổng hợp: một bài trộn nhiều dạng | Làm hết một bài tổng hợp, kết quả tách điểm theo từng dạng | ⬜ |
 
 ### Giai đoạn 4: Mở rộng đề
@@ -315,4 +315,5 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Thống kê: % đúng tính theo TỪNG CÂU (bỏ trống = sai); theo độ khó dùng độ khó của từng câu; "dạng cần luyện thêm" chỉ xét dạng ≥ 10 câu và cần ≥ 2 dạng như vậy | Số liệu công bằng, không kết luận vội khi quá ít dữ liệu |
 | 2026-10-09 | Biểu đồ theo hướng dẫn dataviz: tổng quan dùng ô số liệu; % theo dạng = thanh ngang một màu, ghi số trực tiếp; theo độ khó = bảng; tiến bộ = biểu đồ đường 20 bài gần nhất, có di chuột / phím ← → và bảng thay thế; màu chủ đạo đã kiểm tra tương phản + mù màu ở cả 2 chế độ | Chọn hình thức theo việc dữ liệu cần thể hiện; không giá trị nào chỉ xem được khi di chuột |
 | 2026-10-09 | Nút "Luyện dạng này" ở trang thống kê: về trang chủ, chọn sẵn dạng yếu nhất | Biến thống kê thành hành động |
+| 2026-10-09 | Ưu tiên câu chưa làm: đếm số lần mỗi câu đã gặp trong lịch sử, chọn câu gặp ít nhất trước (cùng mức thì ngẫu nhiên); Ngôn ngữ chọn theo từng mức, ưu tiên đoạn văn có nhiều nhận định chưa gặp để đọc ít đoạn văn nhất | 4 bài 10 câu liên tiếp gặp đủ 40 câu không lặp; vẫn giữ lợi ích gom theo đoạn văn |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

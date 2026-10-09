@@ -2,7 +2,7 @@
 
 import logicalData from '../data/logical.json'
 import type { Difficulty, Question } from '../types/question'
-import { countBank, loadBank, pickFromBank } from './bank'
+import { countBank, loadBank, pickFromBank, type SeenCounts } from './bank'
 
 /** Quy tắc soát dữ liệu cho ngân hàng câu hỏi Logic. */
 export const LOGICAL_BANK_RULES = {
@@ -32,11 +32,12 @@ export function countLogicalQuestions(difficulty?: Difficulty): number {
 }
 
 /**
- * Ra đề Logic: chọn ngẫu nhiên các câu khác nhau trong ngân hàng.
+ * Ra đề Logic: chọn các câu khác nhau trong ngân hàng, ưu tiên câu ít gặp nhất trong lịch sử.
  * @param count Số câu.
  * @param difficulty Độ khó cố định; bỏ trống thì chọn trong toàn bộ ngân hàng.
+ * @param seen Số lần mỗi câu đã gặp (từ lịch sử); bỏ trống thì coi như chưa gặp.
  * @returns Danh sách câu hỏi, mã câu giữ nguyên mã trong ngân hàng (ví dụ 'lg-012').
  */
-export function generateLogicalQuestions(count: number, difficulty?: Difficulty): Question[] {
-  return pickFromBank(BANK, count, difficulty, 'logical', INSTRUCTION)
+export function generateLogicalQuestions(count: number, difficulty?: Difficulty, seen?: SeenCounts): Question[] {
+  return pickFromBank(BANK, count, difficulty, 'logical', INSTRUCTION, seen)
 }

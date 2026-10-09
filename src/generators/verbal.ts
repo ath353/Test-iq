@@ -5,7 +5,7 @@ import verbalData from '../data/verbal.json'
 import type { VerbalAnswer, VerbalBank, VerbalPassage, VerbalStatement } from '../types/bank'
 import type { Difficulty, Question } from '../types/question'
 import { shuffle } from '../utils/random'
-import { DIFFICULTIES, isNonEmptyString, isNonEmptyStringArray } from './bank'
+import { DIFFICULTIES, isNonEmptyString, isNonEmptyStringArray, type SeenCounts } from './bank'
 
 /** Các đáp án hợp lệ của một nhận định. */
 export const VERBAL_ANSWERS: VerbalAnswer[] = ['true', 'false', 'cannot-say']
@@ -127,24 +127,60 @@ export function countVerbalStatements(difficulty?: Difficulty, bank: VerbalBank 
   return difficulty ? bank.statements.filter((s) => s.difficulty === difficulty).length : bank.statements.length
 }
 
+/** Gom danh sách nhận định theo đoạn văn: { mã đoạn văn: các nhận định của đoạn đó }. */
+function groupByPassage(statements: VerbalStatement[]): VerbalStatement[][] {
+  const groups = new Map<string, VerbalStatement[]>()
+  for (const s of statements) groups.set(s.passageId, [...(groups.get(s.passageId) ?? []), s])
+  return [...groups.values()]
+}
+
+/**
+ * Chọn `count` nhận định: ưu tiên nhận định ít gặp nhất, nhưng vẫn cố đọc ít đoạn văn nhất.
+ * Cách làm: xét lần lượt từng mức "số lần đã gặp" từ thấp lên (0 lần, 1 lần…). Trong mỗi mức, gom các nhận định
+ * theo đoạn văn, ưu tiên đoạn văn có NHIỀU nhận định ở mức đó nhất (đọc một đoạn, trả lời được nhiều câu),
+ * các đoạn có cùng số nhận định thì thứ tự ngẫu nhiên. Lấy dần cho đến đủ `count`.
+ */
+function selectStatements(pool: VerbalStatement[], count: number, seen: SeenCounts): VerbalStatement[] {
+  const timesSeen = (s: VerbalStatement) => seen.get(s.id) ?? 0
+  const levels = [...new Set(pool.map(timesSeen))].sort((a, b) => a - b)
+  const selected: VerbalStatement[] = []
+
+  for (const level of levels) {
+    const groups = shuffle(groupByPassage(pool.filter((s) => timesSeen(s) === level))).sort(
+      (a, b) => b.length - a.length,
+    )
+    for (const group of groups) {
+      for (const s of shuffle(group)) if (selected.length < count) selected.push(s)
+    }
+    if (selected.length >= count) break
+  }
+  return selected
+}
+
 /**
  * Ra đề Ngôn ngữ, GOM THEO ĐOẠN VĂN giống bài SHL: các nhận định cùng đoạn văn đứng liền nhau,
  * người làm đọc đoạn văn một lần rồi trả lời liên tiếp.
  * Cách làm:
  *   1. Lọc nhận định theo độ khó (nếu có).
- *   2. Xáo thứ tự các đoạn văn; trong mỗi đoạn văn, xáo thứ tự nhận định.
- *   3. Nối lần lượt từng đoạn văn, lấy đủ `count` câu (đoạn văn cuối có thể chỉ lấy một phần).
+ *   2. Chọn nhận định, ưu tiên nhận định ít gặp nhất trong lịch sử (selectStatements).
+ *   3. Gom các nhận định đã chọn theo đoạn văn; xáo thứ tự các đoạn văn và thứ tự nhận định trong mỗi đoạn.
  * @param count Số câu.
  * @param difficulty Độ khó cố định; bỏ trống thì lấy trong toàn bộ ngân hàng.
+ * @param seen Số lần mỗi nhận định đã gặp (từ lịch sử); bỏ trống thì coi như chưa gặp.
  * @param bank Ngân hàng (mặc định là verbal.json; truyền vào để test).
  * @throws Lỗi nếu không đủ nhận định (trang chủ đã khóa lựa chọn này).
  */
-export function generateVerbalQuestions(count: number, difficulty?: Difficulty, bank: VerbalBank = BANK): Question[] {
+export function generateVerbalQuestions(
+  count: number,
+  difficulty?: Difficulty,
+  seen: SeenCounts = new Map(),
+  bank: VerbalBank = BANK,
+): Question[] {
   const pool = bank.statements.filter((s) => !difficulty || s.difficulty === difficulty)
   if (pool.length < count) throw new Error(`Ngân hàng chỉ có ${pool.length} nhận định, không đủ ${count} câu`)
 
-  const ordered = shuffle(bank.passages).flatMap((passage) =>
-    shuffle(pool.filter((s) => s.passageId === passage.id)).map((s) => statementToQuestion(s, passage)),
+  const passageById = new Map(bank.passages.map((p) => [p.id, p]))
+  return shuffle(groupByPassage(selectStatements(pool, count, seen))).flatMap((group) =>
+    shuffle(group).map((s) => statementToQuestion(s, passageById.get(s.passageId)!)),
   )
-  return ordered.slice(0, count)
 }
