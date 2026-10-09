@@ -168,7 +168,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.0 | Chuẩn bị nền tảng: mỗi câu có lời dẫn riêng; `Question` thêm phần "dữ kiện" (bảng, đoạn văn, hình); thẻ câu hỏi hiển thị theo từng loại | Dạng Dãy số vẫn chạy y như cũ, test đạt | ✅ |
 | 2.1a | Số liệu: hiển thị bảng số liệu trong câu hỏi | Bảng đọc được trên điện thoại | ✅ |
 | 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ✅ |
-| 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ⬜ |
+| 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ✅ |
 | 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ⬜ |
 | 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ⬜ |
 | 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ⬜ |
@@ -210,7 +210,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-08 | Trang chủ: số câu 10/20/30; độ khó Hỗn hợp/Dễ/Trung bình/Khó; tốc độ 60/45/30 giây mỗi câu hoặc Không giới hạn | Người dùng chọn (bước 1.5) |
 | 2026-10-08 | Dạng bài chưa làm hiện mờ kèm nhãn "Sắp có" | Người dùng thấy lộ trình của web |
 | 2026-10-08 | `TestConfig` thêm `difficulty`; `timeLimitSec = null` nghĩa là không giới hạn (đồng hồ đếm xuôi) | Hỗ trợ lựa chọn ở trang chủ |
-| 2026-10-08 | Thêm dạng bài mới: đăng ký trong `config/testOptions.ts` (available: true) và `generators/index.ts` | Một chỗ duy nhất cho mỗi việc |
+| 2026-10-08 | Thêm dạng bài mới: đăng ký trong `config/testOptions.ts` (available: true, timeMultiplier) và `generators/index.ts`; test tự báo lỗi nếu bật trên trang chủ mà quên đăng ký bộ sinh | Một chỗ duy nhất cho mỗi việc |
 | 2026-10-09 | Repo GitHub để Private | Web vẫn công khai; code và email trong commit không bị lộ |
 | 2026-10-09 | Giai đoạn 2 làm theo thứ tự Số liệu → Logic → Ngôn ngữ → Hình | Dạng sinh bằng code nhanh hơn, không giới hạn đề |
 | 2026-10-09 | Dạng dùng ngân hàng câu hỏi (Logic, Ngôn ngữ) chỉ cho chọn 10/20 câu; giai đoạn 3 ưu tiên câu chưa làm | Ngân hàng có hạn, tránh lặp câu |
@@ -220,4 +220,5 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Bảng số liệu: cột số căn phải; bảng rộng thì cuộn ngang trong khung; màn kết quả hiện lại bảng + đề đầy đủ | Dễ đọc trên điện thoại; lời giải tham chiếu số trong bảng |
 | 2026-10-09 | Số liệu: 4 bối cảnh (doanh thu, nhân sự, bán hàng, du lịch), bảng 4×4; dễ = chênh lệch/tổng, trung bình = % thay đổi/trung bình/tỉ trọng, khó = tăng trưởng cao nhất/dự báo | Bám sát dạng bài numerical của SHL |
 | 2026-10-09 | Số hiển thị kiểu Việt Nam (1.234,5); làm tròn "nửa ra xa số 0" như tính tay; đáp án nhiễu cách đáp án đúng ≥ 3% | Tránh hai lựa chọn chỉ lệch nhau do làm tròn |
+| 2026-10-09 | Mỗi dạng bài có hệ số thời gian (`timeMultiplier`): Dãy số ×1, Số liệu ×2 (120/90/60 giây/câu); nhãn tốc độ ở trang chủ tự đổi theo dạng bài | Số liệu cần đọc bảng và tính toán, bài SHL cho ~1–1,5 phút/câu |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

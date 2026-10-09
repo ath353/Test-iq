@@ -1,7 +1,7 @@
 // Danh sách các lựa chọn ở trang chủ (dạng bài, số câu, độ khó, tốc độ) và nhãn tiếng Việt tương ứng.
 // Muốn đổi lựa chọn hoặc giá trị mặc định thì sửa ở file này.
 
-import type { DifficultySetting, QuestionCategory } from '../types/question'
+import type { DifficultySetting, QuestionCategory, TestConfig } from '../types/question'
 
 /** Thông tin một dạng bài hiển thị ở trang chủ. */
 export interface CategoryOption {
@@ -10,14 +10,33 @@ export interface CategoryOption {
   description: string
   /** false: chưa làm, hiện mờ kèm nhãn "Sắp có". */
   available: boolean
+  /**
+   * Hệ số thời gian so với mức chuẩn của Dãy số. Dạng cần đọc/tính nhiều thì hệ số lớn hơn.
+   * Ví dụ hệ số 2: mức "Chuẩn" 45 giây/câu thành 90 giây/câu.
+   */
+  timeMultiplier: number
 }
 
 export const CATEGORY_OPTIONS: CategoryOption[] = [
-  { id: 'number-series', label: 'Dãy số', description: 'Tìm quy luật, điền số tiếp theo', available: true },
-  { id: 'logical', label: 'Suy luận logic', description: 'Tam đoạn luận, sắp xếp thứ tự', available: false },
-  { id: 'numerical', label: 'Suy luận số liệu', description: 'Đọc bảng, tính %, tỉ lệ', available: false },
-  { id: 'verbal', label: 'Suy luận ngôn ngữ', description: 'Đúng / Sai / Không đủ thông tin', available: false },
-  { id: 'abstract', label: 'Suy luận hình', description: 'Ma trận hình 3x3', available: false },
+  {
+    id: 'number-series',
+    label: 'Dãy số',
+    description: 'Tìm quy luật, điền số tiếp theo',
+    available: true,
+    timeMultiplier: 1,
+  },
+  {
+    id: 'numerical',
+    label: 'Suy luận số liệu',
+    description: 'Đọc bảng, tính %, tỉ lệ',
+    available: true,
+    // Phải đọc bảng và tính toán: bài SHL thật cho khoảng 1–1,5 phút mỗi câu
+    timeMultiplier: 2,
+  },
+  // Các dạng chưa làm: hệ số thời gian sẽ chốt khi làm tới
+  { id: 'logical', label: 'Suy luận logic', description: 'Tam đoạn luận, sắp xếp thứ tự', available: false, timeMultiplier: 1 },
+  { id: 'verbal', label: 'Suy luận ngôn ngữ', description: 'Đúng / Sai / Không đủ thông tin', available: false, timeMultiplier: 1 },
+  { id: 'abstract', label: 'Suy luận hình', description: 'Ma trận hình 3x3', available: false, timeMultiplier: 1 },
 ]
 
 /** Các lựa chọn số câu. */
@@ -31,18 +50,21 @@ export const DIFFICULTY_OPTIONS: { id: DifficultySetting; label: string }[] = [
   { id: 'hard', label: 'Khó' },
 ]
 
-/** Một mức tốc độ: số giây cho mỗi câu, hoặc null nếu không giới hạn thời gian. */
+/**
+ * Một mức tốc độ. Số giây ở đây là mức GỐC (cho Dãy số);
+ * số giây thực tế = mức gốc × hệ số thời gian của dạng bài. null nghĩa là không giới hạn.
+ */
 export interface SpeedOption {
   id: string
-  label: string
-  secondsPerQuestion: number | null
+  name: string
+  baseSecondsPerQuestion: number | null
 }
 
 export const SPEED_OPTIONS: SpeedOption[] = [
-  { id: 'relaxed', label: 'Thoải mái · 60 giây/câu', secondsPerQuestion: 60 },
-  { id: 'standard', label: 'Chuẩn · 45 giây/câu', secondsPerQuestion: 45 },
-  { id: 'pressure', label: 'Áp lực · 30 giây/câu', secondsPerQuestion: 30 },
-  { id: 'unlimited', label: 'Không giới hạn', secondsPerQuestion: null },
+  { id: 'relaxed', name: 'Thoải mái', baseSecondsPerQuestion: 60 },
+  { id: 'standard', name: 'Chuẩn', baseSecondsPerQuestion: 45 },
+  { id: 'pressure', name: 'Áp lực', baseSecondsPerQuestion: 30 },
+  { id: 'unlimited', name: 'Không giới hạn', baseSecondsPerQuestion: null },
 ]
 
 /** Giá trị mặc định khi mở trang chủ. */
@@ -61,4 +83,37 @@ export function getCategoryLabel(id: QuestionCategory): string {
 /** Lấy nhãn tiếng Việt của một mức độ khó. */
 export function getDifficultyLabel(id: DifficultySetting): string {
   return DIFFICULTY_OPTIONS.find((d) => d.id === id)?.label ?? id
+}
+
+/** Lấy hệ số thời gian của một dạng bài (không tìm thấy thì coi là 1). */
+function getTimeMultiplier(category: QuestionCategory): number {
+  return CATEGORY_OPTIONS.find((c) => c.id === category)?.timeMultiplier ?? 1
+}
+
+/**
+ * Số giây mỗi câu của một mức tốc độ, đã nhân hệ số của dạng bài.
+ * Ví dụ: mức 'standard' (45 giây) với dạng Số liệu (hệ số 2) → 90.
+ * @returns Số giây, hoặc null nếu mức tốc độ là không giới hạn.
+ */
+export function getSecondsPerQuestion(speed: SpeedOption, category: QuestionCategory): number | null {
+  return speed.baseSecondsPerQuestion === null ? null : speed.baseSecondsPerQuestion * getTimeMultiplier(category)
+}
+
+/** Nhãn hiển thị của mức tốc độ theo dạng bài, ví dụ 'Chuẩn · 90 giây/câu'. */
+export function getSpeedLabel(speed: SpeedOption, category: QuestionCategory): string {
+  const seconds = getSecondsPerQuestion(speed, category)
+  return seconds === null ? speed.name : `${speed.name} · ${seconds} giây/câu`
+}
+
+/**
+ * Tìm lại mức tốc độ từ cấu hình lần làm trước (tổng thời gian ÷ số câu ÷ hệ số dạng bài),
+ * để trang chủ giữ đúng lựa chọn cũ. Không khớp mức nào thì dùng mặc định.
+ */
+export function findSpeedId(config: TestConfig | null): string {
+  if (!config) return DEFAULTS.speedId
+  const match = SPEED_OPTIONS.find((s) => {
+    const seconds = getSecondsPerQuestion(s, config.category)
+    return seconds === null ? config.timeLimitSec === null : seconds * config.questionCount === config.timeLimitSec
+  })
+  return match?.id ?? DEFAULTS.speedId
 }

@@ -5,6 +5,9 @@ import {
   CATEGORY_OPTIONS,
   DEFAULTS,
   DIFFICULTY_OPTIONS,
+  findSpeedId,
+  getSecondsPerQuestion,
+  getSpeedLabel,
   QUESTION_COUNT_OPTIONS,
   SPEED_OPTIONS,
 } from '../config/testOptions'
@@ -19,16 +22,10 @@ interface HomePageProps {
   onStart: (config: TestConfig) => void
 }
 
-/** Tìm mức tốc độ khớp với cấu hình cũ (tổng thời gian ÷ số câu), không khớp thì dùng mặc định. */
-function findSpeedId(config: TestConfig | null): string {
-  if (!config) return DEFAULTS.speedId
-  const perQuestion = config.timeLimitSec === null ? null : config.timeLimitSec / config.questionCount
-  return SPEED_OPTIONS.find((s) => s.secondsPerQuestion === perQuestion)?.id ?? DEFAULTS.speedId
-}
-
 /**
  * HomePage: các nhóm lựa chọn và nút bắt đầu.
- * Tổng thời gian được tính tự động = số câu × số giây mỗi câu.
+ * Tổng thời gian được tính tự động = số câu × số giây mỗi câu (đã nhân hệ số của dạng bài),
+ * nên đổi dạng bài thì nhãn tốc độ và tổng thời gian tự cập nhật.
  */
 function HomePage({ initialConfig, onStart }: HomePageProps) {
   const [category, setCategory] = useState<QuestionCategory>(initialConfig?.category ?? DEFAULTS.category)
@@ -38,9 +35,10 @@ function HomePage({ initialConfig, onStart }: HomePageProps) {
   )
   const [speedId, setSpeedId] = useState(() => findSpeedId(initialConfig))
 
-  // Tính tổng thời gian từ tốc độ và số câu (null = không giới hạn)
+  // Tính tổng thời gian từ tốc độ, dạng bài và số câu (null = không giới hạn)
   const speed = SPEED_OPTIONS.find((s) => s.id === speedId) ?? SPEED_OPTIONS[0]
-  const timeLimitSec = speed.secondsPerQuestion === null ? null : speed.secondsPerQuestion * questionCount
+  const secondsPerQuestion = getSecondsPerQuestion(speed, category)
+  const timeLimitSec = secondsPerQuestion === null ? null : secondsPerQuestion * questionCount
 
   return (
     <div className="home-page">
@@ -90,7 +88,7 @@ function HomePage({ initialConfig, onStart }: HomePageProps) {
 
       <OptionGroup
         label="Tốc độ"
-        options={SPEED_OPTIONS.map((s) => ({ value: s.id, label: s.label }))}
+        options={SPEED_OPTIONS.map((s) => ({ value: s.id, label: getSpeedLabel(s, category) }))}
         value={speedId}
         onChange={setSpeedId}
       />

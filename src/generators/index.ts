@@ -3,6 +3,7 @@
 
 import type { Question, TestConfig } from '../types/question'
 import { generateNumberSeriesQuestions } from './numberSeries'
+import { generateNumericalQuestions } from './numerical'
 
 /**
  * Sinh bộ câu hỏi theo cấu hình.
@@ -17,6 +18,8 @@ export function generateQuestions(config: TestConfig): Question[] {
   switch (config.category) {
     case 'number-series':
       return generateNumberSeriesQuestions(config.questionCount, difficulty)
+    case 'numerical':
+      return generateNumericalQuestions(config.questionCount, difficulty)
     default:
       throw new Error(`Dạng bài "${config.category}" chưa được hỗ trợ`)
   }
