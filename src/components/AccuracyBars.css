@@ -1,0 +1,76 @@
+/* Giao diện biểu đồ thanh ngang % đúng theo dạng bài. */
+
+.accuracy-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.accuracy-bars__row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accuracy-bars__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-weight: 600;
+}
+
+/* Nhãn "Cần luyện thêm": chữ + biểu tượng, nền nhạt; không dùng màu làm tín hiệu duy nhất */
+.accuracy-bars__flag {
+  padding: 1px 8px;
+  border: 1px solid var(--color-danger);
+  border-radius: 999px;
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.accuracy-bars__empty {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.accuracy-bars__value-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Rãnh 0–100%: nền nhạt cùng tông, để thấy thanh còn cách 100% bao xa */
+.accuracy-bars__track {
+  flex: 1;
+  height: 14px; /* thanh mảnh (≤ 24px) */
+  border-radius: 0 4px 4px 0;
+  background: var(--color-primary-soft);
+  overflow: hidden;
+}
+
+/* Thanh: mọc từ trái (vuông ở gốc), đầu bo 4px */
+.accuracy-bars__bar {
+  display: block;
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+  background: var(--color-primary);
+}
+
+/* Giá trị ở đầu thanh: % (đậm) + số câu (chữ phụ); chữ dùng màu chữ, không dùng màu của thanh */
+.accuracy-bars__value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 72px;
+  font-variant-numeric: tabular-nums;
+}
+
+.accuracy-bars__detail {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}

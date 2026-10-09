@@ -1,13 +1,14 @@
-// Component gốc của ứng dụng: điều hướng giữa các màn hình Trang chủ → Làm bài → Kết quả, Lịch sử;
+// Component gốc của ứng dụng: điều hướng giữa các màn hình Trang chủ → Làm bài → Kết quả, Lịch sử, Thống kê;
 // lưu / khôi phục bài đang làm để tải lại trang (F5) không mất bài, và lưu kết quả vào lịch sử.
 import { useState } from 'react'
 import { getCategoryLabel } from './config/testOptions'
 import { generateQuestions } from './generators'
 import HistoryPage from './pages/HistoryPage'
 import HomePage from './pages/HomePage'
+import StatsPage from './pages/StatsPage'
 import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
-import type { TestConfig, TestResult } from './types/question'
+import type { QuestionCategory, TestConfig, TestResult } from './types/question'
 import { type ActiveTest, clearActiveTest, loadActiveTest, saveActiveTest } from './utils/activeTest'
 import { addToHistory, clearHistory, type HistoryEntry, loadHistory } from './utils/history'
 import { gradeTest } from './utils/scoring'
@@ -23,6 +24,7 @@ type Screen =
   // fromHistory: mở từ trang lịch sử (hiện nút quay lại lịch sử)
   | { name: 'result'; result: TestResult; fromHistory?: boolean }
   | { name: 'history'; entries: HistoryEntry[] }
+  | { name: 'stats'; entries: HistoryEntry[] }
 
 /**
  * Màn hình lúc mở web: nếu còn bài đang làm dở (đã lưu trước khi tải lại trang) thì vào thẳng bài đó.
@@ -45,6 +47,8 @@ function App() {
   const [attemptCount, setAttemptCount] = useState(0)
   // Số bài đã hoàn thành (đọc từ lịch sử đã lưu), hiển thị ở trang chủ
   const [historyCount, setHistoryCount] = useState(() => loadHistory().length)
+  // Dạng bài chọn sẵn ở trang chủ (từ nút "Luyện dạng này" ở trang thống kê); null là không chọn sẵn
+  const [preferredCategory, setPreferredCategory] = useState<QuestionCategory | null>(null)
 
   /** Bắt đầu bài mới với cấu hình cho trước: sinh đề, lưu lại, rồi chuyển sang màn Làm bài. */
   function startTest(config: TestConfig) {
@@ -57,6 +61,7 @@ function App() {
       currentIndex: 0,
     }
     saveActiveTest(test)
+    setPreferredCategory(null)
     setAttemptCount(attempt)
     setLastConfig(config)
     setScreen({ name: 'test', test, attempt })
@@ -66,6 +71,12 @@ function App() {
   /** Về trang chủ. */
   function goHome() {
     setScreen({ name: 'home' })
+    window.scrollTo(0, 0)
+  }
+
+  /** Mở trang thống kê (đọc lại lịch sử từ bộ nhớ để luôn mới nhất). */
+  function openStats() {
+    setScreen({ name: 'stats', entries: loadHistory() })
     window.scrollTo(0, 0)
   }
 
@@ -87,12 +98,17 @@ function App() {
               {historyCount > 0 && ` Bạn đã hoàn thành ${historyCount} bài.`}
             </p>
             {historyCount > 0 && (
-              <button type="button" className="button" onClick={openHistory}>
-                Xem lịch sử
-              </button>
+              <div className="app__intro-actions">
+                <button type="button" className="button" onClick={openHistory}>
+                  Xem lịch sử
+                </button>
+                <button type="button" className="button" onClick={openStats}>
+                  Thống kê
+                </button>
+              </div>
             )}
           </div>
-          <HomePage initialConfig={lastConfig} onStart={startTest} />
+          <HomePage initialConfig={lastConfig} initialCategory={preferredCategory} onStart={startTest} />
         </>
       )}
 
@@ -147,6 +163,17 @@ function App() {
             clearHistory()
             setHistoryCount(0)
             setScreen({ name: 'history', entries: [] })
+          }}
+          onHome={goHome}
+        />
+      )}
+
+      {screen.name === 'stats' && (
+        <StatsPage
+          entries={screen.entries}
+          onPractice={(category) => {
+            setPreferredCategory(category)
+            goHome()
           }}
           onHome={goHome}
         />

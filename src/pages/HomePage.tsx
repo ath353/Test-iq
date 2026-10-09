@@ -20,6 +20,8 @@ import './HomePage.css'
 interface HomePageProps {
   /** Cấu hình lần làm trước (nếu có), để giữ lại lựa chọn khi quay về trang chủ. */
   initialConfig: TestConfig | null
+  /** Dạng bài chọn sẵn (ví dụ từ nút "Luyện dạng này" ở trang thống kê); ưu tiên hơn dạng của lần làm trước. */
+  initialCategory?: QuestionCategory | null
   /** Gọi khi bấm "Bắt đầu", kèm cấu hình đã chọn. */
   onStart: (config: TestConfig) => void
 }
@@ -32,8 +34,10 @@ interface HomePageProps {
  * Với dạng dùng ngân hàng câu hỏi có hạn (Logic): lựa chọn số câu vượt quá số câu hiện có (theo độ khó)
  * bị khóa; nếu lựa chọn đang chọn bị khóa thì tự chuyển sang lựa chọn hợp lệ gần nhất.
  */
-function HomePage({ initialConfig, onStart }: HomePageProps) {
-  const [category, setCategory] = useState<QuestionCategory>(initialConfig?.category ?? DEFAULTS.category)
+function HomePage({ initialConfig, initialCategory, onStart }: HomePageProps) {
+  const [category, setCategory] = useState<QuestionCategory>(
+    initialCategory ?? initialConfig?.category ?? DEFAULTS.category,
+  )
   // Số câu người dùng đã bấm chọn (có thể tạm thời không hợp lệ khi đổi dạng bài / độ khó)
   const [preferredCount, setPreferredCount] = useState(initialConfig?.questionCount ?? DEFAULTS.questionCount)
   const [difficulty, setDifficulty] = useState<DifficultySetting>(

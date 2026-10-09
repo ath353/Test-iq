@@ -1,0 +1,106 @@
+/* Giao diện trang thống kê. */
+
+.stats-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stats-page__title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.stats-page__muted {
+  color: var(--color-muted);
+}
+
+/* Khối nội dung dạng thẻ */
+.stats-page__card {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.stats-page__heading {
+  margin: 0 0 12px;
+  font-size: 1rem;
+}
+
+/* Hàng ô số liệu: 3 ô, điện thoại thì tự co */
+.stats-page__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+}
+
+.stat-tile__label {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+/* Số lớn: đậm, chữ số tự nhiên (không ép đều độ rộng) */
+.stat-tile__value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* Dạng cần luyện thêm: chữ bên trái, nút bên phải; hẹp thì xuống dòng */
+.stats-page__weakest {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-left: 4px solid var(--color-danger);
+}
+
+.stats-page__weakest p {
+  margin: 0;
+}
+
+.stats-page__weakest-name {
+  font-size: 1.125rem;
+}
+
+/* Bảng theo độ khó: cuộn ngang trên điện thoại */
+.stats-page__table-scroll {
+  overflow-x: auto;
+}
+
+.stats-page__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats-page__table th,
+.stats-page__table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.stats-page__table thead th {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.stats-page__chart {
+  margin-top: 16px;
+}

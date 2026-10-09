@@ -64,6 +64,11 @@ body {
   margin: 0;
 }
 
+.app__intro-actions {
+  display: flex;
+  gap: 8px;
+}
+
 /* Nút dùng chung. Thêm class button--primary cho nút hành động chính. */
 .button {
   padding: 10px 16px;
