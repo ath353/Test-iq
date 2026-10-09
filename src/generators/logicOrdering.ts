@@ -8,6 +8,7 @@
 // Vì luôn vét cạn, mỗi câu sinh ra chắc chắn chỉ có một đáp án đúng.
 
 import type { Difficulty, Option, Question } from '../types/question'
+import { allPermutations } from '../utils/permutations'
 import { pickOne, shuffle } from '../utils/random'
 
 // ─────────────────────────────── Dữ kiện & vét cạn ───────────────────────────────
@@ -36,23 +37,13 @@ export function satisfies(rank: number[], fact: OrderFact): boolean {
   }
 }
 
-/** Mọi hoán vị của [0, 1, …, n−1] (n ≤ 6 nên tối đa 720 hoán vị). */
-function permutations(n: number): number[][] {
-  if (n === 0) return [[]]
-  return permutations(n - 1).flatMap((p) => Array.from({ length: n }, (_, i) => [...p.slice(0, i), n - 1, ...p.slice(i)]))
-}
-
-/** Bộ nhớ đệm danh sách hoán vị theo n, để không tính lại mỗi lần vét cạn. */
-const permutationCache = new Map<number, number[][]>()
-
 /**
  * Vét cạn: mọi thứ tự (dạng rank[người] = vị trí) thỏa mãn tất cả dữ kiện.
  * @param n Số người.
  * @param facts Các dữ kiện.
  */
 export function solveOrdering(n: number, facts: OrderFact[]): number[][] {
-  if (!permutationCache.has(n)) permutationCache.set(n, permutations(n))
-  return permutationCache.get(n)!.filter((rank) => facts.every((f) => satisfies(rank, f)))
+  return allPermutations(n).filter((rank) => facts.every((f) => satisfies(rank, f)))
 }
 
 // ─────────────────────────────── Bối cảnh & câu chữ ───────────────────────────────

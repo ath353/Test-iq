@@ -114,12 +114,12 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn), figure.ts (ô hình)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, verbal.ts, abstract.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ; useElementWidth: đo bề rộng cho biểu đồ)
-└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm, history.ts: lịch sử kết quả, stats.ts: thống kê)
+└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm, history.ts: lịch sử kết quả, stats.ts: thống kê, permutations.ts: liệt kê hoán vị cho vét cạn)
 ```
 
 ### Soạn câu hỏi JSON (Logic, Ngôn ngữ)
@@ -241,7 +241,7 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
 | 4.1a | Logic sắp xếp thứ tự sinh bằng code: thứ tự ẩn + ít dữ kiện nhất mà vẫn suy ra duy nhất | Vét cạn kiểm chứng mỗi câu đúng 1 đáp án | ✅ |
-| 4.1b | Logic xếp chỗ ngồi sinh bằng code (hàng ngang; cạnh nhau, không cạnh, đầu hàng…) | Như trên | ⬜ |
+| 4.1b | Logic xếp chỗ ngồi sinh bằng code (hàng ngang; cạnh nhau, không cạnh, đầu hàng…) | Như trên | ✅ |
 | 4.1c | Ghép vào dạng Logic: giữ 40 câu soạn tay + câu sinh bằng code; ~1/3 tam đoạn luận; bỏ giới hạn 10/20 câu | Làm bài 30 câu Logic, không lặp câu | ⬜ |
 | 4.4a | Dãy số: thêm Fibonacci, nhân rồi cộng, lập phương, hiệu tăng gấp đôi (ưu tiên mức Khó) | Mức Khó có ≥ 3 quy luật | ⬜ |
 | 4.2a | Bộ sinh chuỗi 5 hình (SHL Inductive) | Mỗi câu chỉ 1 đáp án hợp lệ | ⬜ |
@@ -327,4 +327,5 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 2026-10-09 | Giai đoạn 4 làm theo thứ tự 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c; Logic giữ 40 câu soạn tay + thêm câu sinh bằng code | Logic và Dãy số mức Khó là hai chỗ hạn chế rõ nhất |
 | 2026-10-09 | Logic sắp xếp thứ tự sinh bằng code: thứ tự ẩn → thêm dữ kiện tới khi vét cạn còn duy nhất 1 thứ tự → bỏ dữ kiện thừa; 4 bối cảnh (chạy thi, chiều cao, xếp hàng, điểm thi); dễ 4 người (so sánh liền kề), trung bình 5, khó 6 (có "ngay trước", không cho biết đầu/cuối, có câu "thứ tự nào đúng") | Không giới hạn câu, luôn đúng 1 đáp án, ít dữ kiện nhất |
 | 2026-10-09 | Không hỏi vị trí đã được nói thẳng trong dữ kiện | Tránh câu lộ sẵn đáp án |
+| 2026-10-09 | Logic xếp chỗ ngồi sinh bằng code (cùng cách: thêm dữ kiện tới khi vét cạn duy nhất, bỏ dữ kiện thừa); 7 loại dữ kiện, mức cao dùng dữ kiện gián tiếp hơn; mức khó cho biết số ghế của tối đa 1 người; không hỏi người / ghế đã nói thẳng | Không giới hạn câu, luôn đúng 1 đáp án, không lộ đáp án |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
