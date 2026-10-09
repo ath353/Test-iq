@@ -198,7 +198,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ✅ |
 | 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ✅ |
 | 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ✅ |
-| 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ⬜ |
+| 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ✅ |
 | 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ⬜ |
 | 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
 | 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ⬜ |
@@ -251,4 +251,6 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Mỗi dạng bài có hệ số thời gian (`timeMultiplier`): Dãy số ×1, Số liệu ×2 (120/90/60 giây/câu); nhãn tốc độ ở trang chủ tự đổi theo dạng bài | Số liệu cần đọc bảng và tính toán, bài SHL cho ~1–1,5 phút/câu |
 | 2026-10-09 | Ngân hàng câu hỏi soạn tay dùng chung một cấu trúc JSON (`BankQuestion`) cho Logic và Ngôn ngữ; đáp án ghi bằng vị trí (`answerIndex`), khi ra đề mới xáo trộn và gán nhãn A–E | Người soạn không phải lo nhãn; một bộ soát lỗi dùng cho mọi ngân hàng |
 | 2026-10-09 | Dữ liệu JSON được soát bằng test; có lỗi thì không ra đề (báo lỗi rõ câu nào, trường nào) | File soạn tay dễ sai sót |
+| 2026-10-09 | Ngân hàng Logic 40 câu: 15 sắp xếp thứ tự, 13 tam đoạn luận, 12 xếp chỗ ngồi; 12 dễ, 15 trung bình, 13 khó | Đủ cho bài 10/20 câu |
+| 2026-10-09 | Câu Logic được kiểm chứng bằng chương trình vét cạn (mọi hoán vị / mọi mô hình tập hợp) trước khi đưa vào; mỗi câu chỉ có đúng 1 đáp án | Tránh câu sai hoặc có 2 đáp án |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

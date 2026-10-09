@@ -45,5 +45,597 @@
       "Còn ghế 1 và 4 cho Bình và Dũng. Ghế 4 cạnh Chi, mà Bình không ngồi cạnh Chi, nên Bình ngồi ghế 1, Dũng ngồi ghế 4.",
       "Người ngồi ghế số 5 là Em."
     ]
+  },
+  {
+    "id": "lg-004",
+    "difficulty": "easy",
+    "topic": "ordering",
+    "prompt": "Minh đến công ty trước Lan.\nLan đến trước Hà.\nKhoa đến sau Minh nhưng trước Lan.\n\nAi đến công ty thứ hai?",
+    "options": ["Minh", "Lan", "Hà", "Khoa"],
+    "answerIndex": 3,
+    "explanationSteps": [
+      "Từ hai dữ kiện đầu: Minh → Lan → Hà (theo thứ tự đến).",
+      "Khoa đến sau Minh nhưng trước Lan, nên chen vào giữa: Minh → Khoa → Lan → Hà.",
+      "Người đến thứ hai là Khoa."
+    ]
+  },
+  {
+    "id": "lg-005",
+    "difficulty": "easy",
+    "topic": "ordering",
+    "prompt": "Túi A nặng hơn túi B.\nTúi C nhẹ hơn túi B.\nTúi D nặng hơn túi A.\n\nTúi nào nặng nhất?",
+    "options": ["Túi A", "Túi B", "Túi C", "Túi D"],
+    "answerIndex": 3,
+    "explanationSteps": [
+      "Từ hai dữ kiện đầu: A > B > C (theo cân nặng).",
+      "D nặng hơn A, nên: D > A > B > C.",
+      "Túi nặng nhất là túi D."
+    ]
+  },
+  {
+    "id": "lg-006",
+    "difficulty": "easy",
+    "topic": "ordering",
+    "prompt": "Doanh số tháng 3 cao hơn tháng 1.\nDoanh số tháng 2 thấp hơn tháng 1.\nDoanh số tháng 4 cao hơn tháng 3.\n\nTháng nào có doanh số thấp nhất?",
+    "options": ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4"],
+    "answerIndex": 1,
+    "explanationSteps": [
+      "Từ hai dữ kiện đầu: tháng 3 > tháng 1 > tháng 2.",
+      "Tháng 4 cao hơn tháng 3, nên: tháng 4 > tháng 3 > tháng 1 > tháng 2.",
+      "Tháng có doanh số thấp nhất là tháng 2."
+    ]
+  },
+  {
+    "id": "lg-007",
+    "difficulty": "easy",
+    "topic": "ordering",
+    "prompt": "Trong một cuộc thi chạy:\n- Nam về đích sau Phúc.\n- Quân về đích trước Phúc.\n- Oanh về đích sau Nam.\n\nAi về đích đầu tiên?",
+    "options": ["Nam", "Phúc", "Quân", "Oanh"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Quân về trước Phúc, Phúc về trước Nam: Quân → Phúc → Nam.",
+      "Oanh về sau Nam: Quân → Phúc → Nam → Oanh.",
+      "Người về đích đầu tiên là Quân."
+    ]
+  },
+  {
+    "id": "lg-008",
+    "difficulty": "medium",
+    "topic": "ordering",
+    "prompt": "Giang lớn tuổi hơn Hà.\nKhoa lớn tuổi hơn Hà.\nLan nhỏ tuổi hơn Hà.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Giang lớn tuổi hơn Khoa.",
+      "Khoa lớn tuổi hơn Lan.",
+      "Lan nhỏ tuổi hơn Giang nhưng lớn tuổi hơn Khoa.",
+      "Hà là người nhỏ tuổi nhất."
+    ],
+    "answerIndex": 1,
+    "explanationSteps": [
+      "Ta biết: Giang > Hà, Khoa > Hà, Hà > Lan (theo tuổi).",
+      "Khoa > Hà > Lan nên Khoa chắc chắn lớn tuổi hơn Lan.",
+      "Giang và Khoa đều lớn hơn Hà nhưng không biết ai lớn hơn ai; Lan nhỏ tuổi hơn Khoa; Lan nhỏ hơn Hà nên Hà không phải nhỏ nhất.",
+      "Đáp án: Khoa lớn tuổi hơn Lan."
+    ]
+  },
+  {
+    "id": "lg-009",
+    "difficulty": "medium",
+    "topic": "ordering",
+    "prompt": "Có 5 tòa nhà A, B, C, D, E.\n- Tòa A cao hơn tòa B nhưng thấp hơn tòa C.\n- Tòa D thấp hơn tòa B.\n- Tòa E cao hơn tòa C.\n\nTòa nhà nào cao thứ ba?",
+    "options": ["Tòa A", "Tòa B", "Tòa C", "Tòa D", "Tòa E"],
+    "answerIndex": 0,
+    "explanationSteps": [
+      "Dữ kiện 1: C > A > B. Dữ kiện 2: B > D. Ghép lại: C > A > B > D.",
+      "Dữ kiện 3: E > C, nên: E > C > A > B > D.",
+      "Tòa cao thứ ba là tòa A."
+    ]
+  },
+  {
+    "id": "lg-010",
+    "difficulty": "medium",
+    "topic": "ordering",
+    "prompt": "Trong một kỳ thi:\n- Điểm của Bình cao hơn điểm của An.\n- Điểm của Chi thấp hơn điểm của An.\n- Điểm của Dũng cao hơn điểm của Chi nhưng thấp hơn điểm của An.\n\nXếp theo điểm từ cao xuống thấp, thứ tự nào đúng?",
+    "options": [
+      "Bình, An, Dũng, Chi",
+      "Bình, An, Chi, Dũng",
+      "An, Bình, Dũng, Chi",
+      "Bình, Dũng, An, Chi"
+    ],
+    "answerIndex": 0,
+    "explanationSteps": [
+      "Từ hai dữ kiện đầu: Bình > An > Chi.",
+      "Dũng nằm giữa An và Chi: Bình > An > Dũng > Chi.",
+      "Thứ tự đúng: Bình, An, Dũng, Chi."
+    ]
+  },
+  {
+    "id": "lg-011",
+    "difficulty": "medium",
+    "topic": "ordering",
+    "prompt": "Phúc chạy nhanh hơn Quân.\nNam chạy nhanh hơn Quân.\nOanh chạy chậm hơn Nam.\n\nCâu nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Phúc chạy nhanh hơn Nam.",
+      "Oanh chạy nhanh hơn Quân.",
+      "Nam không phải người chạy chậm nhất.",
+      "Quân là người chạy chậm nhất."
+    ],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Ta biết: Phúc > Quân, Nam > Quân, Nam > Oanh (theo tốc độ).",
+      "Nam nhanh hơn ít nhất hai người (Quân và Oanh), nên Nam chắc chắn không chậm nhất.",
+      "Không biết Phúc và Nam ai nhanh hơn, cũng không biết Oanh và Quân ai nhanh hơn, nên các câu còn lại không chắc chắn.",
+      "Đáp án: Nam không phải người chạy chậm nhất."
+    ]
+  },
+  {
+    "id": "lg-012",
+    "difficulty": "hard",
+    "topic": "ordering",
+    "prompt": "Sáu nhân viên được xếp hạng KPI từ hạng 1 (cao nhất) đến hạng 6, không ai cùng hạng.\n- Hà xếp trên Giang.\n- Khoa xếp ngay dưới Hà.\n- Lan xếp trên Hà.\n- Minh xếp dưới Giang.\n- Nam xếp ngay trên Lan.\n\nAi xếp hạng 4?",
+    "options": ["Giang", "Hà", "Khoa", "Lan", "Minh"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Ghép các cặp liền nhau: Nam ngay trên Lan (Nam, Lan); Khoa ngay dưới Hà (Hà, Khoa).",
+      "Lan trên Hà; Hà trên Giang, mà Khoa đứng ngay dưới Hà nên Giang ở dưới Khoa; Minh dưới Giang.",
+      "Chỉ có 6 người nên thứ tự duy nhất là: Nam, Lan, Hà, Khoa, Giang, Minh.",
+      "Người xếp hạng 4 là Khoa."
+    ]
+  },
+  {
+    "id": "lg-013",
+    "difficulty": "hard",
+    "topic": "ordering",
+    "prompt": "Bốn xe A, B, C, D khởi hành vào các giờ 7h, 8h, 9h, 10h, mỗi giờ một xe.\n- Xe B khởi hành sau xe D.\n- Xe A khởi hành ngay sau xe C (cách 1 tiếng).\n- Xe D không khởi hành lúc 7h.\n\nXe nào khởi hành lúc 9h?",
+    "options": ["Xe A", "Xe B", "Xe C", "Xe D"],
+    "answerIndex": 3,
+    "explanationSteps": [
+      "D không đi lúc 7h, và B phải đi sau D nên D không thể đi lúc 10h. Vậy D đi lúc 8h hoặc 9h.",
+      "Nếu D đi 8h: B đi 9h hoặc 10h; hai giờ còn lại cho C và A là (7h, 10h) hoặc (7h, 9h), đều không liền nhau. Loại.",
+      "Vậy D đi 9h, B đi 10h; C và A đi 7h và 8h liền nhau: C lúc 7h, A lúc 8h.",
+      "Xe khởi hành lúc 9h là xe D."
+    ]
+  },
+  {
+    "id": "lg-014",
+    "difficulty": "hard",
+    "topic": "ordering",
+    "prompt": "Năm học sinh có chiều cao khác nhau.\n- Chi cao hơn Dũng và Em.\n- Bình thấp hơn Em.\n- An cao hơn Chi.\n- Dũng cao hơn Em.\n\nAi cao thứ tư?",
+    "options": ["An", "Bình", "Chi", "Dũng", "Em"],
+    "answerIndex": 4,
+    "explanationSteps": [
+      "An > Chi; Chi cao hơn cả Dũng và Em.",
+      "Dũng > Em và Em > Bình, nên phần dưới Chi là: Dũng > Em > Bình.",
+      "Thứ tự đầy đủ: An > Chi > Dũng > Em > Bình.",
+      "Người cao thứ tư là Em."
+    ]
+  },
+  {
+    "id": "lg-015",
+    "difficulty": "hard",
+    "topic": "ordering",
+    "prompt": "Có 5 hộp quà với cân nặng khác nhau.\n- Hộp 1 nặng hơn hộp 2.\n- Hộp 3 nặng hơn hộp 1.\n- Hộp 4 nhẹ hơn hộp 2.\n- Hộp 5 nặng hơn hộp 4 nhưng nhẹ hơn hộp 1.\n\nCâu nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Hộp 5 nặng hơn hộp 2.",
+      "Hộp 4 nhẹ nhất.",
+      "Hộp 2 nặng thứ ba.",
+      "Hộp 3 nhẹ hơn hộp 5."
+    ],
+    "answerIndex": 1,
+    "explanationSteps": [
+      "Ghép dữ kiện 1–3: hộp 3 > hộp 1 > hộp 2 > hộp 4.",
+      "Dữ kiện 4: hộp 1 > hộp 5 > hộp 4. Hộp 5 nằm giữa hộp 1 và hộp 4, nhưng không biết nặng hơn hay nhẹ hơn hộp 2.",
+      "Hộp 4 nhẹ hơn hộp 2 và hộp 5, mà hai hộp này lại nhẹ hơn hộp 1 và hộp 3, nên hộp 4 chắc chắn nhẹ nhất.",
+      "Hộp 2 có thể nặng thứ ba hoặc thứ tư; hộp 3 nặng nhất. Đáp án: Hộp 4 nhẹ nhất."
+    ]
+  },
+  {
+    "id": "lg-016",
+    "difficulty": "medium",
+    "topic": "ordering",
+    "prompt": "Năm quyển sách Toán, Văn, Anh, Sử, Địa được xếp chồng lên nhau.\n- Sách Toán nằm ngay trên sách Văn.\n- Sách Sử nằm dưới cùng.\n- Sách Anh nằm trên sách Toán.\n- Sách Địa nằm ngay dưới sách Văn.\n\nQuyển nào nằm trên cùng?",
+    "options": ["Toán", "Văn", "Anh", "Sử", "Địa"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Toán ngay trên Văn, Địa ngay dưới Văn: ba quyển liền nhau Toán – Văn – Địa (từ trên xuống).",
+      "Sử nằm dưới cùng; Anh nằm trên Toán.",
+      "Thứ tự từ trên xuống: Anh, Toán, Văn, Địa, Sử.",
+      "Quyển nằm trên cùng là Anh."
+    ]
+  },
+  {
+    "id": "lg-017",
+    "difficulty": "easy",
+    "topic": "ordering",
+    "prompt": "Thứ Hai nóng hơn thứ Ba.\nThứ Tư lạnh hơn thứ Ba.\n\nNgày nào lạnh nhất?",
+    "options": ["Thứ Hai", "Thứ Ba", "Thứ Tư"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Theo độ nóng: thứ Hai > thứ Ba > thứ Tư.",
+      "Ngày lạnh nhất là thứ Tư."
+    ]
+  },
+  {
+    "id": "lg-018",
+    "difficulty": "easy",
+    "topic": "syllogism",
+    "prompt": "Tất cả chim cánh cụt đều là chim.\nTất cả chim đều có lông vũ.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Tất cả loài có lông vũ đều là chim cánh cụt.",
+      "Một số loài chim không có lông vũ.",
+      "Tất cả chim cánh cụt đều có lông vũ.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 2,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Chim cánh cụt nằm trọn trong nhóm chim; chim nằm trọn trong nhóm có lông vũ.",
+      "Vậy chim cánh cụt nằm trọn trong nhóm có lông vũ.",
+      "Câu 1 sai vì đảo ngược quan hệ; câu 2 trái với dữ kiện. Đáp án: Tất cả chim cánh cụt đều có lông vũ."
+    ]
+  },
+  {
+    "id": "lg-019",
+    "difficulty": "easy",
+    "topic": "syllogism",
+    "prompt": "Không có quản lý nào đi làm muộn.\nAnh Tùng là quản lý.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Anh Tùng đi làm muộn.",
+      "Anh Tùng không đi làm muộn.",
+      "Tất cả người không đi làm muộn đều là quản lý.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Mọi quản lý đều không đi làm muộn; anh Tùng là quản lý.",
+      "Vậy anh Tùng không đi làm muộn.",
+      "Câu 3 sai: người không đi muộn có thể không phải quản lý. Đáp án: Anh Tùng không đi làm muộn."
+    ]
+  },
+  {
+    "id": "lg-020",
+    "difficulty": "easy",
+    "topic": "syllogism",
+    "prompt": "Mọi sản phẩm của công ty X đều được bảo hành 2 năm.\nChiếc máy lọc nước này không được bảo hành 2 năm.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Chiếc máy lọc nước này là sản phẩm của công ty X.",
+      "Công ty X không sản xuất máy lọc nước.",
+      "Chiếc máy lọc nước này không phải sản phẩm của công ty X.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 2,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Nếu là sản phẩm của công ty X thì phải được bảo hành 2 năm.",
+      "Chiếc máy này không được bảo hành 2 năm, nên nó không thể là sản phẩm của công ty X.",
+      "Câu 2 không chắc: công ty X vẫn có thể sản xuất loại máy lọc nước khác. Đáp án: Chiếc máy lọc nước này không phải sản phẩm của công ty X."
+    ]
+  },
+  {
+    "id": "lg-021",
+    "difficulty": "medium",
+    "topic": "syllogism",
+    "prompt": "Một số kỹ sư là người chơi cờ vua.\nTất cả người chơi cờ vua đều kiên nhẫn.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Tất cả kỹ sư đều kiên nhẫn.",
+      "Một số kỹ sư kiên nhẫn.",
+      "Tất cả người kiên nhẫn đều chơi cờ vua.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Có ít nhất một kỹ sư chơi cờ vua; mọi người chơi cờ vua đều kiên nhẫn.",
+      "Vậy những kỹ sư chơi cờ vua đó kiên nhẫn: một số kỹ sư kiên nhẫn.",
+      "Câu 1 sai vì chỉ biết \"một số\" kỹ sư chơi cờ; câu 3 đảo ngược quan hệ. Đáp án: Một số kỹ sư kiên nhẫn."
+    ]
+  },
+  {
+    "id": "lg-022",
+    "difficulty": "medium",
+    "topic": "syllogism",
+    "prompt": "Tất cả nhân viên mới đều phải tham gia khóa đào tạo.\nMột số người tham gia khóa đào tạo là quản lý.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Một số nhân viên mới là quản lý.",
+      "Tất cả quản lý đều là nhân viên mới.",
+      "Một số người tham gia khóa đào tạo không phải nhân viên mới.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 3,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Nhân viên mới nằm trọn trong nhóm tham gia đào tạo; nhóm quản lý giao một phần với nhóm tham gia đào tạo.",
+      "Phần quản lý đó có thể nằm trong hoặc ngoài nhóm nhân viên mới, nên câu 1 và câu 2 không chắc chắn.",
+      "Câu 3 cũng không chắc: có thể mọi người tham gia đào tạo đều là nhân viên mới (và các quản lý kia cũng là nhân viên mới).",
+      "Đáp án: Không kết luận nào ở trên chắc chắn đúng."
+    ]
+  },
+  {
+    "id": "lg-023",
+    "difficulty": "medium",
+    "topic": "syllogism",
+    "prompt": "Không có loài cá nào sống trên cạn.\nMột số động vật sống trên cạn là thú.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Không có loài thú nào là cá.",
+      "Một số loài thú không phải là cá.",
+      "Một số loài cá là thú.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Có ít nhất một loài thú sống trên cạn; mà loài sống trên cạn thì không phải là cá.",
+      "Vậy những loài thú sống trên cạn đó không phải là cá: một số loài thú không phải là cá.",
+      "Câu 1 quá mạnh: dữ kiện không nói gì về các loài thú không sống trên cạn. Đáp án: Một số loài thú không phải là cá."
+    ]
+  },
+  {
+    "id": "lg-024",
+    "difficulty": "medium",
+    "topic": "syllogism",
+    "prompt": "Nếu trời mưa thì buổi dã ngoại bị hủy.\nBuổi dã ngoại không bị hủy.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Trời mưa.",
+      "Trời không mưa.",
+      "Buổi dã ngoại sẽ được dời sang hôm khác.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "\"Nếu mưa thì hủy\" nghĩa là hễ mưa là chắc chắn hủy.",
+      "Buổi dã ngoại không bị hủy, nên trời không thể mưa.",
+      "Đáp án: Trời không mưa."
+    ]
+  },
+  {
+    "id": "lg-025",
+    "difficulty": "medium",
+    "topic": "syllogism",
+    "prompt": "Nếu Lan được thăng chức thì Lan sẽ được tăng lương.\nLan đã được tăng lương.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Lan đã được thăng chức.",
+      "Lan chưa được thăng chức.",
+      "Lan sẽ được thăng chức trong năm sau.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 3,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Dữ kiện chỉ nói: thăng chức thì chắc chắn tăng lương. Không nói tăng lương thì phải do thăng chức.",
+      "Lan có thể được tăng lương vì lý do khác (thâm niên, thành tích…), nên không biết Lan có được thăng chức hay không.",
+      "Đây là bẫy \"suy ngược\" rất hay gặp. Đáp án: Không kết luận nào ở trên chắc chắn đúng."
+    ]
+  },
+  {
+    "id": "lg-026",
+    "difficulty": "hard",
+    "topic": "syllogism",
+    "prompt": "Tất cả nhà phân tích dữ liệu đều giỏi Excel.\nKhông ai giỏi Excel mà lại ngại làm việc với số liệu.\nMột số nhân viên phòng Marketing ngại làm việc với số liệu.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Không nhân viên phòng Marketing nào là nhà phân tích dữ liệu.",
+      "Một số nhân viên phòng Marketing không phải là nhà phân tích dữ liệu.",
+      "Một số nhà phân tích dữ liệu ngại làm việc với số liệu.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Nhà phân tích → giỏi Excel → không ngại số liệu.",
+      "Ngược lại: ai ngại số liệu thì không giỏi Excel, nên cũng không phải nhà phân tích.",
+      "Một số nhân viên Marketing ngại số liệu, nên những người đó không phải nhà phân tích.",
+      "Câu 1 quá mạnh (chỉ biết về \"một số\" nhân viên Marketing). Đáp án: Một số nhân viên phòng Marketing không phải là nhà phân tích dữ liệu."
+    ]
+  },
+  {
+    "id": "lg-027",
+    "difficulty": "hard",
+    "topic": "syllogism",
+    "prompt": "Mọi người được tuyển vào vị trí X đều có bằng đại học.\nMột số người có bằng đại học có trên 5 năm kinh nghiệm.\nKhông ai được tuyển vào vị trí X có trên 5 năm kinh nghiệm.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Tất cả người có bằng đại học đều được tuyển vào vị trí X.",
+      "Một số người được tuyển vào vị trí X có trên 5 năm kinh nghiệm.",
+      "Một số người có bằng đại học không được tuyển vào vị trí X.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 2,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Có ít nhất một người có bằng đại học và trên 5 năm kinh nghiệm.",
+      "Người được tuyển vào vị trí X thì không có trên 5 năm kinh nghiệm, nên những người kể trên không được tuyển vào vị trí X.",
+      "Vậy một số người có bằng đại học không được tuyển vào vị trí X; câu 1 và câu 2 mâu thuẫn với dữ kiện.",
+      "Đáp án: Một số người có bằng đại học không được tuyển vào vị trí X."
+    ]
+  },
+  {
+    "id": "lg-028",
+    "difficulty": "hard",
+    "topic": "syllogism",
+    "prompt": "Nếu dự án A hoàn thành đúng hạn thì nhóm được thưởng.\nNếu nhóm được thưởng thì cả nhóm đi du lịch.\nCả nhóm đã không đi du lịch.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Dự án A đã hoàn thành đúng hạn.",
+      "Dự án A không hoàn thành đúng hạn.",
+      "Nhóm được thưởng nhưng không đi du lịch.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Chuỗi điều kiện: đúng hạn → được thưởng → đi du lịch.",
+      "Nhóm không đi du lịch, nên nhóm không được thưởng (nếu được thưởng thì phải đi du lịch).",
+      "Nhóm không được thưởng, nên dự án A không hoàn thành đúng hạn.",
+      "Đáp án: Dự án A không hoàn thành đúng hạn."
+    ]
+  },
+  {
+    "id": "lg-029",
+    "difficulty": "hard",
+    "topic": "syllogism",
+    "prompt": "Chỉ những nhân viên đạt KPI mới được xét thưởng Tết.\nAnh Hùng được xét thưởng Tết.\nChị Mai không đạt KPI.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Anh Hùng đạt KPI và chị Mai được xét thưởng Tết.",
+      "Anh Hùng đạt KPI và chị Mai không được xét thưởng Tết.",
+      "Mọi nhân viên đạt KPI đều được xét thưởng Tết.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "\"Chỉ những người đạt KPI mới được xét thưởng\" nghĩa là: được xét thưởng thì chắc chắn đã đạt KPI.",
+      "Anh Hùng được xét thưởng, nên anh Hùng đạt KPI. Chị Mai không đạt KPI, nên chị Mai không được xét thưởng.",
+      "Câu 3 sai: đạt KPI là điều kiện cần, chưa chắc đủ để được xét thưởng.",
+      "Đáp án: Anh Hùng đạt KPI và chị Mai không được xét thưởng Tết."
+    ]
+  },
+  {
+    "id": "lg-030",
+    "difficulty": "easy",
+    "topic": "seating",
+    "prompt": "Ba người An, Bình, Chi ngồi thành một hàng ngang 3 ghế, đánh số 1 đến 3 từ trái sang phải.\n- An không ngồi ở hai đầu hàng.\n- Bình ngồi bên phải An.\n\nAi ngồi ở ghế số 1?",
+    "options": ["An", "Bình", "Chi"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "An không ngồi ở đầu hàng nên An ngồi ghế 2.",
+      "Bình ngồi bên phải An nên Bình ngồi ghế 3.",
+      "Còn lại Chi ngồi ghế số 1."
+    ]
+  },
+  {
+    "id": "lg-031",
+    "difficulty": "easy",
+    "topic": "seating",
+    "prompt": "Bốn người Giang, Hà, Khoa, Lan ngồi thành một hàng ngang 4 ghế, đánh số 1 đến 4 từ trái sang phải.\n- Hà ngồi ghế số 1.\n- Lan ngồi ngay bên phải Hà.\n- Khoa không ngồi ghế số 4.\n\nAi ngồi ở ghế số 4?",
+    "options": ["Giang", "Hà", "Khoa", "Lan"],
+    "answerIndex": 0,
+    "explanationSteps": [
+      "Hà ngồi ghế 1, Lan ngồi ngay bên phải nên ngồi ghế 2.",
+      "Còn ghế 3 và 4 cho Giang và Khoa; Khoa không ngồi ghế 4 nên Khoa ngồi ghế 3.",
+      "Người ngồi ghế số 4 là Giang."
+    ]
+  },
+  {
+    "id": "lg-032",
+    "difficulty": "easy",
+    "topic": "seating",
+    "prompt": "Bốn phòng ban Kế toán, Nhân sự, IT, Kinh doanh ở bốn phòng liền nhau trên một hành lang, đánh số 101 đến 104 theo thứ tự.\n- Phòng Kế toán ở phòng 101.\n- Phòng Nhân sự ở ngay cạnh phòng Kế toán.\n- Phòng IT không ở cạnh phòng Nhân sự.\n\nPhòng Kinh doanh ở phòng số mấy?",
+    "options": ["Phòng 101", "Phòng 102", "Phòng 103", "Phòng 104"],
+    "answerIndex": 2,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Kế toán ở 101; phòng duy nhất cạnh 101 là 102, nên Nhân sự ở 102.",
+      "Còn 103 và 104 cho IT và Kinh doanh; 103 cạnh 102 (Nhân sự), mà IT không ở cạnh Nhân sự nên IT ở 104.",
+      "Phòng Kinh doanh ở phòng 103."
+    ]
+  },
+  {
+    "id": "lg-033",
+    "difficulty": "medium",
+    "topic": "seating",
+    "prompt": "Năm người Minh, Nam, Oanh, Phúc, Quân ngồi thành một hàng ngang 5 ghế, đánh số 1 đến 5 từ trái sang phải.\n- Phúc ngồi ở một đầu hàng.\n- Minh ngồi ở ghế giữa.\n- Quân ngồi ngay bên phải Minh.\n- Oanh ngồi cạnh Phúc.\n\nAi ngồi ở ghế số 2?",
+    "options": ["Minh", "Nam", "Oanh", "Phúc", "Quân"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Minh ngồi ghế giữa: ghế 3. Quân ngồi ngay bên phải Minh: ghế 4.",
+      "Phúc ngồi ở đầu hàng: ghế 1 hoặc 5. Nếu Phúc ngồi ghế 5 thì người cạnh Phúc là ghế 4 (Quân), Oanh không thể cạnh Phúc. Vậy Phúc ngồi ghế 1.",
+      "Oanh ngồi cạnh Phúc nên ngồi ghế 2; Nam ngồi ghế 5.",
+      "Người ngồi ghế số 2 là Oanh."
+    ]
+  },
+  {
+    "id": "lg-034",
+    "difficulty": "hard",
+    "topic": "seating",
+    "prompt": "Sáu người An, Bình, Chi, Dũng, Em, Giang ngồi quanh một bàn tròn có 6 ghế, đánh số 1 đến 6 theo chiều kim đồng hồ. Ghế 1 đối diện ghế 4, ghế 2 đối diện ghế 5, ghế 3 đối diện ghế 6. Ghế 6 nằm cạnh ghế 1.\n- An ngồi ghế số 1.\n- Dũng ngồi đối diện An.\n- Bình ngồi ghế số 2.\n- Chi ngồi cạnh Dũng nhưng không đối diện Bình.\n- Em không ngồi cạnh An.\n\nAi ngồi đối diện Chi?",
+    "options": ["An", "Bình", "Dũng", "Em", "Giang"],
+    "answerIndex": 4,
+    "explanationSteps": [
+      "An ghế 1, Dũng đối diện An nên ngồi ghế 4, Bình ghế 2.",
+      "Chi cạnh Dũng: ghế 3 hoặc 5. Ghế 5 đối diện ghế 2 (Bình), nên Chi ngồi ghế 3.",
+      "Còn ghế 5 và 6 cho Em và Giang. Ghế 6 cạnh ghế 1 (An), mà Em không ngồi cạnh An, nên Em ngồi ghế 5, Giang ngồi ghế 6.",
+      "Chi ở ghế 3, đối diện ghế 6: người ngồi đối diện Chi là Giang."
+    ]
+  },
+  {
+    "id": "lg-035",
+    "difficulty": "medium",
+    "topic": "seating",
+    "prompt": "Bốn người Hà, Khoa, Lan, Minh sống ở bốn tầng của một tòa nhà (tầng 1 đến tầng 4), mỗi người một tầng.\n- Khoa ở tầng cao hơn Lan.\n- Minh ở tầng 1.\n- Hà ở ngay trên tầng của Khoa.\n\nLan ở tầng mấy?",
+    "options": ["Tầng 1", "Tầng 2", "Tầng 3", "Tầng 4"],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Minh ở tầng 1, còn tầng 2, 3, 4 cho Hà, Khoa, Lan.",
+      "Hà ở ngay trên Khoa, và Khoa cao hơn Lan nên Khoa không thể ở tầng 2 (khi đó Lan phải ở tầng 1). Vậy Khoa ở tầng 3, Hà ở tầng 4.",
+      "Lan ở tầng 2."
+    ]
+  },
+  {
+    "id": "lg-036",
+    "difficulty": "medium",
+    "topic": "seating",
+    "prompt": "Năm chiếc xe màu đỏ, xanh, trắng, đen, vàng đỗ thành một hàng 5 chỗ, đánh số 1 đến 5 từ trái sang phải.\n- Xe trắng đỗ ở chỗ số 5.\n- Xe đỏ đỗ ngay bên trái xe xanh.\n- Xe đen đỗ ở chỗ số 1.\n- Xe vàng không đỗ cạnh xe trắng.\n\nXe nào đỗ ở chỗ số 3?",
+    "options": ["Xe đỏ", "Xe xanh", "Xe trắng", "Xe đen", "Xe vàng"],
+    "answerIndex": 0,
+    "explanationSteps": [
+      "Đen ở chỗ 1, trắng ở chỗ 5; còn chỗ 2, 3, 4 cho đỏ, xanh, vàng.",
+      "Vàng không cạnh trắng nên không ở chỗ 4: vàng ở chỗ 2 hoặc 3.",
+      "Nếu vàng ở chỗ 3 thì đỏ và xanh ở chỗ 2 và 4, không liền nhau. Loại. Vậy vàng ở chỗ 2, đỏ ở chỗ 3, xanh ở chỗ 4.",
+      "Xe đỗ ở chỗ số 3 là xe đỏ."
+    ]
+  },
+  {
+    "id": "lg-037",
+    "difficulty": "hard",
+    "topic": "seating",
+    "prompt": "Năm người An, Bình, Chi, Dũng, Em xếp hàng mua vé, vị trí 1 là đầu hàng.\n- Em không đứng đầu hàng.\n- Bình đứng sau Em, và giữa hai người có ít nhất một người khác.\n- Chi đứng ngay trước Dũng.\n- An không đứng cạnh Bình.\n\nAi đứng ở vị trí thứ 3?",
+    "options": ["An", "Bình", "Chi", "Dũng", "Em"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Em không đứng đầu; Bình đứng sau Em ít nhất 2 vị trí, nên Em ở vị trí 2 hoặc 3.",
+      "Nếu Em ở vị trí 3: Bình ở vị trí 5; Chi – Dũng liền nhau ở vị trí 1–2; An ở vị trí 4, cạnh Bình. Loại.",
+      "Vậy Em ở vị trí 2. Bình ở vị trí 4 hoặc 5. Nếu Bình ở 4 thì các vị trí còn lại 1, 3, 5 không có hai vị trí liền nhau cho Chi – Dũng. Loại. Vậy Bình ở vị trí 5, Chi – Dũng ở vị trí 3–4, An ở vị trí 1.",
+      "Người đứng ở vị trí thứ 3 là Chi."
+    ]
+  },
+  {
+    "id": "lg-038",
+    "difficulty": "medium",
+    "topic": "seating",
+    "prompt": "Ba người Giang, Hà, Khoa làm ba nghề khác nhau: kỹ sư, bác sĩ, giáo viên.\n- Giang không phải bác sĩ.\n- Người kỹ sư lớn tuổi hơn Hà.\n- Khoa nhỏ tuổi hơn người giáo viên.\n- Hà không phải giáo viên.\n\nAi là kỹ sư?",
+    "options": ["Giang", "Hà", "Khoa"],
+    "answerIndex": 2,
+    "explanationSteps": [
+      "Người kỹ sư lớn tuổi hơn Hà, nên Hà không phải kỹ sư. Hà cũng không phải giáo viên, vậy Hà là bác sĩ.",
+      "Khoa nhỏ tuổi hơn người giáo viên, nên Khoa không phải giáo viên. Còn lại Khoa là kỹ sư.",
+      "Giang là giáo viên (đúng với dữ kiện Giang không phải bác sĩ). Người là kỹ sư: Khoa."
+    ]
+  },
+  {
+    "id": "lg-039",
+    "difficulty": "hard",
+    "topic": "seating",
+    "prompt": "Sáu người Lan, Minh, Nam, Oanh, Phúc, Quân ngồi thành một hàng ngang 6 ghế, đánh số 1 đến 6 từ trái sang phải.\n- Lan và Minh ngồi ở hai đầu hàng.\n- Nam ngồi ngay bên phải Lan.\n- Oanh ngồi cạnh Minh.\n- Phúc ngồi ở ghế số 3.\n\nAi ngồi ở ghế số 4?",
+    "options": ["Lan", "Nam", "Oanh", "Phúc", "Quân"],
+    "answerIndex": 4,
+    "explanationSteps": [
+      "Lan ngồi ở một đầu và có Nam ngồi ngay bên phải, nên Lan không thể ở ghế 6. Vậy Lan ghế 1, Nam ghế 2, Minh ghế 6.",
+      "Oanh ngồi cạnh Minh: ghế 5. Phúc ghế 3.",
+      "Còn lại Quân ngồi ghế số 4."
+    ]
+  },
+  {
+    "id": "lg-040",
+    "difficulty": "hard",
+    "topic": "seating",
+    "prompt": "Bốn người An, Bình, Chi, Dũng ngồi thành một hàng ngang 4 ghế (đánh số 1 đến 4 từ trái sang phải); mỗi người thích một màu khác nhau: đỏ, xanh, vàng, tím.\n- Người thích màu đỏ ngồi ghế số 4.\n- An ngồi ghế số 3 và không thích màu xanh.\n- Bình ngồi ngay bên trái người thích màu tím.\n- Chi thích màu vàng và không ngồi cạnh An.\n- Dũng ngồi bên phải An.\n\nBình thích màu gì?",
+    "options": ["Đỏ", "Xanh", "Vàng", "Tím"],
+    "answerIndex": 1,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "An ghế 3; Dũng ngồi bên phải An nên ngồi ghế 4. Chi không cạnh An (ghế 2 và 4) nên Chi ngồi ghế 1; Bình ghế 2.",
+      "Người ghế 4 (Dũng) thích đỏ. Chi thích vàng.",
+      "Bình (ghế 2) ngồi ngay bên trái người thích tím, nên người ghế 3 (An) thích tím.",
+      "Còn lại Bình thích màu xanh (đúng với dữ kiện An không thích xanh)."
+    ]
   }
 ]
