@@ -2,7 +2,7 @@
 // Mỗi bài lưu đủ đề + đáp án + kết quả để sau này xem lại lời giải (bước 3.3) và thống kê (bước 3.4).
 
 import type { TestResult } from '../types/question'
-import { type KeyValueStorage, readJson, writeJson } from './storage'
+import { type KeyValueStorage, readJson, removeKey, writeJson } from './storage'
 
 /** Khóa lưu lịch sử. */
 const KEY = 'history'
@@ -77,4 +77,9 @@ function saveWithEviction(entries: HistoryEntry[], storage?: KeyValueStorage | n
 export function addToHistory(result: TestResult, storage?: KeyValueStorage | null): HistoryEntry[] {
   const entries = [{ id: createId(), result }, ...loadHistory(storage)].slice(0, MAX_HISTORY)
   return saveWithEviction(entries, storage)
+}
+
+/** Xóa toàn bộ lịch sử. */
+export function clearHistory(storage?: KeyValueStorage | null): void {
+  removeKey(KEY, storage)
 }

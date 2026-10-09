@@ -50,6 +50,20 @@ body {
   color: var(--color-muted);
 }
 
+/* Dòng giới thiệu ở trang chủ: câu giới thiệu + nút "Xem lịch sử"; hẹp thì xuống dòng */
+.app__intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+
+.app__intro .app__subtitle {
+  margin: 0;
+}
+
 /* Nút dùng chung. Thêm class button--primary cho nút hành động chính. */
 .button {
   padding: 10px 16px;

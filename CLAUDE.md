@@ -117,7 +117,7 @@ src/
 ├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, verbal.ts, abstract.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView), mỗi component kèm file .css cùng tên
-├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
+├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm, history.ts: lịch sử kết quả)
 ```
@@ -229,7 +229,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 |------|----------|---------------------|------------|
 | 3.1 | Giữ bài đang làm khi tải lại trang: lưu câu đang xem, đáp án đã chọn, đồng hồ | F5 giữa bài vẫn làm tiếp; hết giờ trong lúc đóng tab thì mở lại tự nộp | ✅ |
 | 3.2 | Lưu lịch sử kết quả trên trình duyệt (tối đa 200 bài gần nhất) | Nộp bài xong, tải lại trang, kết quả vẫn còn | ✅ |
-| 3.3 | Trang lịch sử: danh sách bài đã làm, xem lại chi tiết + lời giải | Mở lại được một bài cũ, xem đủ lời giải | ⬜ |
+| 3.3 | Trang lịch sử: danh sách bài đã làm, xem lại chi tiết + lời giải | Mở lại được một bài cũ, xem đủ lời giải | ✅ |
 | 3.4 | Thống kê: % đúng theo dạng / độ khó, tiến bộ qua các lần làm, dạng yếu nhất | Thấy rõ dạng nào cần luyện thêm | ⬜ |
 | 3.5 | Ưu tiên câu chưa làm cho Logic và Ngôn ngữ | Làm liên tiếp nhiều bài ít gặp lại câu cũ | ⬜ |
 | 3.6 | Thi thử tổng hợp: một bài trộn nhiều dạng | Làm hết một bài tổng hợp, kết quả tách điểm theo từng dạng | ⬜ |
@@ -311,4 +311,5 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Mọi thao tác localStorage bọc try/catch, khóa có số phiên bản (`v1`); dữ liệu hỏng thì bỏ qua và xóa | Chế độ ẩn danh / bị chặn / dữ liệu cũ không làm web sập |
 | 2026-10-09 | Lịch sử lưu đủ đề + đáp án + kết quả (khóa `test-iq:v1:history`), bài mới nhất đứng đầu, tối đa 200 bài; bộ nhớ đầy thì tự xóa bớt 1/4 số bài cũ nhất cho tới khi ghi được | Cần đủ dữ liệu để xem lại lời giải; localStorage chỉ ~5 MB (bài 30 câu dạng Hình ~51 KB → ~100 bài) |
 | 2026-10-09 | Thoát bài thì KHÔNG lưu vào lịch sử; trang chủ hiện "Bạn đã hoàn thành N bài" | Lịch sử chỉ gồm bài đã nộp; có dấu hiệu lịch sử đang hoạt động trước khi có trang lịch sử |
+| 2026-10-09 | Trang lịch sử: mỗi bài một dòng (dạng bài, ngày giờ, độ khó, thời gian, điểm, % đúng); bấm vào mở lại màn kết quả có nút "← Quay lại lịch sử" + ngày làm; thêm nút "Xóa lịch sử" (có xác nhận) | Dùng lại màn kết quả sẵn có; cho phép bắt đầu theo dõi lại từ đầu |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

@@ -1,14 +1,15 @@
-// Component gốc của ứng dụng: điều hướng giữa 3 màn hình Trang chủ → Làm bài → Kết quả,
+// Component gốc của ứng dụng: điều hướng giữa các màn hình Trang chủ → Làm bài → Kết quả, Lịch sử;
 // lưu / khôi phục bài đang làm để tải lại trang (F5) không mất bài, và lưu kết quả vào lịch sử.
 import { useState } from 'react'
 import { getCategoryLabel } from './config/testOptions'
 import { generateQuestions } from './generators'
+import HistoryPage from './pages/HistoryPage'
 import HomePage from './pages/HomePage'
 import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
 import type { TestConfig, TestResult } from './types/question'
 import { type ActiveTest, clearActiveTest, loadActiveTest, saveActiveTest } from './utils/activeTest'
-import { addToHistory, loadHistory } from './utils/history'
+import { addToHistory, clearHistory, type HistoryEntry, loadHistory } from './utils/history'
 import { gradeTest } from './utils/scoring'
 
 /**
@@ -19,7 +20,9 @@ import { gradeTest } from './utils/scoring'
 type Screen =
   | { name: 'home' }
   | { name: 'test'; test: ActiveTest; attempt: number }
-  | { name: 'result'; result: TestResult }
+  // fromHistory: mở từ trang lịch sử (hiện nút quay lại lịch sử)
+  | { name: 'result'; result: TestResult; fromHistory?: boolean }
+  | { name: 'history'; entries: HistoryEntry[] }
 
 /**
  * Màn hình lúc mở web: nếu còn bài đang làm dở (đã lưu trước khi tải lại trang) thì vào thẳng bài đó.
@@ -66,16 +69,29 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  /** Mở trang lịch sử (đọc lại từ bộ nhớ để luôn mới nhất). */
+  function openHistory() {
+    setScreen({ name: 'history', entries: loadHistory() })
+    window.scrollTo(0, 0)
+  }
+
   return (
     <main className="app">
       <h1>Luyện Test IQ</h1>
 
       {screen.name === 'home' && (
         <>
-          <p className="app__subtitle">
-            Luyện các dạng bài test năng lực khi tuyển dụng.
-            {historyCount > 0 && ` Bạn đã hoàn thành ${historyCount} bài.`}
-          </p>
+          <div className="app__intro">
+            <p className="app__subtitle">
+              Luyện các dạng bài test năng lực khi tuyển dụng.
+              {historyCount > 0 && ` Bạn đã hoàn thành ${historyCount} bài.`}
+            </p>
+            {historyCount > 0 && (
+              <button type="button" className="button" onClick={openHistory}>
+                Xem lịch sử
+              </button>
+            )}
+          </div>
           <HomePage initialConfig={lastConfig} onStart={startTest} />
         </>
       )}
@@ -115,8 +131,25 @@ function App() {
             result={screen.result}
             onRestart={() => startTest(screen.result.config)}
             onHome={goHome}
+            onBack={screen.fromHistory ? openHistory : undefined}
           />
         </>
+      )}
+
+      {screen.name === 'history' && (
+        <HistoryPage
+          entries={screen.entries}
+          onOpen={(entry) => {
+            setScreen({ name: 'result', result: entry.result, fromHistory: true })
+            window.scrollTo(0, 0)
+          }}
+          onClear={() => {
+            clearHistory()
+            setHistoryCount(0)
+            setScreen({ name: 'history', entries: [] })
+          }}
+          onHome={goHome}
+        />
       )}
     </main>
   )

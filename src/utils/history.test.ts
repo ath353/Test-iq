@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { generateQuestions } from '../generators'
 import type { TestConfig, TestResult } from '../types/question'
-import { addToHistory, isHistoryEntry, loadHistory, MAX_HISTORY } from './history'
+import { addToHistory, clearHistory, isHistoryEntry, loadHistory, MAX_HISTORY } from './history'
 import { gradeTest } from './scoring'
 import { type KeyValueStorage, STORAGE_PREFIX, writeJson } from './storage'
 
@@ -83,5 +83,14 @@ describe('history', () => {
       expect(isHistoryEntry({ id: 'a', result: makeResult(1, category) })).toBe(true)
     }
     expect(isHistoryEntry({ id: 'a', result: {} })).toBe(false)
+  })
+})
+
+describe('clearHistory', () => {
+  it('xóa toàn bộ lịch sử', () => {
+    const storage = fakeStorage()
+    addToHistory(makeResult(1), storage)
+    clearHistory(storage)
+    expect(loadHistory(storage)).toEqual([])
   })
 })

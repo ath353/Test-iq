@@ -1,6 +1,6 @@
 // Kiểm thử các hàm xử lý thời gian.
 import { describe, expect, it } from 'vitest'
-import { formatTime, getRemainingSec } from './time'
+import { formatDateTime, formatTime, getRemainingSec } from './time'
 
 describe('formatTime', () => {
   it('định dạng đúng phút:giây, giây luôn 2 chữ số', () => {
@@ -26,5 +26,18 @@ describe('getRemainingSec', () => {
   it('trả về 0 khi đã đến hoặc quá thời điểm kết thúc', () => {
     expect(getRemainingSec(10_000, 10_000)).toBe(0)
     expect(getRemainingSec(10_000, 99_000)).toBe(0)
+  })
+})
+
+describe('formatDateTime', () => {
+  it('định dạng "dd/mm/yyyy hh:mm" theo múi giờ', () => {
+    expect(formatDateTime('2026-10-09T08:05:00Z', 'Asia/Ho_Chi_Minh')).toBe('09/10/2026 15:05')
+    expect(formatDateTime('2026-01-02T23:30:00Z', 'UTC')).toBe('02/01/2026 23:30')
+    // Qua nửa đêm theo giờ Việt Nam thì sang ngày hôm sau
+    expect(formatDateTime('2026-01-02T23:30:00Z', 'Asia/Ho_Chi_Minh')).toBe('03/01/2026 06:30')
+  })
+
+  it('chuỗi không hợp lệ thì trả về rỗng', () => {
+    expect(formatDateTime('không phải ngày')).toBe('')
   })
 })

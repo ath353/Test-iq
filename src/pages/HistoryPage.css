@@ -1,0 +1,90 @@
+/* Giao diện trang lịch sử. */
+
+.history-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Hàng nút trên cùng: "Về trang chủ" bên trái, "Xóa lịch sử" bên phải */
+.history-page__toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.history-page__clear {
+  color: var(--color-danger);
+}
+
+.history-page__title {
+  margin: 8px 0 0;
+  font-size: 1.25rem;
+}
+
+.history-page__empty {
+  color: var(--color-muted);
+}
+
+.history-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Một dòng lịch sử: cả dòng là nút bấm, thông tin bên trái, điểm bên phải */
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.history-item:hover {
+  border-color: var(--color-primary);
+}
+
+.history-item__main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.history-item__category {
+  font-weight: 600;
+}
+
+.history-item__meta {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.history-item__score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.history-item__score strong {
+  font-size: 1.125rem;
+}
+
+.history-item__percent {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}

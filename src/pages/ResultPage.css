@@ -6,6 +6,20 @@
   gap: 24px;
 }
 
+/* Hàng "Quay lại lịch sử" + ngày làm bài (chỉ có khi xem lại bài cũ) */
+.result-page__back {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.result-page__date {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
 /* Thông báo hết giờ */
 .result-page__notice {
   margin: 0;

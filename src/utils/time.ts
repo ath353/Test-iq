@@ -23,3 +23,27 @@ export function formatTime(totalSec: number): string {
 export function getRemainingSec(endAt: number, now: number): number {
   return Math.max(0, Math.ceil((endAt - now) / 1000))
 }
+
+/**
+ * Định dạng thời điểm (chuỗi ISO) thành ngày giờ kiểu Việt Nam: "dd/mm/yyyy hh:mm" (giờ 24h).
+ * Ví dụ: '2026-10-09T08:05:00Z' (giờ Việt Nam) → '09/10/2026 15:05'.
+ * @param iso Thời điểm dạng chuỗi ISO (như TestResult.finishedAt).
+ * @param timeZone Múi giờ; bỏ trống thì dùng múi giờ của máy (truyền vào để test cho cố định).
+ * @returns Chuỗi ngày giờ, hoặc '' nếu chuỗi đầu vào không hợp lệ.
+ */
+export function formatDateTime(iso: string, timeZone?: string): string {
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return ''
+  // Lấy từng phần (ngày, tháng, năm, giờ, phút) rồi tự ghép, để thứ tự luôn là "ngày giờ"
+  const parts = new Intl.DateTimeFormat('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+    timeZone,
+  }).formatToParts(date)
+  const get = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value ?? ''
+  return `${get('day')}/${get('month')}/${get('year')} ${get('hour')}:${get('minute')}`
+}

@@ -3,7 +3,7 @@ import ReviewItem from '../components/ReviewItem'
 import { getDifficultyLabel } from '../config/testOptions'
 import type { TestResult } from '../types/question'
 import { countByStatus } from '../utils/scoring'
-import { formatTime } from '../utils/time'
+import { formatDateTime, formatTime } from '../utils/time'
 import './ResultPage.css'
 
 interface ResultPageProps {
@@ -12,12 +12,17 @@ interface ResultPageProps {
   onRestart: () => void
   /** Gọi khi bấm "Về trang chủ". */
   onHome: () => void
+  /**
+   * Có khi mở từ trang lịch sử: hiện nút "← Quay lại lịch sử" và ngày làm bài.
+   * Không có (xem ngay sau khi nộp) thì màn hình như cũ.
+   */
+  onBack?: () => void
 }
 
 /**
- * ResultPage: hiển thị kết quả sau khi nộp bài.
+ * ResultPage: hiển thị kết quả sau khi nộp bài, hoặc xem lại một bài cũ từ trang lịch sử.
  */
-function ResultPage({ result, onRestart, onHome }: ResultPageProps) {
+function ResultPage({ result, onRestart, onHome, onBack }: ResultPageProps) {
   const { timeLimitSec, difficulty } = result.config
   const total = result.questions.length
   const counts = countByStatus(result)
@@ -27,6 +32,16 @@ function ResultPage({ result, onRestart, onHome }: ResultPageProps) {
 
   return (
     <div className="result-page">
+      {/* Xem lại bài cũ: nút quay lại và ngày làm bài */}
+      {onBack && (
+        <div className="result-page__back">
+          <button type="button" className="button" onClick={onBack}>
+            ← Quay lại lịch sử
+          </button>
+          <span className="result-page__date">Làm lúc {formatDateTime(result.finishedAt)}</span>
+        </div>
+      )}
+
       {result.timedOut && (
         <p className="result-page__notice" role="status">
           <strong>Hết giờ!</strong> Bài đã được tự động nộp.
