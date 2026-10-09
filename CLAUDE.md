@@ -114,7 +114,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn), figure.ts (ô hình)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, verbal.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, verbal.ts, abstract.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
@@ -220,7 +220,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ✅ |
 | 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ✅ |
 | 2.4a | Hình: vẽ hình bằng SVG (dạng hình, màu, số lượng, góc xoay) | Hiển thị đúng ở chế độ sáng và tối | ✅ |
-| 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ⬜ |
+| 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ✅ |
 | 2.4c | Hình: lựa chọn đáp án dạng hình + bật trên trang chủ | Làm hết một bài dạng Hình | ⬜ |
 
 ### Giai đoạn 3: Nâng cao
@@ -280,4 +280,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Ô hình = 1–4 hình giống nhau, 4 thuộc tính: dạng hình (8 loại), kiểu tô (đặc / rỗng / kẻ sọc), số lượng, góc xoay | Đủ để đặt quy luật ma trận kiểu Raven / SHL |
 | 2026-10-09 | "Màu" của hình thể hiện bằng kiểu tô, KHÔNG dùng màu sắc thật; hình vẽ bằng màu chữ (currentColor) | Người mù màu vẫn làm được; tự đổi theo chế độ sáng / tối |
 | 2026-10-09 | Toạ độ đỉnh tính sẵn bằng code (không dùng transform của SVG); có bảng chu kỳ đối xứng xoay của từng hình | Sọc / nét đều nhau ở mọi cỡ; tránh quy luật xoay mà mắt không thấy khác (vd. xoay hình vuông 90°) |
+| 2026-10-09 | Ma trận hình: mỗi thuộc tính theo 1 quy luật theo hàng (không đổi / theo hàng / tăng dần / hoán vị); độ khó = số thuộc tính thay đổi (1/2/3); mức khó không dùng quy luật "theo hàng" | Bám dạng Raven / SHL; mức khó phải so sánh nhiều ô |
+| 2026-10-09 | Mỗi đáp án nhiễu được đặt thử vào ô trống, nếu ma trận vẫn hợp lệ theo bất kỳ quy luật nào thì loại; ưu tiên bẫy "chép ô bên trái / phía trên" và "sai đúng một đặc điểm" | Đảm bảo chỉ 1 đáp án đúng, đáp án nhiễu hợp lý |
+| 2026-10-09 | Đáp án nhiễu chỉ đổi góc xoay với tam giác / mũi tên (bội số 90°) | Hình vuông xoay 45° trông như hình thoi, dễ gây tranh cãi |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

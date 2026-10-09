@@ -1,6 +1,8 @@
 // Kiểu dữ liệu dùng chung cho câu hỏi, bài làm và kết quả.
 // Mọi bộ sinh đề (generators) và ngân hàng câu hỏi (data) đều phải trả về đúng các kiểu này.
 
+import type { Figure } from './figure'
+
 /** Dạng bài. Thêm dạng mới thì bổ sung vào đây. */
 export type QuestionCategory =
   | 'number-series' // Dãy số
@@ -19,8 +21,13 @@ export type DifficultySetting = Difficulty | 'mixed'
 export interface Option {
   /** Mã lựa chọn, duy nhất trong một câu hỏi, ví dụ 'A'. */
   id: string
-  /** Nội dung hiển thị, ví dụ '42'. */
+  /**
+   * Nội dung hiển thị, ví dụ '42'.
+   * Với lựa chọn dạng hình: là mô tả bằng lời của hình (cho trình đọc màn hình và màn kết quả).
+   */
   content: string
+  /** Lựa chọn dạng hình (dạng Suy luận hình): có thì hiển thị hình thay cho chữ. */
+  figure?: Figure
 }
 
 /**
@@ -49,10 +56,16 @@ export interface PassageStimulus {
 }
 
 /**
- * Phần dữ kiện đi kèm câu hỏi, hiển thị phía trên đề bài.
- * Dạng HÌNH (giai đoạn 2.4a) sẽ được bổ sung vào đây khi thiết kế cách vẽ SVG.
+ * Dữ kiện dạng MA TRẬN HÌNH 3 × 3 (dạng Suy luận hình).
+ * cells có đúng 9 ô, đọc theo hàng từ trái sang phải, từ trên xuống dưới; ô cuối là null (ô cần tìm "?").
  */
-export type Stimulus = TableStimulus | PassageStimulus
+export interface MatrixStimulus {
+  type: 'matrix'
+  cells: (Figure | null)[]
+}
+
+/** Phần dữ kiện đi kèm câu hỏi, hiển thị phía trên đề bài. */
+export type Stimulus = TableStimulus | PassageStimulus | MatrixStimulus
 
 /** Một câu hỏi trắc nghiệm hoàn chỉnh. */
 export interface Question {

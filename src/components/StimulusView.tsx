@@ -17,6 +17,9 @@ function StimulusView({ stimulus }: StimulusViewProps) {
       return <TableView table={stimulus} />
     case 'passage':
       return <PassageView passage={stimulus} />
+    case 'matrix':
+      // Ma trận hình sẽ được hiển thị ở bước 2.4c
+      return null
   }
 }
 
