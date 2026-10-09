@@ -178,13 +178,132 @@ export function alternatingSeries(): SeriesData {
   }
 }
 
+/**
+ * Quy luật LẬP PHƯƠNG: các số có dạng n³ + c với n tăng dần từng đơn vị.
+ * Ví dụ (c = 0): 8, 27, 64, 125, 216, ? → 343. Ví dụ (c = −1): 7, 26, 63, 124, 215, ? → 342.
+ */
+export function cubeSeries(): SeriesData {
+  const c = randomInt(-2, 4)
+  // n bắt đầu từ 2 để số đầu luôn dương (kể cả khi c âm)
+  const n0 = randomInt(2, 4)
+  const ns = Array.from({ length: 6 }, (_, i) => n0 + i)
+  const all = ns.map((n) => n ** 3 + c)
+  const terms = all.slice(0, 5)
+  const answer = all[5]
+  const nextN = ns[5]
+  const describe = (n: number) =>
+    c === 0 ? `${n}³ = ${n ** 3}` : `${n}³ ${c > 0 ? '+' : '−'} ${Math.abs(c)} = ${n ** 3 + c}`
+  return {
+    terms,
+    answer,
+    steps: [
+      c === 0
+        ? `Các số lần lượt là lập phương của ${joinNumbers(ns.slice(0, 5))}.`
+        : `Các số có dạng n³ ${c > 0 ? '+' : '−'} ${Math.abs(c)}: ${ns.slice(0, 5).map(describe).join('; ')}.`,
+      `Số tiếp theo ứng với n = ${nextN}.`,
+      `Số cần tìm: ${describe(nextN)}.`,
+    ],
+    // Sai thường gặp: quên cộng c, nhảy sang n kế tiếp, tưởng hiệu tăng đều (cộng tăng dần)
+    mistakes: [
+      nextN ** 3,
+      (nextN + 1) ** 3 + c,
+      terms[4] + (terms[4] - terms[3]) + (terms[4] - terms[3] - (terms[3] - terms[2])),
+    ],
+  }
+}
+
+/**
+ * Quy luật FIBONACCI: mỗi số bằng tổng hai số đứng ngay trước nó.
+ * Ví dụ: 2, 3, 5, 8, 13, 21, ? → 34.
+ */
+export function fibonacciSeries(): SeriesData {
+  const all = [randomInt(1, 9), randomInt(1, 9)]
+  while (all.length < 7) all.push(all[all.length - 1] + all[all.length - 2])
+  const terms = all.slice(0, 6)
+  const answer = all[6]
+  const [prev, last] = [terms[4], terms[5]]
+  return {
+    terms,
+    answer,
+    steps: [
+      `Thử cộng hai số liền nhau: ${terms[0]} + ${terms[1]} = ${terms[2]}; ${terms[1]} + ${terms[2]} = ${terms[3]}; ${terms[2]} + ${terms[3]} = ${terms[4]}.`,
+      'Mỗi số bằng tổng hai số đứng ngay trước nó (dãy kiểu Fibonacci).',
+      `Số cần tìm: ${prev} + ${last} = ${answer}.`,
+    ],
+    // Sai thường gặp: cộng thêm hiệu cuối (tưởng là dãy cộng), nhân đôi số cuối, cộng nhầm số
+    mistakes: [last + (last - prev), last * 2, answer + 1, answer - 1, last + prev + terms[3]],
+  }
+}
+
+/**
+ * Quy luật NHÂN RỒI CỘNG: mỗi số bằng số trước nhân a rồi cộng b (b có thể âm).
+ * Ví dụ (a = 2, b = 1): 3, 7, 15, 31, 63, ? → 127.
+ */
+export function multiplyAddSeries(): SeriesData {
+  const a = randomInt(2, 3)
+  // b khác 0 (b = 0 thì thành dãy nhân đều, đã có ở mức dễ)
+  const b = pickOne([-3, -2, -1, 1, 2, 3, 4, 5])
+  // Số đầu đủ lớn để dãy luôn tăng và dương khi b âm
+  let start = randomInt(2, 6)
+  if (start * a + b <= start) start = randomInt(4, 6)
+  const all = [start]
+  for (let i = 0; i < 5; i++) all.push(all[i] * a + b)
+  const terms = all.slice(0, 5)
+  const answer = all[5]
+  const last = terms[4]
+  const op = (x: number) => `${x} × ${a} ${b > 0 ? '+' : '−'} ${Math.abs(b)} = ${x * a + b}`
+  return {
+    terms,
+    answer,
+    steps: [
+      `Các số tăng nhanh nhưng tỉ lệ giữa hai số liền nhau không cố định, nên thử "nhân rồi cộng / trừ": ${op(terms[0])}; ${op(terms[1])}; ${op(terms[2])}.`,
+      `Mỗi số bằng số trước × ${a} ${b > 0 ? '+' : '−'} ${Math.abs(b)}.`,
+      `Số cần tìm: ${op(last)}.`,
+    ],
+    // Sai thường gặp: quên cộng b, cộng sai dấu, tưởng là dãy cộng tăng dần
+    mistakes: [last * a, last * a - b, last + 2 * (last - terms[3]), answer + 1],
+  }
+}
+
+/**
+ * Quy luật HIỆU TĂNG GẤP ĐÔI: hiệu giữa các số liền nhau gấp đôi hiệu trước đó.
+ * Ví dụ: 5, 7, 11, 19, 35, ? → 67 (hiệu 2, 4, 8, 16, 32).
+ */
+export function doublingDifferenceSeries(): SeriesData {
+  const start = randomInt(1, 20)
+  const firstDiff = randomInt(1, 4)
+  const all = [start]
+  for (let i = 0; i < 5; i++) all.push(all[i] + firstDiff * 2 ** i)
+  const terms = all.slice(0, 5)
+  const answer = all[5]
+  const diffs = differences(terms)
+  const nextDiff = diffs[diffs.length - 1] * 2
+  const last = terms[4]
+  return {
+    terms,
+    answer,
+    steps: [
+      `Tính hiệu các số liền kề: ${joinNumbers(diffs)}.`,
+      `Mỗi hiệu gấp đôi hiệu trước, nên hiệu tiếp theo là ${diffs[diffs.length - 1]} × 2 = ${nextDiff}.`,
+      `Số cần tìm: ${last} + ${nextDiff} = ${answer}.`,
+    ],
+    // Sai thường gặp: tưởng hiệu tăng đều (cộng thêm một lượng cố định), giữ nguyên hiệu cuối, nhân đôi số cuối
+    mistakes: [
+      last + diffs[diffs.length - 1] + (diffs[diffs.length - 1] - diffs[diffs.length - 2]),
+      last + diffs[diffs.length - 1],
+      last * 2,
+      answer + firstDiff,
+    ],
+  }
+}
+
 // ─────────────────────────────── Ghép thành câu hỏi ───────────────────────────────
 
 /** Các quy luật theo độ khó. Thêm quy luật mới thì đăng ký vào đây. */
 export const RULES_BY_DIFFICULTY: Record<Difficulty, (() => SeriesData)[]> = {
   easy: [arithmeticSeries, geometricSeries],
-  medium: [increasingDifferenceSeries, squareSeries],
-  hard: [alternatingSeries],
+  medium: [increasingDifferenceSeries, squareSeries, cubeSeries],
+  hard: [alternatingSeries, fibonacciSeries, multiplyAddSeries, doublingDifferenceSeries],
 }
 
 /**

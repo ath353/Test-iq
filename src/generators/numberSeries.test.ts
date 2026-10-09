@@ -6,10 +6,15 @@ import {
   alternatingSeries,
   arithmeticSeries,
   buildDistractors,
+  cubeSeries,
+  doublingDifferenceSeries,
+  fibonacciSeries,
   generateNumberSeriesQuestion,
   generateNumberSeriesQuestions,
   geometricSeries,
   increasingDifferenceSeries,
+  multiplyAddSeries,
+  RULES_BY_DIFFICULTY,
   squareSeries,
   type SeriesData,
 } from './numberSeries'
@@ -97,6 +102,69 @@ describe('Quy luật xen kẽ', () => {
       // Đáp án ở vị trí thứ 8, thuộc dãy chẵn
       expect(s.length).toBe(8)
     }
+  })
+})
+
+describe('Quy luật lập phương', () => {
+  it('có dạng n³ + c với n liên tiếp (hiệu bậc 3 luôn bằng 6)', () => {
+    for (let i = 0; i < RUNS; i++) {
+      const data = cubeSeries()
+      expectValidData(data)
+      expect(diffs(diffs(diffs(fullSeries(data)))).every((d) => d === 6)).toBe(true)
+    }
+  })
+})
+
+describe('Quy luật Fibonacci', () => {
+  it('mỗi số (kể cả đáp án) bằng tổng hai số đứng trước', () => {
+    for (let i = 0; i < RUNS; i++) {
+      const data = fibonacciSeries()
+      expectValidData(data)
+      const s = fullSeries(data)
+      for (let k = 2; k < s.length; k++) expect(s[k]).toBe(s[k - 1] + s[k - 2])
+    }
+  })
+})
+
+describe('Quy luật nhân rồi cộng', () => {
+  it('tồn tại a, b cố định để mỗi số = số trước × a + b (b ≠ 0), dãy tăng', () => {
+    for (let i = 0; i < RUNS; i++) {
+      const data = multiplyAddSeries()
+      expectValidData(data)
+      const s = fullSeries(data)
+      // Tìm a, b từ 3 số đầu: s1 = a·s0 + b, s2 = a·s1 + b → a = (s2 − s1) / (s1 − s0)
+      const a = (s[2] - s[1]) / (s[1] - s[0])
+      const b = s[1] - a * s[0]
+      expect(Number.isInteger(a) && a >= 2).toBe(true)
+      expect(b).not.toBe(0)
+      for (let k = 1; k < s.length; k++) expect(s[k]).toBe(s[k - 1] * a + b)
+      expect(diffs(s).every((d) => d > 0)).toBe(true)
+    }
+  })
+})
+
+describe('Quy luật hiệu tăng gấp đôi', () => {
+  it('mỗi hiệu (kể cả hiệu tới đáp án) gấp đôi hiệu trước', () => {
+    for (let i = 0; i < RUNS; i++) {
+      const data = doublingDifferenceSeries()
+      expectValidData(data)
+      const d = diffs(fullSeries(data))
+      for (let k = 1; k < d.length; k++) expect(d[k]).toBe(d[k - 1] * 2)
+    }
+  })
+})
+
+describe('Số quy luật theo độ khó', () => {
+  it('mức Khó có ít nhất 3 quy luật, mức Trung bình ít nhất 3', () => {
+    expect(RULES_BY_DIFFICULTY.hard.length).toBeGreaterThanOrEqual(3)
+    expect(RULES_BY_DIFFICULTY.medium.length).toBeGreaterThanOrEqual(3)
+  })
+
+  it('làm nhiều câu Khó thì gặp đủ các quy luật (đề không lặp một kiểu)', () => {
+    // Nhận diện quy luật qua câu đầu của lời giải
+    const kinds = new Set<string>()
+    for (let i = 0; i < 200; i++) kinds.add(generateNumberSeriesQuestion('q', 'hard').explanationSteps[0].slice(0, 12))
+    expect(kinds.size).toBeGreaterThanOrEqual(4)
   })
 })
 
