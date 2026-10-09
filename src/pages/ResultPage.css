@@ -83,6 +83,14 @@
   color: var(--color-muted);
 }
 
+/* Nút "Làm bài mới" và "Về trang chủ" */
+.result-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
 /* Danh sách xem lại */
 .result-page__review {
   display: flex;

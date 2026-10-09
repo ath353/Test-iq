@@ -1,17 +1,16 @@
-// Màn hình làm bài: hiển thị từng câu, chọn đáp án, chuyển câu, đếm ngược thời gian và nộp bài.
-// Chấm điểm (bước 1.4) sẽ được thêm sau.
+// Màn hình làm bài: hiển thị từng câu, chọn đáp án, chuyển câu, theo dõi thời gian và nộp bài.
 import { useState } from 'react'
 import QuestionCard from '../components/QuestionCard'
 import QuestionNavigator from '../components/QuestionNavigator'
 import Timer from '../components/Timer'
-import { useCountdown } from '../hooks/useCountdown'
+import { useTestTimer } from '../hooks/useTestTimer'
 import type { Question, UserAnswer } from '../types/question'
 import './TestPage.css'
 
 interface TestPageProps {
   questions: Question[]
-  /** Tổng thời gian làm bài (giây). Hết giờ thì tự nộp bài. */
-  timeLimitSec: number
+  /** Tổng thời gian làm bài (giây), hết giờ thì tự nộp bài; null nghĩa là không giới hạn. */
+  timeLimitSec: number | null
   /**
    * Gọi khi nộp bài (người dùng bấm nộp hoặc hết giờ).
    * @param answers Câu trả lời cho mọi câu (câu bỏ trống có selectedOptionId = null).
@@ -41,7 +40,7 @@ function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
   }
 
   // Đồng hồ: hết giờ thì nộp bài ngay, không hỏi xác nhận
-  const { remainingSec, getElapsedSec } = useCountdown(timeLimitSec, () => submit(true))
+  const { remainingSec, elapsedSec, getElapsedSec } = useTestTimer(timeLimitSec, () => submit(true))
 
   /**
    * Gửi bài làm: chuyển đáp án sang dạng UserAnswer[] kèm thời gian đã dùng.
@@ -52,7 +51,8 @@ function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
       questionId: q.id,
       selectedOptionId: selected[q.id] ?? null,
     }))
-    onSubmit(answers, timedOut ? timeLimitSec : getElapsedSec(), timedOut)
+    // getElapsedSec đã tự giới hạn không vượt quá tổng thời gian
+    onSubmit(answers, getElapsedSec(), timedOut)
   }
 
   /** Người dùng bấm nộp: hỏi xác nhận nếu còn câu bỏ trống. */
@@ -72,7 +72,7 @@ function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
         <span className="test-page__answered">
           Đã trả lời: {answeredCount} / {questions.length}
         </span>
-        <Timer remainingSec={remainingSec} />
+        <Timer remainingSec={remainingSec} elapsedSec={elapsedSec} />
       </header>
 
       {/* Thanh tiến độ: tỉ lệ số câu đã trả lời */}

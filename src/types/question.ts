@@ -12,6 +12,9 @@ export type QuestionCategory =
 /** Mức độ khó của câu hỏi. */
 export type Difficulty = 'easy' | 'medium' | 'hard'
 
+/** Độ khó người dùng chọn cho cả bài: một mức cố định, hoặc 'mixed' (mỗi câu một mức ngẫu nhiên). */
+export type DifficultySetting = Difficulty | 'mixed'
+
 /** Một lựa chọn đáp án (A, B, C…). */
 export interface Option {
   /** Mã lựa chọn, duy nhất trong một câu hỏi, ví dụ 'A'. */
@@ -52,8 +55,9 @@ export interface TestConfig {
   category: QuestionCategory
   /** Số câu hỏi trong bài. */
   questionCount: number
-  /** Tổng thời gian làm bài, tính bằng giây. */
-  timeLimitSec: number
+  difficulty: DifficultySetting
+  /** Tổng thời gian làm bài, tính bằng giây; null nghĩa là không giới hạn. */
+  timeLimitSec: number | null
 }
 
 /** Câu trả lời của người dùng cho một câu hỏi. */

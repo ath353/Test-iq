@@ -1,0 +1,43 @@
+/* Giao diện nhóm nút chọn một. */
+
+/* Bỏ khung và lề mặc định của thẻ fieldset */
+.option-group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.option-group__label {
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+}
+
+/* Các nút tự xuống dòng khi không đủ chỗ (điện thoại) */
+.option-group__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option-group__item {
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px; /* bo tròn dạng viên thuốc */
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.option-group__item:hover {
+  border-color: var(--color-primary);
+}
+
+.option-group__item--selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+}

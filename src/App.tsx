@@ -1,65 +1,86 @@
-// Component gốc của ứng dụng: chuyển giữa màn hình Làm bài và màn hình Kết quả.
-// TẠM THỜI (đến bước 1.5): vào thẳng bài 10 câu dãy số với cấu hình cố định.
-// Trang chủ ở bước 1.5 sẽ cho người dùng tự chọn cấu hình.
+// Component gốc của ứng dụng: điều hướng giữa 3 màn hình Trang chủ → Làm bài → Kết quả.
 import { useState } from 'react'
-import { generateNumberSeriesQuestions } from './generators/numberSeries'
+import { getCategoryLabel } from './config/testOptions'
+import { generateQuestions } from './generators'
+import HomePage from './pages/HomePage'
 import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
 import type { Question, TestConfig, TestResult } from './types/question'
 import { gradeTest } from './utils/scoring'
 
-/** Số câu của bài làm tạm thời. */
-const QUESTION_COUNT = 10
-/** Thời gian cho mỗi câu (giây). Bài SHL dạng số thường khoảng 45–60 giây một câu. */
-const SECONDS_PER_QUESTION = 45
-
-/** Cấu hình bài làm tạm thời, bước 1.5 sẽ thay bằng lựa chọn của người dùng. */
-const CONFIG: TestConfig = {
-  category: 'number-series',
-  questionCount: QUESTION_COUNT,
-  timeLimitSec: QUESTION_COUNT * SECONDS_PER_QUESTION,
-}
+/**
+ * Màn hình đang hiển thị. Mỗi màn hình mang theo dữ liệu nó cần,
+ * nên không thể rơi vào trạng thái sai (ví dụ ở màn Kết quả mà không có kết quả).
+ */
+type Screen =
+  | { name: 'home' }
+  | { name: 'test'; config: TestConfig; questions: Question[]; attempt: number }
+  | { name: 'result'; result: TestResult }
 
 /**
- * App: khung ngoài cùng của trang web, quyết định đang hiển thị màn hình nào.
+ * App: giữ màn hình hiện tại và cấu hình lần làm gần nhất.
  */
 function App() {
-  // Sinh đề một lần khi mở trang (truyền hàm vào useState để không sinh lại mỗi lần vẽ lại giao diện)
-  const [questions, setQuestions] = useState<Question[]>(() =>
-    generateNumberSeriesQuestions(CONFIG.questionCount),
-  )
-  // Kết quả sau khi nộp; null nghĩa là đang làm bài
-  const [result, setResult] = useState<TestResult | null>(null)
-  // Số thứ tự lượt làm bài, tăng mỗi lần làm lại
-  const [attempt, setAttempt] = useState(1)
+  const [screen, setScreen] = useState<Screen>({ name: 'home' })
+  // Cấu hình lần làm gần nhất: dùng để "Làm bài mới" cùng cấu hình và giữ lựa chọn ở trang chủ
+  const [lastConfig, setLastConfig] = useState<TestConfig | null>(null)
+  // Đếm số lượt làm bài, dùng làm key để màn Làm bài luôn được tạo mới hoàn toàn
+  const [attemptCount, setAttemptCount] = useState(0)
 
-  /** Làm bài mới: sinh đề mới, xóa kết quả cũ, tăng lượt làm bài. */
-  function handleRestart() {
-    setQuestions(generateNumberSeriesQuestions(CONFIG.questionCount))
-    setResult(null)
-    setAttempt((n) => n + 1)
+  /** Bắt đầu bài mới với cấu hình cho trước: sinh đề rồi chuyển sang màn Làm bài. */
+  function startTest(config: TestConfig) {
+    const attempt = attemptCount + 1
+    setAttemptCount(attempt)
+    setLastConfig(config)
+    setScreen({ name: 'test', config, questions: generateQuestions(config), attempt })
+    window.scrollTo(0, 0)
+  }
+
+  /** Về trang chủ. */
+  function goHome() {
+    setScreen({ name: 'home' })
     window.scrollTo(0, 0)
   }
 
   return (
     <main className="app">
       <h1>Luyện Test IQ</h1>
-      <p className="app__subtitle">Dạng bài: Dãy số</p>
 
-      {result === null ? (
-        // key đổi theo lượt làm bài, để TestPage được tạo mới hoàn toàn (về câu 1, xóa đáp án cũ, đồng hồ chạy lại)
-        <TestPage
-          key={attempt}
-          questions={questions}
-          timeLimitSec={CONFIG.timeLimitSec}
-          onSubmit={(answers, durationSec, timedOut) => {
-            // Chấm điểm ngay khi nộp, rồi chuyển sang màn hình kết quả
-            setResult(gradeTest(CONFIG, questions, answers, durationSec, timedOut))
-            window.scrollTo(0, 0)
-          }}
-        />
-      ) : (
-        <ResultPage result={result} onRestart={handleRestart} />
+      {screen.name === 'home' && (
+        <>
+          <p className="app__subtitle">Luyện các dạng bài test năng lực khi tuyển dụng.</p>
+          <HomePage initialConfig={lastConfig} onStart={startTest} />
+        </>
+      )}
+
+      {screen.name === 'test' && (
+        <>
+          <p className="app__subtitle">Dạng bài: {getCategoryLabel(screen.config.category)}</p>
+          <TestPage
+            key={screen.attempt}
+            questions={screen.questions}
+            timeLimitSec={screen.config.timeLimitSec}
+            onSubmit={(answers, durationSec, timedOut) => {
+              // Chấm điểm ngay khi nộp, rồi chuyển sang màn hình kết quả
+              setScreen({
+                name: 'result',
+                result: gradeTest(screen.config, screen.questions, answers, durationSec, timedOut),
+              })
+              window.scrollTo(0, 0)
+            }}
+          />
+        </>
+      )}
+
+      {screen.name === 'result' && (
+        <>
+          <p className="app__subtitle">Dạng bài: {getCategoryLabel(screen.result.config.category)}</p>
+          <ResultPage
+            result={screen.result}
+            onRestart={() => startTest(screen.result.config)}
+            onHome={goHome}
+          />
+        </>
       )}
     </main>
   )

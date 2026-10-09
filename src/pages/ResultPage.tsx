@@ -1,5 +1,6 @@
 // Màn hình kết quả: điểm số, thống kê đúng/sai/bỏ trống, thời gian, và xem lại từng câu kèm lời giải.
 import ReviewItem from '../components/ReviewItem'
+import { getDifficultyLabel } from '../config/testOptions'
 import type { TestResult } from '../types/question'
 import { countByStatus } from '../utils/scoring'
 import { formatTime } from '../utils/time'
@@ -7,14 +8,17 @@ import './ResultPage.css'
 
 interface ResultPageProps {
   result: TestResult
-  /** Gọi khi người dùng bấm "Làm bài mới". */
+  /** Gọi khi bấm "Làm bài mới" (cùng cấu hình, đề mới). */
   onRestart: () => void
+  /** Gọi khi bấm "Về trang chủ". */
+  onHome: () => void
 }
 
 /**
  * ResultPage: hiển thị kết quả sau khi nộp bài.
  */
-function ResultPage({ result, onRestart }: ResultPageProps) {
+function ResultPage({ result, onRestart, onHome }: ResultPageProps) {
+  const { timeLimitSec, difficulty } = result.config
   const total = result.questions.length
   const counts = countByStatus(result)
   const percent = total === 0 ? 0 : Math.round((result.correctCount / total) * 100)
@@ -35,7 +39,9 @@ function ResultPage({ result, onRestart }: ResultPageProps) {
           {result.correctCount}
           <span className="result-page__score-total"> / {total}</span>
         </p>
-        <p className="result-page__percent">Đúng {percent}%</p>
+        <p className="result-page__percent">
+          Đúng {percent}% · Độ khó: {getDifficultyLabel(difficulty)}
+        </p>
 
         <dl className="result-page__stats">
           <div>
@@ -54,14 +60,22 @@ function ResultPage({ result, onRestart }: ResultPageProps) {
             <dt>Thời gian</dt>
             <dd>
               {formatTime(result.durationSec)}
-              <span className="result-page__stat-limit"> / {formatTime(result.config.timeLimitSec)}</span>
+              {/* Chỉ hiện "/ tổng thời gian" khi bài có giới hạn thời gian */}
+              {timeLimitSec !== null && (
+                <span className="result-page__stat-limit"> / {formatTime(timeLimitSec)}</span>
+              )}
             </dd>
           </div>
         </dl>
 
-        <button type="button" className="button button--primary" onClick={onRestart}>
-          Làm bài mới
-        </button>
+        <div className="result-page__actions">
+          <button type="button" className="button button--primary" onClick={onRestart}>
+            Làm bài mới
+          </button>
+          <button type="button" className="button" onClick={onHome}>
+            Về trang chủ
+          </button>
+        </div>
       </section>
 
       {/* Xem lại từng câu: câu sai và bỏ trống được mở sẵn lời giải */}

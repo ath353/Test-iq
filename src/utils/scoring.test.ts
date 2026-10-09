@@ -16,7 +16,7 @@ function makeQuestion(id: string, correctOptionId: string): Question {
   }
 }
 
-const config: TestConfig = { category: 'number-series', questionCount: 4, timeLimitSec: 180 }
+const config: TestConfig = { category: 'number-series', questionCount: 4, difficulty: 'mixed', timeLimitSec: 180 }
 const questions = [makeQuestion('q1', 'A'), makeQuestion('q2', 'B'), makeQuestion('q3', 'C'), makeQuestion('q4', 'D')]
 
 describe('getAnswerStatus', () => {

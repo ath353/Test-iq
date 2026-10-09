@@ -103,11 +103,12 @@ Mong muốn: <kết quả đúng phải ra sao>
 ```
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…)
-├── generators/     # Bộ sinh đề tự động, mỗi dạng một file + file test (numberSeries.ts)
+├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts)
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
-├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem), mỗi component kèm file .css cùng tên
-├── pages/          # Các màn hình (TestPage: làm bài; ResultPage: kết quả; sắp có Trang chủ)
-├── hooks/          # Custom hooks (useCountdown: đồng hồ đếm ngược)
+├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup), mỗi component kèm file .css cùng tên
+├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
+├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm; sắp có lưu trữ)
 ```
 
@@ -143,7 +144,7 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 1.2 | Màn hình làm bài: hiển thị câu hỏi, 4 đến 5 lựa chọn, chuyển câu | Làm được 1 bài 10 câu | ✅ |
 | 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ✅ |
 | 1.4 | Chấm điểm + màn hình kết quả + lời giải từng câu | Thấy điểm, câu sai, lời giải | ✅ |
-| 1.5 | Trang chủ: chọn dạng bài, số câu, thời gian | Đi hết luồng Trang chủ → Làm bài → Kết quả | ⬜ |
+| 1.5 | Trang chủ: chọn dạng bài, số câu, thời gian | Đi hết luồng Trang chủ → Làm bài → Kết quả | ✅ |
 | 1.6 | Deploy lên Vercel: đẩy code lên GitHub, kết nối Vercel, ghi link vào file này | Mở được web qua link online, push là tự cập nhật | ⬜ |
 
 ### Giai đoạn 2: Thêm dạng bài
@@ -184,4 +185,8 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 2026-10-08 | Hết giờ tự nộp không hỏi xác nhận; còn ≤ 60 giây thì đồng hồ chuyển đỏ | Giống bài thi thật |
 | 2026-10-08 | Thêm `timedOut` vào `TestResult` | Màn hình kết quả cần báo bài nộp do hết giờ |
 | 2026-10-08 | Kết quả chỉ hiện điểm và % đúng, KHÔNG quy đổi ra "điểm IQ" | Quy đổi IQ cần dữ liệu chuẩn hóa trên nhiều người; tự bịa công thức sẽ sai lệch |
+| 2026-10-08 | Trang chủ: số câu 10/20/30; độ khó Hỗn hợp/Dễ/Trung bình/Khó; tốc độ 60/45/30 giây mỗi câu hoặc Không giới hạn | Người dùng chọn (bước 1.5) |
+| 2026-10-08 | Dạng bài chưa làm hiện mờ kèm nhãn "Sắp có" | Người dùng thấy lộ trình của web |
+| 2026-10-08 | `TestConfig` thêm `difficulty`; `timeLimitSec = null` nghĩa là không giới hạn (đồng hồ đếm xuôi) | Hỗ trợ lựa chọn ở trang chủ |
+| 2026-10-08 | Thêm dạng bài mới: đăng ký trong `config/testOptions.ts` (available: true) và `generators/index.ts` | Một chỗ duy nhất cho mỗi việc |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

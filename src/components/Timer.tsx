@@ -1,4 +1,4 @@
-// Hiển thị đồng hồ đếm ngược; đổi màu cảnh báo khi sắp hết giờ.
+// Hiển thị đồng hồ làm bài: đếm ngược (có giới hạn) hoặc đếm xuôi (không giới hạn).
 import { formatTime } from '../utils/time'
 import './Timer.css'
 
@@ -6,14 +6,26 @@ import './Timer.css'
 const WARNING_SEC = 60
 
 interface TimerProps {
-  /** Số giây còn lại. */
-  remainingSec: number
+  /** Số giây còn lại; null nghĩa là không giới hạn thời gian. */
+  remainingSec: number | null
+  /** Số giây đã làm, hiển thị khi không giới hạn thời gian. */
+  elapsedSec: number
 }
 
 /**
- * Timer: hiện thời gian còn lại dạng "m:ss". Còn ≤ 60 giây thì chữ chuyển màu đỏ.
+ * Timer:
+ * - Có giới hạn: hiện thời gian còn lại "⏱ m:ss", còn ≤ 60 giây thì chữ chuyển màu đỏ.
+ * - Không giới hạn: hiện thời gian đã làm "⏱ Đã làm m:ss".
  */
-function Timer({ remainingSec }: TimerProps) {
+function Timer({ remainingSec, elapsedSec }: TimerProps) {
+  if (remainingSec === null) {
+    return (
+      <span className="timer" role="timer" aria-label={`Đã làm ${formatTime(elapsedSec)}`}>
+        ⏱ Đã làm {formatTime(elapsedSec)}
+      </span>
+    )
+  }
+
   const isWarning = remainingSec <= WARNING_SEC
   return (
     // role="timer" để trình đọc màn hình hiểu đây là đồng hồ (không đọc lại mỗi giây)
