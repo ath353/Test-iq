@@ -119,7 +119,7 @@ src/
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
-└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm)
+└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm, history.ts: lịch sử kết quả)
 ```
 
 ### Soạn câu hỏi JSON (Logic, Ngôn ngữ)
@@ -228,7 +228,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
 | 3.1 | Giữ bài đang làm khi tải lại trang: lưu câu đang xem, đáp án đã chọn, đồng hồ | F5 giữa bài vẫn làm tiếp; hết giờ trong lúc đóng tab thì mở lại tự nộp | ✅ |
-| 3.2 | Lưu lịch sử kết quả trên trình duyệt (tối đa 200 bài gần nhất) | Nộp bài xong, tải lại trang, kết quả vẫn còn | 🔄 |
+| 3.2 | Lưu lịch sử kết quả trên trình duyệt (tối đa 200 bài gần nhất) | Nộp bài xong, tải lại trang, kết quả vẫn còn | ✅ |
 | 3.3 | Trang lịch sử: danh sách bài đã làm, xem lại chi tiết + lời giải | Mở lại được một bài cũ, xem đủ lời giải | ⬜ |
 | 3.4 | Thống kê: % đúng theo dạng / độ khó, tiến bộ qua các lần làm, dạng yếu nhất | Thấy rõ dạng nào cần luyện thêm | ⬜ |
 | 3.5 | Ưu tiên câu chưa làm cho Logic và Ngôn ngữ | Làm liên tiếp nhiều bài ít gặp lại câu cũ | ⬜ |
@@ -309,4 +309,6 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Đồng hồ tính từ thời điểm bắt đầu đã lưu, KỂ CẢ lúc tab bị đóng; quá giờ thì mở lại tự nộp | Giống thi thật, không "dừng giờ" bằng cách đóng tab |
 | 2026-10-09 | Thêm nút "Thoát bài" (có xác nhận) | Lưu bài đang làm khiến F5 không còn là cách thoát bài |
 | 2026-10-09 | Mọi thao tác localStorage bọc try/catch, khóa có số phiên bản (`v1`); dữ liệu hỏng thì bỏ qua và xóa | Chế độ ẩn danh / bị chặn / dữ liệu cũ không làm web sập |
+| 2026-10-09 | Lịch sử lưu đủ đề + đáp án + kết quả (khóa `test-iq:v1:history`), bài mới nhất đứng đầu, tối đa 200 bài; bộ nhớ đầy thì tự xóa bớt 1/4 số bài cũ nhất cho tới khi ghi được | Cần đủ dữ liệu để xem lại lời giải; localStorage chỉ ~5 MB (bài 30 câu dạng Hình ~51 KB → ~100 bài) |
+| 2026-10-09 | Thoát bài thì KHÔNG lưu vào lịch sử; trang chủ hiện "Bạn đã hoàn thành N bài" | Lịch sử chỉ gồm bài đã nộp; có dấu hiệu lịch sử đang hoạt động trước khi có trang lịch sử |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

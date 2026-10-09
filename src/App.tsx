@@ -1,5 +1,5 @@
 // Component gốc của ứng dụng: điều hướng giữa 3 màn hình Trang chủ → Làm bài → Kết quả,
-// và lưu / khôi phục bài đang làm để tải lại trang (F5) không mất bài.
+// lưu / khôi phục bài đang làm để tải lại trang (F5) không mất bài, và lưu kết quả vào lịch sử.
 import { useState } from 'react'
 import { getCategoryLabel } from './config/testOptions'
 import { generateQuestions } from './generators'
@@ -8,6 +8,7 @@ import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
 import type { TestConfig, TestResult } from './types/question'
 import { type ActiveTest, clearActiveTest, loadActiveTest, saveActiveTest } from './utils/activeTest'
+import { addToHistory, loadHistory } from './utils/history'
 import { gradeTest } from './utils/scoring'
 
 /**
@@ -39,6 +40,8 @@ function App() {
   )
   // Đếm số lượt làm bài, dùng làm key để màn Làm bài luôn được tạo mới hoàn toàn
   const [attemptCount, setAttemptCount] = useState(0)
+  // Số bài đã hoàn thành (đọc từ lịch sử đã lưu), hiển thị ở trang chủ
+  const [historyCount, setHistoryCount] = useState(() => loadHistory().length)
 
   /** Bắt đầu bài mới với cấu hình cho trước: sinh đề, lưu lại, rồi chuyển sang màn Làm bài. */
   function startTest(config: TestConfig) {
@@ -69,7 +72,10 @@ function App() {
 
       {screen.name === 'home' && (
         <>
-          <p className="app__subtitle">Luyện các dạng bài test năng lực khi tuyển dụng.</p>
+          <p className="app__subtitle">
+            Luyện các dạng bài test năng lực khi tuyển dụng.
+            {historyCount > 0 && ` Bạn đã hoàn thành ${historyCount} bài.`}
+          </p>
           <HomePage initialConfig={lastConfig} onStart={startTest} />
         </>
       )}
@@ -87,12 +93,11 @@ function App() {
             // Lưu tiến độ thẳng vào bộ nhớ trình duyệt (không cập nhật state để tránh vẽ lại cả trang)
             onProgress={(selected, currentIndex) => saveActiveTest({ ...screen.test, selected, currentIndex })}
             onSubmit={(answers, durationSec, timedOut) => {
-              // Chấm điểm ngay khi nộp, xóa bài đang làm, rồi chuyển sang màn hình kết quả
+              // Chấm điểm ngay khi nộp, lưu vào lịch sử, xóa bài đang làm, rồi chuyển sang màn hình kết quả
+              const result = gradeTest(screen.test.config, screen.test.questions, answers, durationSec, timedOut)
+              setHistoryCount(addToHistory(result).length)
               clearActiveTest()
-              setScreen({
-                name: 'result',
-                result: gradeTest(screen.test.config, screen.test.questions, answers, durationSec, timedOut),
-              })
+              setScreen({ name: 'result', result })
               window.scrollTo(0, 0)
             }}
             onQuit={() => {
