@@ -13,6 +13,15 @@
 - **Điểm khác biệt:** Đề được **sinh tự động bằng code** (không bao giờ hết đề) và có **lời giải chi tiết**.
 - **Ngôn ngữ giao diện:** Tiếng Việt.
 
+### Liên kết
+
+| | Đường dẫn |
+|---|---|
+| Web (Vercel) | https://check-iq.vercel.app/ |
+| Code (GitHub, Private) | https://github.com/ath353/Test-iq |
+
+Vercel tự build và cập nhật web mỗi khi push lên nhánh `main`.
+
 ### Các dạng bài (phạm vi đầy đủ)
 
 | # | Dạng | Nguồn dữ liệu | Giai đoạn |
@@ -41,7 +50,8 @@
 | Kiểm tra code (lint) | oxlint (đi kèm template Vite) |
 | Kiểm thử | Vitest (dùng cho bộ sinh đề) |
 | Lưu trữ | localStorage (chưa có backend) |
-| Quản lý phiên bản | Git, mỗi bước được duyệt là một commit |
+| Quản lý phiên bản | Git, mỗi bước được duyệt là một commit, push lên GitHub |
+| Hosting | Vercel (gói miễn phí), tự deploy khi push nhánh `main` |
 | Môi trường | Node v24, npm 11, Windows |
 
 Thêm thư viện mới **phải hỏi trước** và ghi lý do vào mục 7 (Nhật ký quyết định).
@@ -55,7 +65,7 @@ Thêm thư viện mới **phải hỏi trước** và ghi lý do vào mục 7 (N
    Chờ người dùng **duyệt** rồi mới commit và chuyển sang bước tiếp theo.
 3. **Không tự ý mở rộng phạm vi.** Phát hiện việc cần làm thêm thì đề xuất, không tự làm.
 4. **Cập nhật file này** sau mỗi bước: trạng thái bước, nhật ký quyết định nếu có.
-5. **Commit sau khi được duyệt**, message dạng: `[Bước X.Y] Mô tả ngắn`.
+5. **Commit và push sau khi được duyệt**, message dạng: `[Bước X.Y] Mô tả ngắn`. Push xong thì web tự cập nhật.
 6. Gặp chỗ chưa rõ thì **hỏi**, không đoán.
 
 ### Trạng thái bước
@@ -145,7 +155,7 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 1.3 | Đồng hồ đếm ngược cho cả bài | Hết giờ tự nộp bài | ✅ |
 | 1.4 | Chấm điểm + màn hình kết quả + lời giải từng câu | Thấy điểm, câu sai, lời giải | ✅ |
 | 1.5 | Trang chủ: chọn dạng bài, số câu, thời gian | Đi hết luồng Trang chủ → Làm bài → Kết quả | ✅ |
-| 1.6 | Deploy lên Vercel: đẩy code lên GitHub, kết nối Vercel, ghi link vào file này | Mở được web qua link online, push là tự cập nhật | ⬜ |
+| 1.6 | Deploy lên Vercel: đẩy code lên GitHub, kết nối Vercel, ghi link vào file này | Mở được web qua link online, push là tự cập nhật | ✅ |
 
 ### Giai đoạn 2: Thêm dạng bài
 
@@ -189,4 +199,5 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 2026-10-08 | Dạng bài chưa làm hiện mờ kèm nhãn "Sắp có" | Người dùng thấy lộ trình của web |
 | 2026-10-08 | `TestConfig` thêm `difficulty`; `timeLimitSec = null` nghĩa là không giới hạn (đồng hồ đếm xuôi) | Hỗ trợ lựa chọn ở trang chủ |
 | 2026-10-08 | Thêm dạng bài mới: đăng ký trong `config/testOptions.ts` (available: true) và `generators/index.ts` | Một chỗ duy nhất cho mỗi việc |
+| 2026-10-09 | Repo GitHub để Private | Web vẫn công khai; code và email trong commit không bị lộ |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
