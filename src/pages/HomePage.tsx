@@ -7,13 +7,13 @@ import {
   DIFFICULTY_OPTIONS,
   findSpeedId,
   getQuestionCountChoices,
-  getSecondsPerQuestion,
   getSpeedLabel,
+  getTimeLimitSec,
   resolveQuestionCount,
   SPEED_OPTIONS,
 } from '../config/testOptions'
 import { countAvailableQuestions } from '../generators'
-import type { DifficultySetting, QuestionCategory, TestConfig } from '../types/question'
+import type { DifficultySetting, QuestionCategory, TestCategory, TestConfig } from '../types/question'
 import { formatTime } from '../utils/time'
 import './HomePage.css'
 
@@ -30,12 +30,13 @@ interface HomePageProps {
  * HomePage: các nhóm lựa chọn và nút bắt đầu.
  * Tổng thời gian được tính tự động = số câu × số giây mỗi câu (đã nhân hệ số của dạng bài),
  * nên đổi dạng bài thì nhãn tốc độ và tổng thời gian tự cập nhật.
+ * Thi thử tổng hợp: số câu cố định, thời gian cộng theo hệ số dạng bài của từng câu (getTimeLimitSec).
  *
  * Với dạng dùng ngân hàng câu hỏi có hạn (Logic): lựa chọn số câu vượt quá số câu hiện có (theo độ khó)
  * bị khóa; nếu lựa chọn đang chọn bị khóa thì tự chuyển sang lựa chọn hợp lệ gần nhất.
  */
 function HomePage({ initialConfig, initialCategory, onStart }: HomePageProps) {
-  const [category, setCategory] = useState<QuestionCategory>(
+  const [category, setCategory] = useState<TestCategory>(
     initialCategory ?? initialConfig?.category ?? DEFAULTS.category,
   )
   // Số câu người dùng đã bấm chọn (có thể tạm thời không hợp lệ khi đổi dạng bài / độ khó)
@@ -53,9 +54,7 @@ function HomePage({ initialConfig, initialCategory, onStart }: HomePageProps) {
 
   // Tính tổng thời gian từ tốc độ, dạng bài và số câu (null = không giới hạn)
   const speed = SPEED_OPTIONS.find((s) => s.id === speedId) ?? SPEED_OPTIONS[0]
-  const secondsPerQuestion = getSecondsPerQuestion(speed, category)
-  const timeLimitSec =
-    secondsPerQuestion === null || questionCount === null ? null : secondsPerQuestion * questionCount
+  const timeLimitSec = questionCount === null ? null : getTimeLimitSec(speed, category, questionCount)
 
   return (
     <div className="home-page">
@@ -106,7 +105,7 @@ function HomePage({ initialConfig, initialCategory, onStart }: HomePageProps) {
 
       <OptionGroup
         label="Tốc độ"
-        options={SPEED_OPTIONS.map((s) => ({ value: s.id, label: getSpeedLabel(s, category) }))}
+        options={SPEED_OPTIONS.map((s) => ({ value: s.id, label: getSpeedLabel(s, category, questionCount ?? 0) }))}
         value={speedId}
         onChange={setSpeedId}
       />

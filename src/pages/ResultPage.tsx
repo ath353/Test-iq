@@ -1,8 +1,10 @@
 // Màn hình kết quả: điểm số, thống kê đúng/sai/bỏ trống, thời gian, và xem lại từng câu kèm lời giải.
+import AccuracyBars from '../components/AccuracyBars'
 import ReviewItem from '../components/ReviewItem'
 import { getDifficultyLabel } from '../config/testOptions'
 import type { TestResult } from '../types/question'
 import { countByStatus } from '../utils/scoring'
+import { computeStats } from '../utils/stats'
 import { formatDateTime, formatTime } from '../utils/time'
 import './ResultPage.css'
 
@@ -29,6 +31,11 @@ function ResultPage({ result, onRestart, onHome, onBack }: ResultPageProps) {
   const percent = total === 0 ? 0 : Math.round((result.correctCount / total) * 100)
   // Tra câu trả lời theo mã câu hỏi để ghép với từng câu
   const answerById = new Map(result.answers.map((a) => [a.questionId, a]))
+  // Bài trộn nhiều dạng (thi thử tổng hợp): tách điểm theo từng dạng, chỉ các dạng có trong bài
+  const isMultiCategory = new Set(result.questions.map((q) => q.category)).size > 1
+  const byCategory = isMultiCategory
+    ? computeStats([{ id: 'current', result }]).categories.filter((c) => c.questions > 0)
+    : []
 
   return (
     <div className="result-page">
@@ -93,11 +100,24 @@ function ResultPage({ result, onRestart, onHome, onBack }: ResultPageProps) {
         </div>
       </section>
 
+      {isMultiCategory && (
+        <section className="result-page__by-category" aria-label="Điểm theo từng dạng">
+          <h2>Điểm theo từng dạng</h2>
+          <AccuracyBars categories={byCategory} weakest={null} />
+        </section>
+      )}
+
       {/* Xem lại từng câu: câu sai và bỏ trống được mở sẵn lời giải */}
       <section className="result-page__review" aria-label="Xem lại từng câu">
         <h2>Xem lại bài làm</h2>
         {result.questions.map((q, i) => (
-          <ReviewItem key={q.id} index={i + 1} question={q} answer={answerById.get(q.id)} />
+          <ReviewItem
+            key={q.id}
+            index={i + 1}
+            question={q}
+            answer={answerById.get(q.id)}
+            showCategory={isMultiCategory}
+          />
         ))}
       </section>
     </div>

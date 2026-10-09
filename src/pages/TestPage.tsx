@@ -28,6 +28,8 @@ interface TestPageProps {
   onSubmit: (answers: UserAnswer[], durationSec: number, timedOut: boolean) => void
   /** Gọi khi người dùng xác nhận thoát bài (bỏ bài, không chấm điểm). */
   onQuit: () => void
+  /** true: hiện nhãn dạng bài trên mỗi câu (bài thi thử tổng hợp). */
+  showCategory?: boolean
 }
 
 /**
@@ -42,6 +44,7 @@ function TestPage({
   onProgress,
   onSubmit,
   onQuit,
+  showCategory = false,
 }: TestPageProps) {
   // Vị trí câu đang xem, bắt đầu từ 0
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
@@ -128,6 +131,7 @@ function TestPage({
         question={question}
         selectedOptionId={selected[question.id] ?? null}
         onSelect={handleSelect}
+        showCategory={showCategory}
       />
 
       {/* Nút điều hướng: câu trước / câu sau; ở câu cuối, nút "Câu sau" đổi thành "Nộp bài" */}

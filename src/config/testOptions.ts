@@ -1,11 +1,12 @@
 // Danh sách các lựa chọn ở trang chủ (dạng bài, số câu, độ khó, tốc độ) và nhãn tiếng Việt tương ứng.
 // Muốn đổi lựa chọn hoặc giá trị mặc định thì sửa ở file này.
 
-import type { DifficultySetting, QuestionCategory, TestConfig } from '../types/question'
+import type { DifficultySetting, QuestionCategory, TestCategory, TestConfig } from '../types/question'
+import { formatTime } from '../utils/time'
 
-/** Thông tin một dạng bài hiển thị ở trang chủ. */
+/** Thông tin một loại bài hiển thị ở trang chủ (một dạng bài, hoặc thi thử tổng hợp). */
 export interface CategoryOption {
-  id: QuestionCategory
+  id: TestCategory
   label: string
   description: string
   /** false: chưa làm, hiện mờ kèm nhãn "Sắp có". */
@@ -21,6 +22,12 @@ export interface CategoryOption {
    */
   questionCounts?: number[]
 }
+
+/** Số câu của mỗi dạng trong bài thi thử tổng hợp. */
+export const MIXED_QUESTIONS_PER_CATEGORY = 5
+
+/** Các dạng bài có trong bài thi thử tổng hợp. */
+export const MIXED_CATEGORIES: QuestionCategory[] = ['number-series', 'numerical', 'logical', 'verbal', 'abstract']
 
 export const CATEGORY_OPTIONS: CategoryOption[] = [
   {
@@ -66,6 +73,15 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
     // Bài SHL thật khoảng 60 giây mỗi ma trận: ×4/3 cho ra 80 / 60 / 40 giây
     timeMultiplier: 4 / 3,
   },
+  {
+    id: 'mixed',
+    label: 'Thi thử tổng hợp',
+    description: `${MIXED_QUESTIONS_PER_CATEGORY * 5} câu, trộn đủ 5 dạng`,
+    available: true,
+    // Không dùng: thời gian bài tổng hợp tính theo hệ số của dạng bài của TỪNG CÂU (xem getTimeLimitSec)
+    timeMultiplier: 1,
+    questionCounts: [MIXED_QUESTIONS_PER_CATEGORY * 5],
+  },
 ]
 
 /** Các lựa chọn số câu. */
@@ -104,8 +120,8 @@ export const DEFAULTS = {
   speedId: 'standard',
 }
 
-/** Lấy nhãn tiếng Việt của một dạng bài. */
-export function getCategoryLabel(id: QuestionCategory): string {
+/** Lấy nhãn tiếng Việt của một dạng bài (hoặc "Thi thử tổng hợp"). */
+export function getCategoryLabel(id: TestCategory): string {
   return CATEGORY_OPTIONS.find((c) => c.id === id)?.label ?? id
 }
 
@@ -126,7 +142,7 @@ export interface QuestionCountChoice {
  * @param category Dạng bài.
  * @param available Số câu hiện có (theo độ khó đang chọn); null nghĩa là không giới hạn.
  */
-export function getQuestionCountChoices(category: QuestionCategory, available: number | null): QuestionCountChoice[] {
+export function getQuestionCountChoices(category: TestCategory, available: number | null): QuestionCountChoice[] {
   const counts = CATEGORY_OPTIONS.find((c) => c.id === category)?.questionCounts ?? QUESTION_COUNT_OPTIONS
   return counts.map((count) => ({ count, disabled: available !== null && count > available }))
 }
@@ -162,21 +178,43 @@ export function getSecondsPerQuestion(speed: SpeedOption, category: QuestionCate
   return Math.round(speed.baseSecondsPerQuestion * getTimeMultiplier(category))
 }
 
-/** Nhãn hiển thị của mức tốc độ theo dạng bài, ví dụ 'Chuẩn · 90 giây/câu'. */
-export function getSpeedLabel(speed: SpeedOption, category: QuestionCategory): string {
-  const seconds = getSecondsPerQuestion(speed, category)
-  return seconds === null ? speed.name : `${speed.name} · ${seconds} giây/câu`
+/**
+ * Tổng thời gian làm bài (giây) theo mức tốc độ.
+ * - Một dạng bài: số câu × số giây mỗi câu của dạng đó.
+ * - Thi thử tổng hợp: cộng thời gian của từng câu theo hệ số của dạng bài của câu đó
+ *   (5 câu Dãy số × 45 giây + 5 câu Số liệu × 90 giây + …), nên dạng khó tính nhiều thời gian hơn.
+ * @returns Số giây, hoặc null nếu mức tốc độ là không giới hạn.
+ */
+export function getTimeLimitSec(speed: SpeedOption, category: TestCategory, questionCount: number): number | null {
+  if (speed.baseSecondsPerQuestion === null) return null
+  if (category === 'mixed') {
+    return MIXED_CATEGORIES.reduce(
+      (total, c) => total + (getSecondsPerQuestion(speed, c) ?? 0) * MIXED_QUESTIONS_PER_CATEGORY,
+      0,
+    )
+  }
+  return (getSecondsPerQuestion(speed, category) ?? 0) * questionCount
 }
 
 /**
- * Tìm lại mức tốc độ từ cấu hình lần làm trước (tổng thời gian ÷ số câu ÷ hệ số dạng bài),
+ * Nhãn hiển thị của mức tốc độ.
+ * Một dạng bài: số giây mỗi câu, ví dụ 'Chuẩn · 90 giây/câu'.
+ * Thi thử tổng hợp (mỗi dạng một tốc độ riêng): tổng thời gian, ví dụ 'Chuẩn · 27:30'.
+ */
+export function getSpeedLabel(speed: SpeedOption, category: TestCategory, questionCount = 0): string {
+  if (speed.baseSecondsPerQuestion === null) return speed.name
+  if (category === 'mixed') return `${speed.name} · ${formatTime(getTimeLimitSec(speed, category, questionCount) ?? 0)}`
+  return `${speed.name} · ${getSecondsPerQuestion(speed, category)} giây/câu`
+}
+
+/**
+ * Tìm lại mức tốc độ từ cấu hình lần làm trước (so tổng thời gian với từng mức),
  * để trang chủ giữ đúng lựa chọn cũ. Không khớp mức nào thì dùng mặc định.
  */
 export function findSpeedId(config: TestConfig | null): string {
   if (!config) return DEFAULTS.speedId
-  const match = SPEED_OPTIONS.find((s) => {
-    const seconds = getSecondsPerQuestion(s, config.category)
-    return seconds === null ? config.timeLimitSec === null : seconds * config.questionCount === config.timeLimitSec
-  })
+  const match = SPEED_OPTIONS.find(
+    (s) => getTimeLimitSec(s, config.category, config.questionCount) === config.timeLimitSec,
+  )
   return match?.id ?? DEFAULTS.speedId
 }

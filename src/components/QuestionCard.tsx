@@ -1,4 +1,5 @@
 // Thẻ hiển thị một câu hỏi: lời dẫn, dữ kiện, đề bài và danh sách lựa chọn để người dùng bấm chọn.
+import { getCategoryLabel } from '../config/testOptions'
 import type { Question } from '../types/question'
 import FigureView from './FigureView'
 import StimulusView from './StimulusView'
@@ -13,6 +14,8 @@ interface QuestionCardProps {
   selectedOptionId: string | null
   /** Gọi khi người dùng bấm vào một lựa chọn. */
   onSelect: (optionId: string) => void
+  /** true: hiện nhãn dạng bài ở đầu thẻ (bài thi thử tổng hợp, các dạng đổi liên tục). */
+  showCategory?: boolean
 }
 
 /**
@@ -25,7 +28,7 @@ interface QuestionCardProps {
  *
  * Thứ tự hiển thị: lời dẫn → dữ kiện (bảng, đoạn văn; nếu có) → đề bài → các lựa chọn.
  */
-function QuestionCard({ question, selectedOptionId, onSelect }: QuestionCardProps) {
+function QuestionCard({ question, selectedOptionId, onSelect, showCategory = false }: QuestionCardProps) {
   // Cách xếp lựa chọn:
   // - lựa chọn dạng hình (Suy luận hình): lưới ô hình;
   // - có lựa chọn dài (cả câu, ví dụ đáp án Logic): danh sách dọc, mỗi lựa chọn một dòng;
@@ -40,6 +43,7 @@ function QuestionCard({ question, selectedOptionId, onSelect }: QuestionCardProp
 
   return (
     <section className={`question-card question-card--${question.category}`}>
+      {showCategory && <span className="question-card__category">{getCategoryLabel(question.category)}</span>}
       <p className="question-card__instruction">{question.instruction}</p>
       {question.stimulus && <StimulusView stimulus={question.stimulus} />}
       <p className="question-card__prompt">{question.prompt}</p>

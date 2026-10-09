@@ -33,6 +33,12 @@
   font-weight: 600;
 }
 
+/* Dạng bài cạnh số câu (bài thi thử tổng hợp): chữ phụ, không đậm */
+.review-item__category {
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
 /* Đề bài trong dòng tiêu đề: tối đa 2 dòng, dài hơn thì cắt bằng dấu "…" (đề Logic có thể rất dài) */
 .review-item__prompt {
   flex: 1;

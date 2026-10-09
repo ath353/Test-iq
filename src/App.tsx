@@ -137,6 +137,7 @@ function App() {
               clearActiveTest()
               goHome()
             }}
+            showCategory={screen.test.config.category === 'mixed'}
           />
         </>
       )}

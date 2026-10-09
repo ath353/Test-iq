@@ -11,6 +11,12 @@ export type QuestionCategory =
   | 'verbal' // Suy luận ngôn ngữ
   | 'abstract' // Suy luận hình
 
+/**
+ * Loại bài làm người dùng chọn ở trang chủ: một dạng bài, hoặc 'mixed' (thi thử tổng hợp: trộn đủ 5 dạng).
+ * Khác với QuestionCategory: mỗi CÂU HỎI luôn thuộc một dạng cụ thể, còn một BÀI có thể trộn nhiều dạng.
+ */
+export type TestCategory = QuestionCategory | 'mixed'
+
 /** Mức độ khó của câu hỏi. */
 export type Difficulty = 'easy' | 'medium' | 'hard'
 
@@ -100,7 +106,7 @@ export interface Question {
 
 /** Cấu hình một bài làm, do người dùng chọn ở trang chủ. */
 export interface TestConfig {
-  category: QuestionCategory
+  category: TestCategory
   /** Số câu hỏi trong bài. */
   questionCount: number
   difficulty: DifficultySetting

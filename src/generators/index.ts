@@ -2,7 +2,9 @@
 // Thêm dạng bài mới thì bổ sung một nhánh vào generateQuestions (và countAvailableQuestions nếu dạng đó
 // dùng ngân hàng câu hỏi có hạn).
 
-import type { DifficultySetting, Question, QuestionCategory, TestConfig } from '../types/question'
+import { MIXED_CATEGORIES, MIXED_QUESTIONS_PER_CATEGORY } from '../config/testOptions'
+import type { DifficultySetting, Question, TestCategory, TestConfig } from '../types/question'
+import { shuffle } from '../utils/random'
 import { generateAbstractQuestions } from './abstract'
 import type { SeenCounts } from './bank'
 import { countLogicalQuestions, generateLogicalQuestions } from './logical'
@@ -37,6 +39,16 @@ export function generateQuestions(config: TestConfig, seen?: SeenCounts): Questi
       return generateVerbalQuestions(config.questionCount, difficulty, seen)
     case 'abstract':
       return generateAbstractQuestions(config.questionCount, difficulty)
+    case 'mixed':
+      // Thi thử tổng hợp: mỗi dạng một số câu cố định (cùng độ khó đã chọn), rồi trộn lẫn ngẫu nhiên
+      return shuffle(
+        MIXED_CATEGORIES.flatMap((category) =>
+          generateQuestions(
+            { ...config, category, questionCount: MIXED_QUESTIONS_PER_CATEGORY },
+            seen,
+          ),
+        ),
+      )
     default:
       throw new Error(`Dạng bài "${config.category}" chưa được hỗ trợ`)
   }
@@ -46,7 +58,7 @@ export function generateQuestions(config: TestConfig, seen?: SeenCounts): Questi
  * Số câu tối đa có thể ra cho một dạng bài + độ khó.
  * @returns Số câu (với dạng dùng ngân hàng câu hỏi), hoặc null nếu không giới hạn (dạng sinh bằng code).
  */
-export function countAvailableQuestions(category: QuestionCategory, difficulty: DifficultySetting): number | null {
+export function countAvailableQuestions(category: TestCategory, difficulty: DifficultySetting): number | null {
   switch (category) {
     case 'logical':
       return countLogicalQuestions(toDifficulty(difficulty))

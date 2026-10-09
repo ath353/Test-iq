@@ -2,9 +2,10 @@
 // Toàn bộ là hàm thuần (không phụ thuộc React) để test được.
 //
 // Cách tính % đúng: theo TỪNG CÂU (tổng câu đúng ÷ tổng câu), câu bỏ trống tính là sai.
-// % theo độ khó dùng độ khó của từng câu, nên bài "Hỗn hợp" vẫn được tách đúng vào từng mức.
+// Mỗi câu được tính vào DẠNG CỦA CÂU ĐÓ (không phải loại bài), nên câu trong bài thi thử tổng hợp
+// được cộng đúng vào dạng của nó. Tương tự, % theo độ khó dùng độ khó của từng câu.
 
-import type { Difficulty, QuestionCategory } from '../types/question'
+import type { Difficulty, QuestionCategory, TestCategory } from '../types/question'
 import type { HistoryEntry } from './history'
 import { getAnswerStatus } from './scoring'
 
@@ -25,7 +26,7 @@ export interface Tally {
 /** Thống kê của một dạng bài. */
 export interface CategoryStats extends Tally {
   category: QuestionCategory
-  /** Số bài đã làm. */
+  /** Số bài đã làm có câu thuộc dạng này (kể cả bài thi thử tổng hợp). */
   attempts: number
   /** Thống kê theo độ khó của từng câu. */
   byDifficulty: Record<Difficulty, Tally>
@@ -58,16 +59,21 @@ function withAccuracy(t: Tally): Tally {
  */
 export function computeStats(entries: HistoryEntry[]): OverallStats {
   const categories = STATS_CATEGORIES.map((category) => {
-    const own = entries.filter((e) => e.result.config.category === category)
     const byDifficulty: Record<Difficulty, Tally> = { easy: emptyTally(), medium: emptyTally(), hard: emptyTally() }
+    let attempts = 0
     let questions = 0
     let correct = 0
     let seconds = 0
 
-    for (const { result } of own) {
+    for (const { result } of entries) {
+      // Chỉ xét các câu thuộc dạng này (bài một dạng: cả bài; bài tổng hợp: phần câu của dạng này)
+      const own = result.questions.filter((q) => q.category === category)
+      if (own.length === 0) continue
+      attempts++
       const answerById = new Map(result.answers.map((a) => [a.questionId, a]))
-      seconds += result.durationSec
-      for (const q of result.questions) {
+      // Thời gian chia đều cho mọi câu trong bài (không đo riêng từng câu), rồi cộng phần của dạng này
+      seconds += (result.durationSec / result.questions.length) * own.length
+      for (const q of own) {
         const isCorrect = getAnswerStatus(q, answerById.get(q.id)) === 'correct'
         questions++
         byDifficulty[q.difficulty].questions++
@@ -81,7 +87,7 @@ export function computeStats(entries: HistoryEntry[]): OverallStats {
     for (const d of DIFFICULTIES) byDifficulty[d] = withAccuracy(byDifficulty[d])
     const stats: CategoryStats = {
       category,
-      attempts: own.length,
+      attempts,
       ...withAccuracy({ questions, correct, accuracy: null }),
       byDifficulty,
       avgSecondsPerQuestion: questions === 0 ? null : Math.round(seconds / questions),
@@ -106,7 +112,8 @@ export function computeStats(entries: HistoryEntry[]): OverallStats {
 export interface ProgressPoint {
   /** Mã mục lịch sử (để mở lại bài nếu cần). */
   id: string
-  category: QuestionCategory
+  /** Loại bài (một dạng hoặc thi thử tổng hợp). */
+  category: TestCategory
   /** Thời điểm nộp bài (ISO). */
   finishedAt: string
   /** % đúng của bài (0–100, làm tròn). */
@@ -115,8 +122,10 @@ export interface ProgressPoint {
 
 /**
  * Dữ liệu biểu đồ tiến bộ: % đúng của từng bài, theo thứ tự thời gian (cũ → mới), lấy `limit` bài gần nhất.
+ * Lọc theo một dạng bài: lấy mọi bài có câu thuộc dạng đó, và % chỉ tính trên các câu của dạng đó
+ * (bài thi thử tổng hợp cũng góp một điểm, tính trên 5 câu của dạng đó).
  * @param entries Lịch sử (thứ tự bất kỳ).
- * @param category Lọc theo dạng bài; 'all' là mọi dạng.
+ * @param category Lọc theo dạng bài; 'all' là mọi bài, % tính trên cả bài.
  * @param limit Số bài gần nhất cần lấy.
  */
 export function progressSeries(
@@ -124,15 +133,18 @@ export function progressSeries(
   category: QuestionCategory | 'all',
   limit = 20,
 ): ProgressPoint[] {
-  return entries
-    .filter((e) => category === 'all' || e.result.config.category === category)
-    .map((e) => ({
-      id: e.id,
-      category: e.result.config.category,
-      finishedAt: e.result.finishedAt,
-      accuracy:
-        e.result.questions.length === 0 ? 0 : Math.round((e.result.correctCount / e.result.questions.length) * 100),
-    }))
-    .sort((a, b) => a.finishedAt.localeCompare(b.finishedAt))
-    .slice(-limit)
+  const points: ProgressPoint[] = []
+  for (const { id, result } of entries) {
+    const own = category === 'all' ? result.questions : result.questions.filter((q) => q.category === category)
+    if (own.length === 0) continue
+    const answerById = new Map(result.answers.map((a) => [a.questionId, a]))
+    const correct = own.filter((q) => getAnswerStatus(q, answerById.get(q.id)) === 'correct').length
+    points.push({
+      id,
+      category: result.config.category,
+      finishedAt: result.finishedAt,
+      accuracy: Math.round((correct / own.length) * 100),
+    })
+  }
+  return points.sort((a, b) => a.finishedAt.localeCompare(b.finishedAt)).slice(-limit)
 }

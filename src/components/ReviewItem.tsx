@@ -1,4 +1,5 @@
 // Một dòng xem lại câu hỏi ở màn hình kết quả: đề, đáp án của người dùng, đáp án đúng, lời giải từng bước.
+import { getCategoryLabel } from '../config/testOptions'
 import type { Option, Question, UserAnswer } from '../types/question'
 import { getAnswerStatus, type AnswerStatus } from '../utils/scoring'
 import FigureView from './FigureView'
@@ -18,13 +19,15 @@ interface ReviewItemProps {
   question: Question
   /** Câu trả lời của người dùng; undefined nếu không có. */
   answer: UserAnswer | undefined
+  /** true: ghi dạng bài cạnh số câu (bài thi thử tổng hợp). */
+  showCategory?: boolean
 }
 
 /**
  * ReviewItem: thẻ có thể mở/đóng (dùng thẻ <details> có sẵn của HTML).
  * Câu sai hoặc bỏ trống thì mở sẵn để người dùng xem lời giải ngay.
  */
-function ReviewItem({ index, question, answer }: ReviewItemProps) {
+function ReviewItem({ index, question, answer, showCategory = false }: ReviewItemProps) {
   const status = getAnswerStatus(question, answer)
   // Tìm lựa chọn đúng và lựa chọn người dùng đã chọn
   const optionOf = (optionId: string | null | undefined) => question.options.find((o) => o.id === optionId)
@@ -43,7 +46,10 @@ function ReviewItem({ index, question, answer }: ReviewItemProps) {
   return (
     <details className={`review-item review-item--${status}`} open={status !== 'correct'}>
       <summary className="review-item__summary">
-        <span className="review-item__index">Câu {index}</span>
+        <span className="review-item__index">
+          Câu {index}
+          {showCategory && <span className="review-item__category"> · {getCategoryLabel(question.category)}</span>}
+        </span>
         <span className="review-item__prompt">{question.prompt}</span>
         <span className="review-item__status">{STATUS_LABEL[status]}</span>
       </summary>

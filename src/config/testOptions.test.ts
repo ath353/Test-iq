@@ -6,6 +6,7 @@ import {
   getQuestionCountChoices,
   getSecondsPerQuestion,
   getSpeedLabel,
+  getTimeLimitSec,
   resolveQuestionCount,
   SPEED_OPTIONS,
 } from './testOptions'
@@ -102,5 +103,19 @@ describe('resolveQuestionCount', () => {
 
   it('mọi lựa chọn đều bị khóa thì trả về null', () => {
     expect(resolveQuestionCount(10, choices([10, true], [20, true]))).toBeNull()
+  })
+})
+
+describe('Thi thử tổng hợp', () => {
+  it('tổng thời gian = cộng theo hệ số dạng bài của từng câu (5 câu mỗi dạng)', () => {
+    // Chuẩn: 5 × (45 + 90 + 90 + 45 + 60) = 1650 giây = 27:30
+    expect(getTimeLimitSec(speed('standard'), 'mixed', 25)).toBe(1650)
+    expect(getSpeedLabel(speed('standard'), 'mixed', 25)).toBe('Chuẩn · 27:30')
+    expect(getTimeLimitSec(speed('unlimited'), 'mixed', 25)).toBeNull()
+    expect(findSpeedId({ category: 'mixed', questionCount: 25, difficulty: 'mixed', timeLimitSec: 1650 })).toBe('standard')
+  })
+
+  it('chỉ có một lựa chọn số câu: 25', () => {
+    expect(getQuestionCountChoices('mixed', null)).toEqual([{ count: 25, disabled: false }])
   })
 })

@@ -105,6 +105,19 @@
   gap: 8px;
 }
 
+/* Điểm theo từng dạng (bài thi thử tổng hợp) */
+.result-page__by-category {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.result-page__by-category h2 {
+  margin: 0 0 12px;
+  font-size: 1.125rem;
+}
+
 /* Danh sách xem lại */
 .result-page__review {
   display: flex;

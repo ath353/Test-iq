@@ -4,11 +4,11 @@ import type { Difficulty, Question, QuestionCategory } from '../types/question'
 import type { HistoryEntry } from './history'
 import { computeStats, MIN_QUESTIONS_FOR_WEAKEST, progressSeries } from './stats'
 
-/** Tạo câu hỏi giả, đáp án đúng luôn là 'A'. */
-function q(id: string, difficulty: Difficulty): Question {
+/** Tạo câu hỏi giả thuộc dạng `category`, đáp án đúng luôn là 'A'. */
+function q(id: string, difficulty: Difficulty, category: QuestionCategory): Question {
   return {
     id,
-    category: 'number-series',
+    category,
     difficulty,
     instruction: 'x',
     prompt: 'x',
@@ -27,7 +27,7 @@ function q(id: string, difficulty: Difficulty): Question {
  */
 function entry(id: string, category: QuestionCategory, pattern: string, finishedAt: string, durationSec = 60): HistoryEntry {
   const levels: Difficulty[] = ['easy', 'medium', 'hard']
-  const questions = [...pattern].map((_, i) => q(`${id}-${i}`, levels[i % 3]))
+  const questions = [...pattern].map((_, i) => q(`${id}-${i}`, levels[i % 3], category))
   const answers = [...pattern].map((p, i) => ({
     questionId: questions[i].id,
     selectedOptionId: p === 'c' ? 'A' : p === 'w' ? 'B' : null,
@@ -116,5 +116,25 @@ describe('progressSeries', () => {
     expect(progressSeries(entries, 'number-series').map((p) => p.id)).toEqual(['old', 'mid'])
     expect(progressSeries(entries, 'all', 2).map((p) => p.id)).toEqual(['mid', 'new'])
     expect(progressSeries(entries, 'abstract')).toEqual([])
+  })
+})
+
+describe('Bài thi thử tổng hợp trong thống kê', () => {
+  it('mỗi câu được tính vào đúng dạng của nó', () => {
+    // Bài tổng hợp 4 câu: 2 câu Dãy số (đúng cả 2), 2 câu Hình (sai cả 2)
+    const mixed = entry('m', 'number-series', 'ccww', '2026-05-01T00:00:00Z', 80)
+    mixed.result.config.category = 'mixed'
+    mixed.result.questions[2].category = 'abstract'
+    mixed.result.questions[3].category = 'abstract'
+    const s = computeStats([mixed])
+    const ns = s.categories.find((c) => c.category === 'number-series')!
+    const ab = s.categories.find((c) => c.category === 'abstract')!
+    expect([ns.questions, ns.correct, ns.attempts]).toEqual([2, 2, 1])
+    expect([ab.questions, ab.correct, ab.attempts]).toEqual([2, 0, 1])
+    // Thời gian chia đều: 80 giây / 4 câu = 20 giây mỗi câu
+    expect(ns.avgSecondsPerQuestion).toBe(20)
+    // Biểu đồ tiến bộ lọc theo Hình: % tính trên 2 câu Hình của bài tổng hợp = 0%
+    expect(progressSeries([mixed], 'abstract').map((p) => p.accuracy)).toEqual([0])
+    expect(progressSeries([mixed], 'all').map((p) => [p.accuracy, p.category])).toEqual([[50, 'mixed']])
   })
 })
