@@ -1,0 +1,61 @@
+/* Giao diện bảng số liệu. */
+
+.table-view {
+  margin: 0 0 16px;
+}
+
+/* Khung cuộn ngang khi bảng rộng hơn màn hình */
+.table-view__scroll {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg);
+}
+
+.table-view__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+/* Tên bảng nằm trên bảng, căn trái */
+.table-view__title {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  text-align: left;
+}
+
+.table-view__table th,
+.table-view__table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  white-space: nowrap; /* không xuống dòng giữa số, tránh khó đọc */
+}
+
+/* Dòng cuối không cần viền dưới (khung ngoài đã có viền) */
+.table-view__table tbody tr:last-child th,
+.table-view__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Dòng tiêu đề cột: nền nhạt, chữ phụ */
+.table-view__table thead th {
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Ô số: căn phải, chữ số rộng bằng nhau để các cột thẳng hàng */
+.table-view__table .table-view__cell--numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-view__note {
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}

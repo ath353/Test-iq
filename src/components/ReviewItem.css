@@ -71,6 +71,12 @@
   margin: 0 0 8px;
 }
 
+/* Đề đầy đủ (khi câu có dữ kiện): giữ chỗ xuống dòng, chữ đậm để tách khỏi phần đáp án */
+.review-item__full-prompt {
+  font-weight: 600;
+  white-space: pre-line;
+}
+
 .review-item__steps-title {
   color: var(--color-muted);
 }

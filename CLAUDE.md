@@ -116,10 +116,10 @@ src/
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
 ├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts)
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
-├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup), mỗi component kèm file .css cùng tên
+├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
-└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm; sắp có lưu trữ)
+└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts; sắp có lưu trữ)
 ```
 
 ### Lệnh thường dùng
@@ -133,6 +133,8 @@ src/
 | `npm run test:watch` | Chạy test, tự chạy lại khi sửa code |
 
 File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `random.ts` và `random.test.ts`).
+Test component dùng đuôi `.test.tsx`, kết xuất ra HTML bằng `renderToStaticMarkup` (có sẵn trong `react-dom`, không cần thư viện test riêng).
+File component (`.tsx`) chỉ export component; hàm tiện ích đặt trong `utils/` (để tính năng tự tải lại khi sửa code hoạt động đúng).
 
 ---
 
@@ -164,7 +166,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
 | 2.0 | Chuẩn bị nền tảng: mỗi câu có lời dẫn riêng; `Question` thêm phần "dữ kiện" (bảng, đoạn văn, hình); thẻ câu hỏi hiển thị theo từng loại | Dạng Dãy số vẫn chạy y như cũ, test đạt | ✅ |
-| 2.1a | Số liệu: hiển thị bảng số liệu trong câu hỏi | Bảng đọc được trên điện thoại | ⬜ |
+| 2.1a | Số liệu: hiển thị bảng số liệu trong câu hỏi | Bảng đọc được trên điện thoại | ✅ |
 | 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ⬜ |
 | 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ⬜ |
 | 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ⬜ |
@@ -215,4 +217,5 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Ngôn ngữ chỉ có 3 lựa chọn: Đúng / Sai / Không đủ thông tin | Đúng chuẩn bài SHL |
 | 2026-10-09 | `Question` thêm `instruction` (lời dẫn) và `stimulus` (dữ kiện: bảng / đoạn văn); kiểu dữ kiện HÌNH để bước 2.4a mới định nghĩa | Cấu trúc hình phụ thuộc cách vẽ SVG, định nghĩa sớm dễ phải sửa |
 | 2026-10-09 | Thẻ câu hỏi có class theo dạng bài (`question-card--<dạng>`); đề mặc định chữ thường, giữ xuống dòng | Mỗi dạng một kiểu chữ phù hợp |
+| 2026-10-09 | Bảng số liệu: cột số căn phải; bảng rộng thì cuộn ngang trong khung; màn kết quả hiện lại bảng + đề đầy đủ | Dễ đọc trên điện thoại; lời giải tham chiếu số trong bảng |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

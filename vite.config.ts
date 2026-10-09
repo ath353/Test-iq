@@ -6,7 +6,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [react()],
   test: {
-    // Chỉ chạy file *.test.ts trong src
-    include: ['src/**/*.test.ts'],
+    // Chỉ chạy file test trong src: *.test.ts (hàm thuần) và *.test.tsx (component)
+    include: ['src/**/*.test.{ts,tsx}'],
   },
 })

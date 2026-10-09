@@ -1,6 +1,7 @@
 // Một dòng xem lại câu hỏi ở màn hình kết quả: đề, đáp án của người dùng, đáp án đúng, lời giải từng bước.
 import type { Question, UserAnswer } from '../types/question'
 import { getAnswerStatus, type AnswerStatus } from '../utils/scoring'
+import StimulusView from './StimulusView'
 import './ReviewItem.css'
 
 /** Chữ hiển thị cho từng trạng thái. */
@@ -39,6 +40,14 @@ function ReviewItem({ index, question, answer }: ReviewItemProps) {
       </summary>
 
       <div className="review-item__body">
+        {/* Câu có dữ kiện (bảng…): hiện lại dữ kiện và đề đầy đủ, vì lời giải sẽ tham chiếu tới chúng */}
+        {question.stimulus && (
+          <>
+            <StimulusView stimulus={question.stimulus} />
+            <p className="review-item__full-prompt">{question.prompt}</p>
+          </>
+        )}
+
         <p>
           Bạn chọn:{' '}
           {selectedContent === undefined ? (

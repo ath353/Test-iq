@@ -1,5 +1,6 @@
-// Thẻ hiển thị một câu hỏi: đề bài và danh sách lựa chọn để người dùng bấm chọn.
+// Thẻ hiển thị một câu hỏi: lời dẫn, dữ kiện, đề bài và danh sách lựa chọn để người dùng bấm chọn.
 import type { Question } from '../types/question'
+import StimulusView from './StimulusView'
 import './QuestionCard.css'
 
 interface QuestionCardProps {
@@ -17,12 +18,14 @@ interface QuestionCardProps {
  *
  * Class theo dạng bài (ví dụ question-card--number-series) để mỗi dạng có kiểu chữ đề phù hợp:
  * dãy số chữ to đậm, các dạng có đề dài (logic, số liệu) chữ thường.
- * Phần dữ kiện (bảng, đoạn văn) sẽ được hiển thị ở các bước 2.1a và 2.3b.
+ *
+ * Thứ tự hiển thị: lời dẫn → dữ kiện (bảng, đoạn văn; nếu có) → đề bài → các lựa chọn.
  */
 function QuestionCard({ question, selectedOptionId, onSelect }: QuestionCardProps) {
   return (
     <section className={`question-card question-card--${question.category}`}>
       <p className="question-card__instruction">{question.instruction}</p>
+      {question.stimulus && <StimulusView stimulus={question.stimulus} />}
       <p className="question-card__prompt">{question.prompt}</p>
 
       {/* Nhóm lựa chọn dạng radio để trình đọc màn hình hiểu "chỉ chọn một" */}
