@@ -159,12 +159,22 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 
 ### Giai đoạn 2: Thêm dạng bài
 
-| Bước | Nội dung | Trạng thái |
-|------|----------|------------|
-| 2.1 | Suy luận logic (ngân hàng JSON) | ⬜ |
-| 2.2 | Suy luận số liệu (sinh bảng + câu hỏi) | ⬜ |
-| 2.3 | Suy luận ngôn ngữ (Đúng / Sai / Không đủ thông tin) | ⬜ |
-| 2.4 | Suy luận hình ma trận 3x3 (SVG) | ⬜ |
+Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng code trước, dạng soạn tay sau, khó nhất cuối).
+
+| Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
+|------|----------|---------------------|------------|
+| 2.0 | Chuẩn bị nền tảng: mỗi câu có lời dẫn riêng; `Question` thêm phần "dữ kiện" (bảng, đoạn văn, hình); thẻ câu hỏi hiển thị theo từng loại | Dạng Dãy số vẫn chạy y như cũ, test đạt | ✅ |
+| 2.1a | Số liệu: hiển thị bảng số liệu trong câu hỏi | Bảng đọc được trên điện thoại | ⬜ |
+| 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ⬜ |
+| 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ⬜ |
+| 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ⬜ |
+| 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ⬜ |
+| 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ⬜ |
+| 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
+| 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ⬜ |
+| 2.4a | Hình: vẽ hình bằng SVG (dạng hình, màu, số lượng, góc xoay) | Hiển thị đúng ở chế độ sáng và tối | ⬜ |
+| 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ⬜ |
+| 2.4c | Hình: lựa chọn đáp án dạng hình + bật trên trang chủ | Làm hết một bài dạng Hình | ⬜ |
 
 ### Giai đoạn 3: Nâng cao
 
@@ -174,7 +184,7 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 3.2 | Thống kê điểm mạnh / yếu theo dạng | ⬜ |
 | 3.3 | Chế độ thi thử tổng hợp nhiều dạng | ⬜ |
 
-> Giai đoạn 2 và 3 sẽ được chia nhỏ chi tiết hơn khi tới lượt.
+> Giai đoạn 3 sẽ được chia nhỏ chi tiết hơn khi tới lượt.
 
 ---
 
@@ -200,4 +210,9 @@ File test đặt **cạnh file được test**, đuôi `.test.ts` (ví dụ `ran
 | 2026-10-08 | `TestConfig` thêm `difficulty`; `timeLimitSec = null` nghĩa là không giới hạn (đồng hồ đếm xuôi) | Hỗ trợ lựa chọn ở trang chủ |
 | 2026-10-08 | Thêm dạng bài mới: đăng ký trong `config/testOptions.ts` (available: true) và `generators/index.ts` | Một chỗ duy nhất cho mỗi việc |
 | 2026-10-09 | Repo GitHub để Private | Web vẫn công khai; code và email trong commit không bị lộ |
+| 2026-10-09 | Giai đoạn 2 làm theo thứ tự Số liệu → Logic → Ngôn ngữ → Hình | Dạng sinh bằng code nhanh hơn, không giới hạn đề |
+| 2026-10-09 | Dạng dùng ngân hàng câu hỏi (Logic, Ngôn ngữ) chỉ cho chọn 10/20 câu; giai đoạn 3 ưu tiên câu chưa làm | Ngân hàng có hạn, tránh lặp câu |
+| 2026-10-09 | Ngôn ngữ chỉ có 3 lựa chọn: Đúng / Sai / Không đủ thông tin | Đúng chuẩn bài SHL |
+| 2026-10-09 | `Question` thêm `instruction` (lời dẫn) và `stimulus` (dữ kiện: bảng / đoạn văn); kiểu dữ kiện HÌNH để bước 2.4a mới định nghĩa | Cấu trúc hình phụ thuộc cách vẽ SVG, định nghĩa sớm dễ phải sửa |
+| 2026-10-09 | Thẻ câu hỏi có class theo dạng bài (`question-card--<dạng>`); đề mặc định chữ thường, giữ xuống dòng | Mỗi dạng một kiểu chữ phù hợp |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

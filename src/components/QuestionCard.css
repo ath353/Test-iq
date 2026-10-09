@@ -12,13 +12,19 @@
   color: var(--color-muted);
 }
 
-/* Đề bài: chữ to, số đều nhau để dễ nhìn dãy số */
+/* Đề bài mặc định: chữ thường, giữ nguyên chỗ xuống dòng (\n) cho đề nhiều dòng */
 .question-card__prompt {
   margin: 0 0 24px;
+  font-size: 1.0625rem;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+/* Dạng Dãy số: chữ to, đậm, các chữ số rộng bằng nhau để dễ nhìn dãy */
+.question-card--number-series .question-card__prompt {
   font-size: 1.5rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  word-break: break-word;
 }
 
 /* Lưới lựa chọn: tự xuống dòng trên điện thoại */

@@ -126,6 +126,8 @@ describe('generateNumberSeriesQuestion', () => {
   function expectValidQuestion(q: Question, difficulty: Difficulty) {
     expect(q.category).toBe('number-series')
     expect(q.difficulty).toBe(difficulty)
+    expect(q.instruction.trim()).not.toBe('')
+    expect(q.stimulus).toBeUndefined()
     expect(q.prompt.endsWith(', ?')).toBe(true)
     // 5 lựa chọn A–E, nội dung không trùng nhau
     expect(q.options.map((o) => o.id)).toEqual(['A', 'B', 'C', 'D', 'E'])

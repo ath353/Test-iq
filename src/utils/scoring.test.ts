@@ -9,6 +9,7 @@ function makeQuestion(id: string, correctOptionId: string): Question {
     id,
     category: 'number-series',
     difficulty: 'easy',
+    instruction: 'Tìm số tiếp theo của dãy:',
     prompt: '1, 2, 3, ?',
     options: ['A', 'B', 'C', 'D', 'E'].map((o) => ({ id: o, content: o })),
     correctOptionId,

@@ -11,13 +11,18 @@ interface QuestionCardProps {
 }
 
 /**
- * QuestionCard: hiển thị đề bài và 5 lựa chọn dạng nút bấm.
+ * QuestionCard: hiển thị lời dẫn, đề bài và các lựa chọn dạng nút bấm.
+ * Số lựa chọn tùy câu (Dãy số có 5, Ngôn ngữ có 3), lưới lựa chọn tự co giãn theo.
  * Bấm lại lựa chọn đang chọn thì vẫn giữ nguyên (không bỏ chọn), giống bài thi thật.
+ *
+ * Class theo dạng bài (ví dụ question-card--number-series) để mỗi dạng có kiểu chữ đề phù hợp:
+ * dãy số chữ to đậm, các dạng có đề dài (logic, số liệu) chữ thường.
+ * Phần dữ kiện (bảng, đoạn văn) sẽ được hiển thị ở các bước 2.1a và 2.3b.
  */
 function QuestionCard({ question, selectedOptionId, onSelect }: QuestionCardProps) {
   return (
-    <section className="question-card">
-      <p className="question-card__instruction">Tìm số tiếp theo của dãy:</p>
+    <section className={`question-card question-card--${question.category}`}>
+      <p className="question-card__instruction">{question.instruction}</p>
       <p className="question-card__prompt">{question.prompt}</p>
 
       {/* Nhóm lựa chọn dạng radio để trình đọc màn hình hiểu "chỉ chọn một" */}

@@ -235,6 +235,7 @@ export function generateNumberSeriesQuestion(id: string, difficulty: Difficulty)
     id,
     category: 'number-series',
     difficulty,
+    instruction: 'Tìm số tiếp theo của dãy:',
     prompt: `${joinNumbers(terms)}, ?`,
     options,
     correctOptionId,

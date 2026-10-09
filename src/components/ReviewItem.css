@@ -33,8 +33,15 @@
   font-weight: 600;
 }
 
+/* Đề bài trong dòng tiêu đề: tối đa 2 dòng, dài hơn thì cắt bằng dấu "…" (đề Logic có thể rất dài) */
 .review-item__prompt {
   flex: 1;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
   font-variant-numeric: tabular-nums;
   word-break: break-word;
 }

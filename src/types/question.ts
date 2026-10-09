@@ -24,15 +24,48 @@ export interface Option {
 }
 
 /**
- * Một câu hỏi trắc nghiệm hoàn chỉnh.
- * Các dạng cần hình ảnh hoặc bảng số liệu (giai đoạn 2) sẽ mở rộng thêm trường riêng.
+ * Dữ kiện dạng BẢNG SỐ LIỆU (dạng Số liệu). Mọi ô đều là chuỗi đã định dạng sẵn để hiển thị.
+ * Ví dụ: headers ['Quý', 'Doanh thu (tỷ đồng)'], rows [['Q1', '120'], ['Q2', '150']].
  */
+export interface TableStimulus {
+  type: 'table'
+  /** Tên bảng, ví dụ 'Doanh thu công ty A năm 2025'. */
+  title: string
+  /** Dòng tiêu đề cột. */
+  headers: string[]
+  /** Các dòng dữ liệu; mỗi dòng có số ô bằng số cột. */
+  rows: string[][]
+  /** Ghi chú dưới bảng (đơn vị, nguồn…), có thể bỏ trống. */
+  note?: string
+}
+
+/** Dữ kiện dạng ĐOẠN VĂN (dạng Ngôn ngữ): người làm đọc đoạn văn rồi đánh giá nhận định. */
+export interface PassageStimulus {
+  type: 'passage'
+  /** Nội dung đoạn văn; xuống dòng bằng ký tự \n. */
+  text: string
+}
+
+/**
+ * Phần dữ kiện đi kèm câu hỏi, hiển thị phía trên đề bài.
+ * Dạng HÌNH (giai đoạn 2.4a) sẽ được bổ sung vào đây khi thiết kế cách vẽ SVG.
+ */
+export type Stimulus = TableStimulus | PassageStimulus
+
+/** Một câu hỏi trắc nghiệm hoàn chỉnh. */
 export interface Question {
   /** Mã câu hỏi, duy nhất trong một bài làm. */
   id: string
   category: QuestionCategory
   difficulty: Difficulty
-  /** Đề bài, ví dụ '2, 6, 12, 20, 30, ?'. */
+  /** Lời dẫn hiển thị phía trên đề, ví dụ 'Tìm số tiếp theo của dãy:'. */
+  instruction: string
+  /** Dữ kiện kèm theo (bảng, đoạn văn…); dạng Dãy số không có. */
+  stimulus?: Stimulus
+  /**
+   * Đề bài, ví dụ '2, 6, 12, 20, 30, ?'.
+   * Đề nhiều dòng (ví dụ các tiền đề của câu Logic) thì xuống dòng bằng ký tự \n.
+   */
   prompt: string
   /** Danh sách lựa chọn, đã được xáo trộn thứ tự. */
   options: Option[]
