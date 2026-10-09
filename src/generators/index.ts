@@ -6,6 +6,7 @@ import type { DifficultySetting, Question, QuestionCategory, TestConfig } from '
 import { countLogicalQuestions, generateLogicalQuestions } from './logical'
 import { generateNumberSeriesQuestions } from './numberSeries'
 import { generateNumericalQuestions } from './numerical'
+import { countVerbalStatements, generateVerbalQuestions } from './verbal'
 
 /** Đổi 'mixed' (hỗn hợp) thành undefined: bộ sinh hiểu là không cố định độ khó. */
 function toDifficulty(setting: DifficultySetting) {
@@ -28,6 +29,8 @@ export function generateQuestions(config: TestConfig): Question[] {
       return generateNumericalQuestions(config.questionCount, difficulty)
     case 'logical':
       return generateLogicalQuestions(config.questionCount, difficulty)
+    case 'verbal':
+      return generateVerbalQuestions(config.questionCount, difficulty)
     default:
       throw new Error(`Dạng bài "${config.category}" chưa được hỗ trợ`)
   }
@@ -41,6 +44,8 @@ export function countAvailableQuestions(category: QuestionCategory, difficulty: 
   switch (category) {
     case 'logical':
       return countLogicalQuestions(toDifficulty(difficulty))
+    case 'verbal':
+      return countVerbalStatements(toDifficulty(difficulty))
     default:
       return null
   }

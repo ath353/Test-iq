@@ -1,5 +1,6 @@
 // Chọn cách hiển thị phần dữ kiện của câu hỏi theo loại (bảng, đoạn văn…).
 import type { Stimulus } from '../types/question'
+import PassageView from './PassageView'
 import TableView from './TableView'
 
 interface StimulusViewProps {
@@ -15,8 +16,7 @@ function StimulusView({ stimulus }: StimulusViewProps) {
     case 'table':
       return <TableView table={stimulus} />
     case 'passage':
-      // Đoạn văn sẽ được hiển thị ở bước 2.3b
-      return null
+      return <PassageView passage={stimulus} />
   }
 }
 

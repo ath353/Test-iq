@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import type { Question, TableStimulus } from '../types/question'
 import QuestionCard from './QuestionCard'
+import StimulusView from './StimulusView'
 import TableView from './TableView'
 
 /** Bảng mẫu: cột "Ghi chú" là chữ, các cột còn lại là số. */
@@ -60,5 +61,16 @@ describe('QuestionCard với dữ kiện bảng', () => {
     expect(instructionAt).toBeGreaterThan(-1)
     expect(instructionAt).toBeLessThan(tableAt)
     expect(tableAt).toBeLessThan(promptAt)
+  })
+})
+
+describe('StimulusView với đoạn văn', () => {
+  it('hiển thị tên và nội dung đoạn văn', () => {
+    const html = renderToStaticMarkup(
+      <StimulusView stimulus={{ type: 'passage', title: 'Làm việc từ xa', text: 'Từ năm 2023, công ty…' }} />,
+    )
+    expect(html).toContain('Làm việc từ xa')
+    expect(html).toContain('Từ năm 2023, công ty…')
+    expect(html).toContain('passage-view')
   })
 })

@@ -1,0 +1,26 @@
+/* Giao diện khung đoạn văn. */
+
+.passage-view {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary); /* viền trái nổi bật, giống trích dẫn */
+  border-radius: 8px;
+  background: var(--color-bg);
+}
+
+.passage-view__title {
+  margin: 0 0 6px;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Nội dung: dòng thưa hơn bình thường cho dễ đọc đoạn văn dài, giữ chỗ xuống dòng */
+.passage-view__text {
+  margin: 0;
+  line-height: 1.7;
+  white-space: pre-line;
+}

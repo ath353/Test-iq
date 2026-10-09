@@ -48,8 +48,17 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
     // Ngân hàng 40 câu: chỉ cho chọn 10 hoặc 20 câu để đỡ lặp
     questionCounts: [10, 20],
   },
+  {
+    id: 'verbal',
+    label: 'Suy luận ngôn ngữ',
+    description: 'Đúng / Sai / Không đủ thông tin',
+    available: true,
+    // Nhận định gom theo đoạn văn, đọc một lần trả lời nhiều câu: bài SHL thật khoảng 40 giây mỗi nhận định
+    timeMultiplier: 1,
+    // Ngân hàng 40 nhận định: chỉ cho chọn 10 hoặc 20 câu để đỡ lặp
+    questionCounts: [10, 20],
+  },
   // Các dạng chưa làm: hệ số thời gian sẽ chốt khi làm tới
-  { id: 'verbal', label: 'Suy luận ngôn ngữ', description: 'Đúng / Sai / Không đủ thông tin', available: false, timeMultiplier: 1 },
   { id: 'abstract', label: 'Suy luận hình', description: 'Ma trận hình 3x3', available: false, timeMultiplier: 1 },
 ]
 

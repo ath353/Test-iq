@@ -1,8 +1,10 @@
-// Dạng Suy luận ngôn ngữ (Verbal reasoning): soát dữ liệu ngân hàng câu hỏi src/data/verbal.json.
-// Phần ra đề (ghép đoạn văn + nhận định thành câu hỏi 3 lựa chọn) sẽ được thêm ở bước 2.3b.
+// Dạng Suy luận ngôn ngữ (Verbal reasoning): soát dữ liệu ngân hàng câu hỏi src/data/verbal.json
+// và ra đề (ghép đoạn văn + nhận định thành câu hỏi 3 lựa chọn Đúng / Sai / Không đủ thông tin).
 
-import type { VerbalAnswer } from '../types/bank'
-import type { Difficulty } from '../types/question'
+import verbalData from '../data/verbal.json'
+import type { VerbalAnswer, VerbalBank, VerbalPassage, VerbalStatement } from '../types/bank'
+import type { Difficulty, Question } from '../types/question'
+import { shuffle } from '../utils/random'
 import { DIFFICULTIES, isNonEmptyString, isNonEmptyStringArray } from './bank'
 
 /** Các đáp án hợp lệ của một nhận định. */
@@ -74,4 +76,75 @@ export function validateVerbalBank(data: unknown): string[] {
     if (!usedPassages.has(id)) errors.push(`${id}: đoạn văn chưa có nhận định nào`)
   }
   return errors
+}
+
+// ─────────────────────────────── Ra đề ───────────────────────────────
+
+/** Lời dẫn của mọi câu Ngôn ngữ. */
+const INSTRUCTION = 'Đọc đoạn văn, rồi cho biết nhận định bên dưới là Đúng, Sai hay Không đủ thông tin:'
+
+/** Nhãn lựa chọn theo đúng thứ tự cố định: A = Đúng, B = Sai, C = Không đủ thông tin. */
+const OPTION_IDS: Record<VerbalAnswer, string> = { true: 'A', false: 'B', 'cannot-say': 'C' }
+
+/**
+ * Nạp ngân hàng đã soát lỗi. Dữ liệu sai thì dừng ngay và liệt kê lỗi, không ra đề.
+ * @param data Nội dung file JSON.
+ */
+export function loadVerbalBank(data: unknown): VerbalBank {
+  const errors = validateVerbalBank(data)
+  if (errors.length > 0) throw new Error(`Ngân hàng câu hỏi Ngôn ngữ có lỗi:\n${errors.join('\n')}`)
+  return data as VerbalBank
+}
+
+/** Ngân hàng nạp một lần khi mở web. */
+const BANK = loadVerbalBank(verbalData)
+
+/**
+ * Chuyển một nhận định thành câu hỏi: đoạn văn làm dữ kiện, nhận định làm đề,
+ * 3 lựa chọn cố định Đúng / Sai / Không đủ thông tin (không xáo trộn, giống bài SHL).
+ * @param statement Nhận định.
+ * @param passage Đoạn văn của nhận định.
+ */
+export function statementToQuestion(statement: VerbalStatement, passage: VerbalPassage): Question {
+  return {
+    id: statement.id,
+    category: 'verbal',
+    difficulty: statement.difficulty,
+    instruction: INSTRUCTION,
+    stimulus: { type: 'passage', title: passage.title, text: passage.text },
+    prompt: statement.statement,
+    options: VERBAL_ANSWERS.map((answer) => ({ id: OPTION_IDS[answer], content: VERBAL_ANSWER_LABELS[answer] })),
+    correctOptionId: OPTION_IDS[statement.answer],
+    explanationSteps: statement.explanationSteps,
+  }
+}
+
+/**
+ * Số nhận định hiện có theo độ khó (để trang chủ khóa các lựa chọn số câu không đủ).
+ * @param difficulty Độ khó; bỏ trống (hỗn hợp) thì đếm tất cả.
+ */
+export function countVerbalStatements(difficulty?: Difficulty, bank: VerbalBank = BANK): number {
+  return difficulty ? bank.statements.filter((s) => s.difficulty === difficulty).length : bank.statements.length
+}
+
+/**
+ * Ra đề Ngôn ngữ, GOM THEO ĐOẠN VĂN giống bài SHL: các nhận định cùng đoạn văn đứng liền nhau,
+ * người làm đọc đoạn văn một lần rồi trả lời liên tiếp.
+ * Cách làm:
+ *   1. Lọc nhận định theo độ khó (nếu có).
+ *   2. Xáo thứ tự các đoạn văn; trong mỗi đoạn văn, xáo thứ tự nhận định.
+ *   3. Nối lần lượt từng đoạn văn, lấy đủ `count` câu (đoạn văn cuối có thể chỉ lấy một phần).
+ * @param count Số câu.
+ * @param difficulty Độ khó cố định; bỏ trống thì lấy trong toàn bộ ngân hàng.
+ * @param bank Ngân hàng (mặc định là verbal.json; truyền vào để test).
+ * @throws Lỗi nếu không đủ nhận định (trang chủ đã khóa lựa chọn này).
+ */
+export function generateVerbalQuestions(count: number, difficulty?: Difficulty, bank: VerbalBank = BANK): Question[] {
+  const pool = bank.statements.filter((s) => !difficulty || s.difficulty === difficulty)
+  if (pool.length < count) throw new Error(`Ngân hàng chỉ có ${pool.length} nhận định, không đủ ${count} câu`)
+
+  const ordered = shuffle(bank.passages).flatMap((passage) =>
+    shuffle(pool.filter((s) => s.passageId === passage.id)).map((s) => statementToQuestion(s, passage)),
+  )
+  return ordered.slice(0, count)
 }

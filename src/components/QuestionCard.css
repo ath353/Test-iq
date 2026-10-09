@@ -20,6 +20,14 @@
   word-break: break-word;
 }
 
+/* Dạng Ngôn ngữ: nhận định in đậm, có nền nhạt để tách khỏi đoạn văn phía trên */
+.question-card--verbal .question-card__prompt {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--color-primary-soft);
+  font-weight: 600;
+}
+
 /* Dạng Dãy số: chữ to, đậm, các chữ số rộng bằng nhau để dễ nhìn dãy */
 .question-card--number-series .question-card__prompt {
   font-size: 1.5rem;

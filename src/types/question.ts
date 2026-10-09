@@ -42,6 +42,8 @@ export interface TableStimulus {
 /** Dữ kiện dạng ĐOẠN VĂN (dạng Ngôn ngữ): người làm đọc đoạn văn rồi đánh giá nhận định. */
 export interface PassageStimulus {
   type: 'passage'
+  /** Tên ngắn của đoạn văn, ví dụ 'Làm việc từ xa'. */
+  title: string
   /** Nội dung đoạn văn; xuống dòng bằng ký tự \n. */
   text: string
 }

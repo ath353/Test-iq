@@ -1,7 +1,15 @@
 // Kiểm thử bộ soát dữ liệu dạng Ngôn ngữ, và soát luôn file verbal.json thật.
 import { describe, expect, it } from 'vitest'
 import verbalData from '../data/verbal.json'
-import { validateVerbalBank } from './verbal'
+import type { VerbalBank } from '../types/bank'
+import type { Difficulty } from '../types/question'
+import {
+  countVerbalStatements,
+  generateVerbalQuestions,
+  loadVerbalBank,
+  statementToQuestion,
+  validateVerbalBank,
+} from './verbal'
 
 /** Bộ dữ liệu hợp lệ làm mẫu; các test bên dưới làm hỏng từng phần để xem có bắt được lỗi không. */
 function validBank() {
@@ -80,5 +88,58 @@ describe('File verbal.json thật', () => {
       const count = verbalData.statements.filter((s) => s.answer === answer).length
       expect(count / total).toBeGreaterThanOrEqual(0.25)
     }
+  })
+})
+
+describe('Ra đề Ngôn ngữ', () => {
+  const bank = verbalData as VerbalBank
+  const RUNS = 200
+
+  it('statementToQuestion: 3 lựa chọn cố định A Đúng / B Sai / C Không đủ thông tin, đáp án đúng nhãn', () => {
+    const expected = { true: 'A', false: 'B', 'cannot-say': 'C' } as const
+    for (const s of bank.statements) {
+      const passage = bank.passages.find((p) => p.id === s.passageId)!
+      const q = statementToQuestion(s, passage)
+      expect(q.options).toEqual([
+        { id: 'A', content: 'Đúng' },
+        { id: 'B', content: 'Sai' },
+        { id: 'C', content: 'Không đủ thông tin' },
+      ])
+      expect(q.correctOptionId).toBe(expected[s.answer])
+      expect(q.stimulus).toEqual({ type: 'passage', title: passage.title, text: passage.text })
+      expect(q.prompt).toBe(s.statement)
+    }
+  })
+
+  it('đủ số câu, không trùng, và các nhận định cùng đoạn văn luôn đứng liền nhau', () => {
+    for (let i = 0; i < RUNS; i++) {
+      const questions = generateVerbalQuestions(20)
+      expect(questions).toHaveLength(20)
+      expect(new Set(questions.map((q) => q.id)).size).toBe(20)
+      // Gom theo đoạn văn: một đoạn văn đã kết thúc thì không xuất hiện lại phía sau
+      const titles = questions.map((q) => (q.stimulus?.type === 'passage' ? q.stimulus.title : ''))
+      const finished = new Set<string>()
+      titles.forEach((title, k) => {
+        expect(finished.has(title)).toBe(false)
+        if (titles[k + 1] !== title) finished.add(title)
+      })
+    }
+  })
+
+  it('giữ đúng độ khó; đếm số nhận định theo độ khó khớp dữ liệu', () => {
+    for (const d of ['easy', 'medium', 'hard'] as Difficulty[]) {
+      const count = countVerbalStatements(d)
+      expect(count).toBe(bank.statements.filter((s) => s.difficulty === d).length)
+      expect(generateVerbalQuestions(count, d).every((q) => q.difficulty === d)).toBe(true)
+    }
+    expect(countVerbalStatements()).toBe(bank.statements.length)
+  })
+
+  it('báo lỗi khi không đủ nhận định', () => {
+    expect(() => generateVerbalQuestions(bank.statements.length + 1)).toThrow(/không đủ/)
+  })
+
+  it('loadVerbalBank dừng lại khi dữ liệu sai', () => {
+    expect(() => loadVerbalBank({ passages: [], statements: [{}] })).toThrow(/có lỗi/)
   })
 })

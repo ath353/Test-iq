@@ -42,7 +42,7 @@ describe('generateQuestions', () => {
 
   it('báo lỗi với dạng bài chưa hỗ trợ', () => {
     expect(() =>
-      generateQuestions({ category: 'verbal', questionCount: 10, difficulty: 'easy', timeLimitSec: null }),
+      generateQuestions({ category: 'abstract', questionCount: 10, difficulty: 'easy', timeLimitSec: null }),
     ).toThrow()
   })
 })

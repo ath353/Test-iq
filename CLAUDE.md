@@ -116,7 +116,7 @@ src/
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
 ├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, verbal.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
-├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView), mỗi component kèm file .css cùng tên
+├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN; sắp có lưu trữ)
@@ -218,7 +218,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ✅ |
 | 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ✅ |
 | 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ✅ |
-| 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ⬜ |
+| 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ✅ |
 | 2.4a | Hình: vẽ hình bằng SVG (dạng hình, màu, số lượng, góc xoay) | Hiển thị đúng ở chế độ sáng và tối | ⬜ |
 | 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ⬜ |
 | 2.4c | Hình: lựa chọn đáp án dạng hình + bật trên trang chủ | Làm hết một bài dạng Hình | ⬜ |
@@ -276,4 +276,5 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Lựa chọn dài hơn 20 ký tự thì xếp danh sách dọc; màn kết quả hiện lại đề đầy đủ khi đề nhiều dòng | Đáp án Logic là cả câu, đề có nhiều tiền đề |
 | 2026-10-09 | Ngôn ngữ dùng cấu trúc JSON riêng: `passages` + `statements` (nhận định trỏ tới đoạn văn qua `passageId`), thay vì dùng chung `BankQuestion` như đã định | Một đoạn văn có 4 nhận định; dùng chung cấu trúc thì phải chép đoạn văn 4 lần |
 | 2026-10-09 | Ngân hàng Ngôn ngữ: 10 đoạn văn × 4 nhận định = 40 câu; đáp án 15 Đúng / 12 Sai / 13 Không đủ thông tin; test bắt buộc mỗi loại đáp án ≥ 25% | Tránh đoán bừa vẫn được điểm cao |
+| 2026-10-09 | Ngôn ngữ: nhận định GOM THEO ĐOẠN VĂN (cùng đoạn văn thì đứng liền nhau); 3 lựa chọn cố định A Đúng / B Sai / C Không đủ thông tin; thời gian như Dãy số (×1); chỉ 10/20 câu | Giống bài SHL thật: đọc đoạn văn một lần, trả lời liên tiếp (~40 giây/nhận định) |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
