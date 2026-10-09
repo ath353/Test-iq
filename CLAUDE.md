@@ -112,15 +112,43 @@ Mong muốn: <kết quả đúng phải ra sao>
 
 ```
 src/
-├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…)
+├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts)
-├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts); bank.ts: soát dữ liệu JSON
+├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json (sắp có verbal.json)
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN; sắp có lưu trữ)
 ```
+
+### Soạn câu hỏi JSON (Logic, Ngôn ngữ)
+
+Mỗi câu trong `src/data/*.json` có dạng:
+
+```json
+{
+  "id": "lg-001",
+  "difficulty": "easy",
+  "topic": "ordering",
+  "prompt": "Dữ kiện 1.
+Dữ kiện 2.
+
+Câu hỏi?",
+  "options": ["Lựa chọn 1", "Lựa chọn 2", "Lựa chọn 3"],
+  "answerIndex": 0,
+  "explanationSteps": ["Bước 1…", "Bước 2…"],
+  "fixedOrder": true
+}
+```
+
+- `id`: duy nhất, dạng `<tiền tố>-<3 chữ số>` (Logic: `lg`). `difficulty`: `easy` / `medium` / `hard`.
+- `topic` (Logic): `ordering` (sắp xếp thứ tự), `syllogism` (tam đoạn luận), `seating` (xếp chỗ ngồi).
+- `prompt`: xuống dòng bằng `
+`, mỗi dữ kiện một dòng. `options`: 3–5 lựa chọn, không kèm nhãn A/B/C.
+- `answerIndex`: vị trí đáp án đúng, **đếm từ 0** (lựa chọn đầu tiên là 0).
+- `fixedOrder` (không bắt buộc): `true` để giữ nguyên thứ tự lựa chọn (khi có lựa chọn kiểu "Không xác định được").
+- Sửa file xong chạy `npm run test`: test sẽ báo rõ câu nào sai, sai ở đâu.
 
 ### Lệnh thường dùng
 
@@ -169,7 +197,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.1a | Số liệu: hiển thị bảng số liệu trong câu hỏi | Bảng đọc được trên điện thoại | ✅ |
 | 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ✅ |
 | 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ✅ |
-| 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ⬜ |
+| 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ✅ |
 | 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ⬜ |
 | 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ⬜ |
 | 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
@@ -221,4 +249,6 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Số liệu: 4 bối cảnh (doanh thu, nhân sự, bán hàng, du lịch), bảng 4×4; dễ = chênh lệch/tổng, trung bình = % thay đổi/trung bình/tỉ trọng, khó = tăng trưởng cao nhất/dự báo | Bám sát dạng bài numerical của SHL |
 | 2026-10-09 | Số hiển thị kiểu Việt Nam (1.234,5); làm tròn "nửa ra xa số 0" như tính tay; đáp án nhiễu cách đáp án đúng ≥ 3% | Tránh hai lựa chọn chỉ lệch nhau do làm tròn |
 | 2026-10-09 | Mỗi dạng bài có hệ số thời gian (`timeMultiplier`): Dãy số ×1, Số liệu ×2 (120/90/60 giây/câu); nhãn tốc độ ở trang chủ tự đổi theo dạng bài | Số liệu cần đọc bảng và tính toán, bài SHL cho ~1–1,5 phút/câu |
+| 2026-10-09 | Ngân hàng câu hỏi soạn tay dùng chung một cấu trúc JSON (`BankQuestion`) cho Logic và Ngôn ngữ; đáp án ghi bằng vị trí (`answerIndex`), khi ra đề mới xáo trộn và gán nhãn A–E | Người soạn không phải lo nhãn; một bộ soát lỗi dùng cho mọi ngân hàng |
+| 2026-10-09 | Dữ liệu JSON được soát bằng test; có lỗi thì không ra đề (báo lỗi rõ câu nào, trường nào) | File soạn tay dễ sai sót |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

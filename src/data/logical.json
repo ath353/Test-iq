@@ -1,0 +1,49 @@
+[
+  {
+    "id": "lg-001",
+    "difficulty": "easy",
+    "topic": "ordering",
+    "prompt": "An cao hơn Bình.\nBình cao hơn Chi.\nDũng thấp hơn Chi.\n\nAi là người thấp nhất?",
+    "options": ["An", "Bình", "Chi", "Dũng"],
+    "answerIndex": 3,
+    "explanationSteps": [
+      "Từ hai dữ kiện đầu: An > Bình > Chi (theo chiều cao).",
+      "Dũng thấp hơn Chi, nên: An > Bình > Chi > Dũng.",
+      "Người thấp nhất là Dũng."
+    ]
+  },
+  {
+    "id": "lg-002",
+    "difficulty": "medium",
+    "topic": "syllogism",
+    "prompt": "Tất cả nhân viên phòng Kinh doanh đều biết tiếng Anh.\nMột số người biết tiếng Anh có bằng lái ô tô.\n\nKết luận nào sau đây CHẮC CHẮN đúng?",
+    "options": [
+      "Một số nhân viên phòng Kinh doanh có bằng lái ô tô.",
+      "Mọi người biết tiếng Anh đều là nhân viên phòng Kinh doanh.",
+      "Không nhân viên phòng Kinh doanh nào có bằng lái ô tô.",
+      "Không kết luận nào ở trên chắc chắn đúng."
+    ],
+    "answerIndex": 3,
+    "fixedOrder": true,
+    "explanationSteps": [
+      "Nhóm \"nhân viên Kinh doanh\" nằm trọn trong nhóm \"biết tiếng Anh\".",
+      "Nhóm \"có bằng lái\" chỉ giao với nhóm \"biết tiếng Anh\" ở một phần nào đó, phần này có thể nằm ngoài nhóm nhân viên Kinh doanh.",
+      "Vì vậy không thể chắc chắn nhân viên Kinh doanh có hay không có bằng lái; câu 2 sai vì đảo ngược quan hệ \"tất cả\".",
+      "Đáp án: Không kết luận nào ở trên chắc chắn đúng."
+    ]
+  },
+  {
+    "id": "lg-003",
+    "difficulty": "hard",
+    "topic": "seating",
+    "prompt": "Năm người An, Bình, Chi, Dũng, Em ngồi thành một hàng ngang gồm 5 ghế, đánh số 1 đến 5 từ trái sang phải.\n- Chi ngồi ở ghế giữa.\n- An ngồi ngay bên trái Chi.\n- Em ngồi ở một đầu hàng và không ngồi cạnh An.\n- Bình không ngồi cạnh Chi.\n\nAi ngồi ở ghế số 5?",
+    "options": ["An", "Bình", "Chi", "Dũng", "Em"],
+    "answerIndex": 4,
+    "explanationSteps": [
+      "Chi ngồi ghế giữa: ghế 3. An ngồi ngay bên trái Chi: ghế 2.",
+      "Em ngồi ở đầu hàng (ghế 1 hoặc 5) và không cạnh An. Ghế 1 cạnh ghế 2 của An, nên Em ngồi ghế 5.",
+      "Còn ghế 1 và 4 cho Bình và Dũng. Ghế 4 cạnh Chi, mà Bình không ngồi cạnh Chi, nên Bình ngồi ghế 1, Dũng ngồi ghế 4.",
+      "Người ngồi ghế số 5 là Em."
+    ]
+  }
+]
