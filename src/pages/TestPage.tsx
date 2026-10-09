@@ -1,5 +1,5 @@
-// Màn hình làm bài: hiển thị từng câu, chọn đáp án, chuyển câu, theo dõi thời gian và nộp bài.
-import { useState } from 'react'
+// Màn hình làm bài: hiển thị từng câu, chọn đáp án, chuyển câu, theo dõi thời gian, nộp bài hoặc thoát bài.
+import { useEffect, useRef, useState } from 'react'
 import QuestionCard from '../components/QuestionCard'
 import QuestionNavigator from '../components/QuestionNavigator'
 import Timer from '../components/Timer'
@@ -11,6 +11,14 @@ interface TestPageProps {
   questions: Question[]
   /** Tổng thời gian làm bài (giây), hết giờ thì tự nộp bài; null nghĩa là không giới hạn. */
   timeLimitSec: number | null
+  /** Thời điểm bắt đầu làm bài (mili giây). Bài khôi phục sau khi tải lại trang thì là thời điểm cũ. */
+  startAt: number
+  /** Đáp án đã chọn lúc bắt đầu (bài khôi phục thì có sẵn; bài mới thì rỗng). */
+  initialSelected: Record<string, string>
+  /** Câu đang xem lúc bắt đầu (bài khôi phục thì là câu đang xem dở). */
+  initialIndex: number
+  /** Gọi mỗi khi chọn đáp án hoặc chuyển câu, để nơi gọi lưu lại tiến độ. */
+  onProgress: (selected: Record<string, string>, currentIndex: number) => void
   /**
    * Gọi khi nộp bài (người dùng bấm nộp hoặc hết giờ).
    * @param answers Câu trả lời cho mọi câu (câu bỏ trống có selectedOptionId = null).
@@ -18,16 +26,37 @@ interface TestPageProps {
    * @param timedOut true nếu nộp do hết giờ.
    */
   onSubmit: (answers: UserAnswer[], durationSec: number, timedOut: boolean) => void
+  /** Gọi khi người dùng xác nhận thoát bài (bỏ bài, không chấm điểm). */
+  onQuit: () => void
 }
 
 /**
  * TestPage: quản lý trạng thái bài làm (câu đang xem, đáp án đã chọn, thời gian còn lại).
  */
-function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
+function TestPage({
+  questions,
+  timeLimitSec,
+  startAt,
+  initialSelected,
+  initialIndex,
+  onProgress,
+  onSubmit,
+  onQuit,
+}: TestPageProps) {
   // Vị trí câu đang xem, bắt đầu từ 0
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
   // Đáp án đã chọn, dạng { mã câu hỏi: mã lựa chọn }. Câu chưa chọn thì không có trong object.
-  const [selected, setSelected] = useState<Record<string, string>>({})
+  const [selected, setSelected] = useState<Record<string, string>>(initialSelected)
+
+  // Báo tiến độ mỗi khi đáp án / câu đang xem thay đổi, để lưu lại phòng khi tải lại trang.
+  // Dùng ref để luôn gọi phiên bản onProgress mới nhất mà không phải chạy lại effect khi hàm đổi.
+  const onProgressRef = useRef(onProgress)
+  useEffect(() => {
+    onProgressRef.current = onProgress
+  })
+  useEffect(() => {
+    onProgressRef.current(selected, currentIndex)
+  }, [selected, currentIndex])
 
   const question = questions[currentIndex]
   const isFirst = currentIndex === 0
@@ -40,7 +69,7 @@ function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
   }
 
   // Đồng hồ: hết giờ thì nộp bài ngay, không hỏi xác nhận
-  const { remainingSec, elapsedSec, getElapsedSec } = useTestTimer(timeLimitSec, () => submit(true))
+  const { remainingSec, elapsedSec, getElapsedSec } = useTestTimer(timeLimitSec, startAt, () => submit(true))
 
   /**
    * Gửi bài làm: chuyển đáp án sang dạng UserAnswer[] kèm thời gian đã dùng.
@@ -60,6 +89,11 @@ function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
     const unanswered = questions.length - answeredCount
     if (unanswered > 0 && !window.confirm(`Bạn còn ${unanswered} câu chưa trả lời. Vẫn nộp bài?`)) return
     submit(false)
+  }
+
+  /** Thoát bài: hỏi xác nhận vì bài sẽ bị bỏ, không được chấm điểm. */
+  function handleQuit() {
+    if (window.confirm('Thoát bài? Bài đang làm sẽ bị bỏ và không được chấm điểm.')) onQuit()
   }
 
   return (
@@ -128,12 +162,17 @@ function TestPage({ questions, timeLimitSec, onSubmit }: TestPageProps) {
         onJump={setCurrentIndex}
       />
 
-      {/* Cho phép nộp sớm khi đang ở câu bất kỳ (ở câu cuối đã có nút "Nộp bài" phía trên) */}
-      {!isLast && (
-        <button type="button" className="button test-page__submit-early" onClick={handleSubmit}>
-          Nộp bài sớm
+      {/* Nút phụ: nộp sớm (ở câu cuối đã có nút "Nộp bài" phía trên) và thoát bài */}
+      <div className="test-page__secondary">
+        {!isLast && (
+          <button type="button" className="button" onClick={handleSubmit}>
+            Nộp bài sớm
+          </button>
+        )}
+        <button type="button" className="button test-page__quit" onClick={handleQuit}>
+          Thoát bài
         </button>
-      )}
+      </div>
     </div>
   )
 }

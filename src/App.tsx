@@ -1,38 +1,59 @@
-// Component gốc của ứng dụng: điều hướng giữa 3 màn hình Trang chủ → Làm bài → Kết quả.
+// Component gốc của ứng dụng: điều hướng giữa 3 màn hình Trang chủ → Làm bài → Kết quả,
+// và lưu / khôi phục bài đang làm để tải lại trang (F5) không mất bài.
 import { useState } from 'react'
 import { getCategoryLabel } from './config/testOptions'
 import { generateQuestions } from './generators'
 import HomePage from './pages/HomePage'
 import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
-import type { Question, TestConfig, TestResult } from './types/question'
+import type { TestConfig, TestResult } from './types/question'
+import { type ActiveTest, clearActiveTest, loadActiveTest, saveActiveTest } from './utils/activeTest'
 import { gradeTest } from './utils/scoring'
 
 /**
  * Màn hình đang hiển thị. Mỗi màn hình mang theo dữ liệu nó cần,
  * nên không thể rơi vào trạng thái sai (ví dụ ở màn Kết quả mà không có kết quả).
+ * Màn Làm bài mang theo toàn bộ bài đang làm (ActiveTest) để lưu lại được bất cứ lúc nào.
  */
 type Screen =
   | { name: 'home' }
-  | { name: 'test'; config: TestConfig; questions: Question[]; attempt: number }
+  | { name: 'test'; test: ActiveTest; attempt: number }
   | { name: 'result'; result: TestResult }
+
+/**
+ * Màn hình lúc mở web: nếu còn bài đang làm dở (đã lưu trước khi tải lại trang) thì vào thẳng bài đó.
+ */
+function initialScreen(): Screen {
+  const saved = loadActiveTest()
+  return saved ? { name: 'test', test: saved, attempt: 0 } : { name: 'home' }
+}
 
 /**
  * App: giữ màn hình hiện tại và cấu hình lần làm gần nhất.
  */
 function App() {
-  const [screen, setScreen] = useState<Screen>({ name: 'home' })
+  const [screen, setScreen] = useState<Screen>(initialScreen)
   // Cấu hình lần làm gần nhất: dùng để "Làm bài mới" cùng cấu hình và giữ lựa chọn ở trang chủ
-  const [lastConfig, setLastConfig] = useState<TestConfig | null>(null)
+  const [lastConfig, setLastConfig] = useState<TestConfig | null>(() =>
+    screen.name === 'test' ? screen.test.config : null,
+  )
   // Đếm số lượt làm bài, dùng làm key để màn Làm bài luôn được tạo mới hoàn toàn
   const [attemptCount, setAttemptCount] = useState(0)
 
-  /** Bắt đầu bài mới với cấu hình cho trước: sinh đề rồi chuyển sang màn Làm bài. */
+  /** Bắt đầu bài mới với cấu hình cho trước: sinh đề, lưu lại, rồi chuyển sang màn Làm bài. */
   function startTest(config: TestConfig) {
     const attempt = attemptCount + 1
+    const test: ActiveTest = {
+      config,
+      questions: generateQuestions(config),
+      startAt: Date.now(),
+      selected: {},
+      currentIndex: 0,
+    }
+    saveActiveTest(test)
     setAttemptCount(attempt)
     setLastConfig(config)
-    setScreen({ name: 'test', config, questions: generateQuestions(config), attempt })
+    setScreen({ name: 'test', test, attempt })
     window.scrollTo(0, 0)
   }
 
@@ -55,18 +76,28 @@ function App() {
 
       {screen.name === 'test' && (
         <>
-          <p className="app__subtitle">Dạng bài: {getCategoryLabel(screen.config.category)}</p>
+          <p className="app__subtitle">Dạng bài: {getCategoryLabel(screen.test.config.category)}</p>
           <TestPage
             key={screen.attempt}
-            questions={screen.questions}
-            timeLimitSec={screen.config.timeLimitSec}
+            questions={screen.test.questions}
+            timeLimitSec={screen.test.config.timeLimitSec}
+            startAt={screen.test.startAt}
+            initialSelected={screen.test.selected}
+            initialIndex={screen.test.currentIndex}
+            // Lưu tiến độ thẳng vào bộ nhớ trình duyệt (không cập nhật state để tránh vẽ lại cả trang)
+            onProgress={(selected, currentIndex) => saveActiveTest({ ...screen.test, selected, currentIndex })}
             onSubmit={(answers, durationSec, timedOut) => {
-              // Chấm điểm ngay khi nộp, rồi chuyển sang màn hình kết quả
+              // Chấm điểm ngay khi nộp, xóa bài đang làm, rồi chuyển sang màn hình kết quả
+              clearActiveTest()
               setScreen({
                 name: 'result',
-                result: gradeTest(screen.config, screen.questions, answers, durationSec, timedOut),
+                result: gradeTest(screen.test.config, screen.test.questions, answers, durationSec, timedOut),
               })
               window.scrollTo(0, 0)
+            }}
+            onQuit={() => {
+              clearActiveTest()
+              goHome()
             }}
           />
         </>

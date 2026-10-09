@@ -119,7 +119,7 @@ src/
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
-└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình; sắp có lưu trữ)
+└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm)
 ```
 
 ### Soạn câu hỏi JSON (Logic, Ngôn ngữ)
@@ -223,15 +223,33 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ✅ |
 | 2.4c | Hình: lựa chọn đáp án dạng hình + bật trên trang chủ | Làm hết một bài dạng Hình | ✅ |
 
-### Giai đoạn 3: Nâng cao
+### Giai đoạn 3: Theo dõi tiến bộ
+
+| Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
+|------|----------|---------------------|------------|
+| 3.1 | Giữ bài đang làm khi tải lại trang: lưu câu đang xem, đáp án đã chọn, đồng hồ | F5 giữa bài vẫn làm tiếp; hết giờ trong lúc đóng tab thì mở lại tự nộp | ✅ |
+| 3.2 | Lưu lịch sử kết quả trên trình duyệt (tối đa 200 bài gần nhất) | Nộp bài xong, tải lại trang, kết quả vẫn còn | 🔄 |
+| 3.3 | Trang lịch sử: danh sách bài đã làm, xem lại chi tiết + lời giải | Mở lại được một bài cũ, xem đủ lời giải | ⬜ |
+| 3.4 | Thống kê: % đúng theo dạng / độ khó, tiến bộ qua các lần làm, dạng yếu nhất | Thấy rõ dạng nào cần luyện thêm | ⬜ |
+| 3.5 | Ưu tiên câu chưa làm cho Logic và Ngôn ngữ | Làm liên tiếp nhiều bài ít gặp lại câu cũ | ⬜ |
+| 3.6 | Thi thử tổng hợp: một bài trộn nhiều dạng | Làm hết một bài tổng hợp, kết quả tách điểm theo từng dạng | ⬜ |
+
+### Giai đoạn 4: Mở rộng đề
 
 | Bước | Nội dung | Trạng thái |
 |------|----------|------------|
-| 3.1 | Lưu lịch sử làm bài (localStorage) | ⬜ |
-| 3.2 | Thống kê điểm mạnh / yếu theo dạng | ⬜ |
-| 3.3 | Chế độ thi thử tổng hợp nhiều dạng | ⬜ |
+| 4.1 | Logic sắp xếp thứ tự + xếp chỗ ngồi sinh bằng code (không giới hạn câu) | ⬜ |
+| 4.2 | Dạng chuỗi 5 hình (SHL Inductive) | ⬜ |
+| 4.3 | Soạn thêm ~40 nhận định Ngôn ngữ | ⬜ |
+| 4.4 | Thêm quy luật cho Dãy số, Số liệu, Hình | ⬜ |
 
-> Giai đoạn 3 sẽ được chia nhỏ chi tiết hơn khi tới lượt.
+> Giai đoạn 4 sẽ được chia nhỏ chi tiết hơn khi tới lượt.
+
+### Ý tưởng để sau (chưa đưa vào lộ trình)
+
+- Máy tính nhỏ trên màn hình cho dạng Số liệu.
+- Chế độ "không được quay lại câu trước" giống bài SHL thật.
+- Đồng bộ lịch sử giữa nhiều máy (cần đăng nhập + máy chủ).
 
 ---
 
@@ -285,4 +303,10 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Đáp án nhiễu chỉ đổi góc xoay với tam giác / mũi tên (bội số 90°) | Hình vuông xoay 45° trông như hình thoi, dễ gây tranh cãi |
 | 2026-10-09 | Suy luận hình: thời gian ×4/3 (80 / 60 / 40 giây/câu), số giây làm tròn; số câu 10/20/30 (sinh bằng code, không giới hạn) | Bài SHL thật ~60 giây mỗi ma trận |
 | 2026-10-09 | Lựa chọn dạng hình hiển thị hình (có mô tả bằng lời cho trình đọc màn hình); màn kết quả hiện hình thu nhỏ ở "Bạn chọn / Đáp án đúng" | Dễ so sánh hình đã chọn với đáp án |
+| 2026-10-09 | Giai đoạn 3 (theo dõi tiến bộ) làm trước giai đoạn 4 (mở rộng đề); bỏ máy tính trên màn hình (chuyển sang "Ý tưởng để sau") | Có thống kê mới biết cần mở rộng dạng nào |
+| 2026-10-09 | Lịch sử chỉ lưu trên trình duyệt (localStorage), không đồng bộ giữa các máy | Không có máy chủ; đúng lựa chọn công nghệ ban đầu |
+| 2026-10-09 | Bài đang làm lưu vào localStorage (khóa `test-iq:v1:active-test`) mỗi khi chọn đáp án / chuyển câu; mở web còn bài dở thì vào thẳng bài đó; nộp hoặc thoát thì xóa | F5 / lỡ đóng tab không mất bài |
+| 2026-10-09 | Đồng hồ tính từ thời điểm bắt đầu đã lưu, KỂ CẢ lúc tab bị đóng; quá giờ thì mở lại tự nộp | Giống thi thật, không "dừng giờ" bằng cách đóng tab |
+| 2026-10-09 | Thêm nút "Thoát bài" (có xác nhận) | Lưu bài đang làm khiến F5 không còn là cách thoát bài |
+| 2026-10-09 | Mọi thao tác localStorage bọc try/catch, khóa có số phiên bản (`v1`); dữ liệu hỏng thì bỏ qua và xóa | Chế độ ẩn danh / bị chặn / dữ liệu cũ không làm web sập |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

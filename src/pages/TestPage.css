@@ -37,6 +37,15 @@
   gap: 8px;
 }
 
-.test-page__submit-early {
-  align-self: flex-start;
+/* Hàng nút phụ: "Nộp bài sớm" bên trái, "Thoát bài" bên phải */
+.test-page__secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Thoát bài: chữ màu cảnh báo, đẩy sang phải */
+.test-page__quit {
+  margin-left: auto;
+  color: var(--color-danger);
 }

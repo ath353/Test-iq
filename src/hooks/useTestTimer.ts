@@ -8,22 +8,23 @@ const TICK_MS = 250
 /**
  * useTestTimer: theo dõi thời gian làm bài.
  *
- * Cách hoạt động: ghi lại THỜI ĐIỂM BẮT ĐẦU một lần, mỗi lần cập nhật thì so với giờ hiện tại.
+ * Cách hoạt động: mọi phép tính đều so THỜI ĐIỂM BẮT ĐẦU với giờ hiện tại.
  * Nhờ vậy đồng hồ không bị chạy chậm khi người dùng chuyển sang tab khác
- * (trình duyệt làm chậm setInterval ở tab ẩn).
+ * (trình duyệt làm chậm setInterval ở tab ẩn), và khi khôi phục bài đang làm (tải lại trang),
+ * thời gian vẫn tính đúng từ lúc bắt đầu, kể cả khoảng thời gian tab bị đóng.
+ * Nếu đã quá giờ ngay lúc khôi phục thì lần cập nhật đầu tiên sẽ gọi onExpire (tự nộp bài).
  *
  * @param totalSec Tổng thời gian (giây); null nghĩa là không giới hạn (không bao giờ hết giờ).
+ * @param startAt Thời điểm bắt đầu làm bài (mili giây, dạng Date.now()).
  * @param onExpire Hàm gọi đúng một lần khi hết giờ (không dùng khi totalSec = null).
  * @returns
  *   - remainingSec: số giây còn lại; null nếu không giới hạn.
  *   - elapsedSec: số giây đã làm (dùng để hiển thị khi không giới hạn).
  *   - getElapsedSec: hàm lấy số giây đã dùng chính xác tại thời điểm gọi (dùng khi nộp bài).
  */
-export function useTestTimer(totalSec: number | null, onExpire: () => void) {
-  // Thời điểm bắt đầu, chỉ ghi một lần khi component được tạo
-  const [startAt] = useState(() => Date.now())
+export function useTestTimer(totalSec: number | null, startAt: number, onExpire: () => void) {
   // Giờ hiện tại, cập nhật mỗi TICK_MS để giao diện vẽ lại
-  const [now, setNow] = useState(startAt)
+  const [now, setNow] = useState(() => Date.now())
 
   // Luôn giữ phiên bản onExpire mới nhất, để khi hết giờ dùng đúng dữ liệu hiện tại (đáp án đã chọn…)
   const onExpireRef = useRef(onExpire)
