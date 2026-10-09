@@ -7,17 +7,17 @@ import type { BankQuestion } from '../types/bank'
 import type { Difficulty, Option, Question, QuestionCategory } from '../types/question'
 import { shuffle } from '../utils/random'
 
-const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
+export const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
 const MIN_OPTIONS = 3
 const MAX_OPTIONS = 5
 
 /** Kiểm tra giá trị có phải chuỗi không rỗng (sau khi bỏ khoảng trắng hai đầu). */
-function isNonEmptyString(value: unknown): value is string {
+export function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim() !== ''
 }
 
 /** Kiểm tra giá trị có phải mảng các chuỗi không rỗng. */
-function isNonEmptyStringArray(value: unknown): value is string[] {
+export function isNonEmptyStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every(isNonEmptyString)
 }
 

@@ -38,3 +38,41 @@ export interface BankQuestion {
    */
   fixedOrder?: boolean
 }
+
+// ─────────────────────────────── Dạng Ngôn ngữ (verbal.json) ───────────────────────────────
+
+/** Đáp án của một nhận định: Đúng / Sai / Không đủ thông tin (theo chuẩn bài SHL). */
+export type VerbalAnswer = 'true' | 'false' | 'cannot-say'
+
+/** Một đoạn văn. Mỗi đoạn văn đi kèm nhiều nhận định. */
+export interface VerbalPassage {
+  /** Mã đoạn văn, dạng 'vb-p01'. */
+  id: string
+  /** Tên ngắn của đoạn văn, ví dụ 'Làm việc từ xa'. */
+  title: string
+  /** Nội dung đoạn văn. */
+  text: string
+}
+
+/**
+ * Một nhận định cần đánh giá dựa trên đoạn văn.
+ * Khi ra đề, mỗi nhận định thành một câu hỏi có 3 lựa chọn cố định: Đúng / Sai / Không đủ thông tin.
+ */
+export interface VerbalStatement {
+  /** Mã nhận định, dạng 'vb-001'. */
+  id: string
+  /** Mã đoạn văn mà nhận định này dựa vào. */
+  passageId: string
+  difficulty: Difficulty
+  /** Nội dung nhận định. */
+  statement: string
+  answer: VerbalAnswer
+  /** Lời giải từng bước: trích ý trong đoạn văn, suy luận, kết luận. */
+  explanationSteps: string[]
+}
+
+/** Toàn bộ file verbal.json. Đoạn văn tách riêng để không phải chép lại cho từng nhận định. */
+export interface VerbalBank {
+  passages: VerbalPassage[]
+  statements: VerbalStatement[]
+}

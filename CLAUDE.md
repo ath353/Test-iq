@@ -114,8 +114,8 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
-├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json (sắp có verbal.json)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, verbal.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
@@ -149,6 +149,23 @@ Câu hỏi?",
 - `answerIndex`: vị trí đáp án đúng, **đếm từ 0** (lựa chọn đầu tiên là 0).
 - `fixedOrder` (không bắt buộc): `true` để giữ nguyên thứ tự lựa chọn (khi có lựa chọn kiểu "Không xác định được").
 - Sửa file xong chạy `npm run test`: test sẽ báo rõ câu nào sai, sai ở đâu.
+
+**Riêng dạng Ngôn ngữ** (`verbal.json`): một đoạn văn đi kèm nhiều nhận định, nên file chia 2 phần để không chép lại đoạn văn:
+
+```json
+{
+  "passages": [{ "id": "vb-p01", "title": "Tên ngắn", "text": "Nội dung đoạn văn…" }],
+  "statements": [{
+    "id": "vb-001", "passageId": "vb-p01", "difficulty": "easy",
+    "statement": "Nhận định cần đánh giá.",
+    "answer": "true",
+    "explanationSteps": ["Trích ý trong đoạn văn…", "Đáp án: Đúng."]
+  }]
+}
+```
+
+- `answer`: `true` (Đúng), `false` (Sai), `cannot-say` (Không đủ thông tin). Lựa chọn khi ra đề luôn là 3 lựa chọn cố định theo thứ tự này.
+- Nhận định chỉ được đánh giá **dựa trên đoạn văn**, không dùng kiến thức bên ngoài.
 
 ### Lệnh thường dùng
 
@@ -200,7 +217,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ✅ |
 | 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ✅ |
 | 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ✅ |
-| 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
+| 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ✅ |
 | 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ⬜ |
 | 2.4a | Hình: vẽ hình bằng SVG (dạng hình, màu, số lượng, góc xoay) | Hiển thị đúng ở chế độ sáng và tối | ⬜ |
 | 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ⬜ |
@@ -257,4 +274,6 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Ngân hàng không đủ câu cho độ khó đang chọn thì KHÓA lựa chọn số câu đó (kèm ghi chú số câu hiện có), không bù câu độ khó khác | Đề luôn đúng độ khó người dùng chọn |
 | 2026-10-09 | Câu ra từ ngân hàng giữ nguyên mã gốc (ví dụ `lg-012`) | Để giai đoạn 3 thống kê theo từng câu, ưu tiên câu chưa làm |
 | 2026-10-09 | Lựa chọn dài hơn 20 ký tự thì xếp danh sách dọc; màn kết quả hiện lại đề đầy đủ khi đề nhiều dòng | Đáp án Logic là cả câu, đề có nhiều tiền đề |
+| 2026-10-09 | Ngôn ngữ dùng cấu trúc JSON riêng: `passages` + `statements` (nhận định trỏ tới đoạn văn qua `passageId`), thay vì dùng chung `BankQuestion` như đã định | Một đoạn văn có 4 nhận định; dùng chung cấu trúc thì phải chép đoạn văn 4 lần |
+| 2026-10-09 | Ngân hàng Ngôn ngữ: 10 đoạn văn × 4 nhận định = 40 câu; đáp án 15 Đúng / 12 Sai / 13 Không đủ thông tin; test bắt buộc mỗi loại đáp án ≥ 25% | Tránh đoán bừa vẫn được điểm cao |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

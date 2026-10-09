@@ -1,0 +1,515 @@
+{
+  "passages": [
+    {
+      "id": "vb-p01",
+      "title": "Làm việc từ xa",
+      "text": "Từ năm 2023, công ty phần mềm Minh Phát cho phép nhân viên làm việc từ xa tối đa ba ngày mỗi tuần. Chính sách này áp dụng cho tất cả các phòng ban, trừ bộ phận chăm sóc khách hàng, nơi nhân viên phải có mặt tại văn phòng để trực tổng đài. Sau một năm áp dụng, khảo sát nội bộ cho thấy 78% nhân viên hài lòng hơn với công việc. Tuy nhiên, ban lãnh đạo cũng ghi nhận số cuộc họp trực tuyến tăng gần gấp đôi, khiến một số trưởng nhóm phàn nàn rằng họ có ít thời gian hơn để tập trung vào chuyên môn. Công ty dự kiến sẽ đánh giá lại chính sách vào cuối năm 2025."
+    },
+    {
+      "id": "vb-p02",
+      "title": "Xe máy điện",
+      "text": "Theo báo cáo của Hiệp hội Vận tải thành phố X, số xe máy điện đăng ký mới trong năm 2024 đạt 52.000 chiếc, tăng 40% so với năm trước. Phần lớn người mua là sinh viên và nhân viên văn phòng dưới 30 tuổi. Báo cáo cho rằng giá xe giảm và mạng lưới trạm sạc mở rộng là hai nguyên nhân chính. Dù vậy, xe máy chạy xăng vẫn chiếm hơn 85% tổng số xe máy đăng ký mới. Hiệp hội khuyến nghị thành phố tăng số trạm đổi pin tại các khu chung cư cũ, nơi người dân khó lắp đặt thiết bị sạc tại nhà."
+    },
+    {
+      "id": "vb-p03",
+      "title": "Giấc ngủ và nghỉ ốm",
+      "text": "Một nghiên cứu theo dõi 2.000 nhân viên văn phòng trong sáu tháng cho thấy những người ngủ dưới sáu tiếng mỗi đêm có số ngày nghỉ ốm cao hơn 30% so với những người ngủ từ bảy đến tám tiếng. Các nhà nghiên cứu lưu ý rằng kết quả này chỉ cho thấy mối liên hệ, chưa chứng minh thiếu ngủ là nguyên nhân gây bệnh, vì nhóm ngủ ít cũng có tỉ lệ làm thêm giờ cao hơn. Nghiên cứu không bao gồm người làm việc theo ca đêm."
+    },
+    {
+      "id": "vb-p04",
+      "title": "Tuyển dụng thực tập sinh quản lý",
+      "text": "Quy trình tuyển dụng thực tập sinh quản lý (Management Trainee) của Tập đoàn Sao Mai gồm bốn vòng: nộp hồ sơ, bài kiểm tra năng lực trực tuyến, phỏng vấn nhóm và phỏng vấn với ban giám đốc. Ứng viên chỉ được vào vòng tiếp theo nếu vượt qua vòng trước. Năm nay, tập đoàn nhận được 6.500 hồ sơ, trong đó 1.200 ứng viên được mời làm bài kiểm tra năng lực. Ứng viên đã tốt nghiệp quá hai năm không đủ điều kiện nộp hồ sơ. Tập đoàn dự kiến tuyển 25 người."
+    },
+    {
+      "id": "vb-p05",
+      "title": "Cà phê và hạn hán",
+      "text": "Năm 2024, sản lượng cà phê của tỉnh Y giảm khoảng 10% so với năm trước do hạn hán kéo dài trong mùa khô. Tuy nhiên, giá cà phê trên thị trường thế giới tăng mạnh, nên tổng doanh thu xuất khẩu cà phê của tỉnh vẫn tăng 25%. Chính quyền tỉnh đang hỗ trợ nông dân chuyển sang hệ thống tưới nhỏ giọt, giúp tiết kiệm đến 40% lượng nước so với tưới tràn. Đến nay, khoảng 15% diện tích trồng cà phê của tỉnh đã áp dụng hệ thống này."
+    },
+    {
+      "id": "vb-p06",
+      "title": "Thư viện sách điện tử",
+      "text": "Thư viện thành phố Z bắt đầu cho mượn sách điện tử từ tháng 1 năm 2024. Bạn đọc có thẻ thư viện có thể mượn tối đa 5 sách điện tử cùng lúc, mỗi lần mượn kéo dài 14 ngày và không được gia hạn. Trong năm đầu tiên, số lượt mượn sách điện tử đạt 120.000, trong khi số lượt mượn sách in giảm 8%. Ban giám đốc thư viện cho biết sẽ không cắt giảm ngân sách mua sách in trong năm 2025."
+    },
+    {
+      "id": "vb-p07",
+      "title": "Thiếu nhân sự phân tích dữ liệu",
+      "text": "Theo khảo sát của Công ty tư vấn Nhân Lực Việt với 300 doanh nghiệp, 64% doanh nghiệp cho biết khó tuyển nhân sự có kỹ năng phân tích dữ liệu. Để giải quyết, 45% doanh nghiệp đã tổ chức các khóa đào tạo nội bộ, còn 20% chọn hợp tác với các trường đại học. Các doanh nghiệp quy mô dưới 50 nhân viên ít tổ chức đào tạo nội bộ hơn, chủ yếu do thiếu ngân sách. Khảo sát được thực hiện trong quý 3 năm 2025."
+    },
+    {
+      "id": "vb-p08",
+      "title": "Ngừng phát túi nilon",
+      "text": "Từ tháng 6 năm 2025, chuỗi siêu thị Xanh Mart ngừng phát miễn phí túi nilon tại tất cả cửa hàng. Khách hàng có thể mua túi giấy với giá 2.000 đồng hoặc mang túi riêng. Sau ba tháng, lượng túi nilon chuỗi sử dụng giảm 70%. Một số khách hàng phản ánh sự bất tiện, nhưng doanh thu của chuỗi trong cùng kỳ không giảm. Xanh Mart cho biết toàn bộ tiền bán túi giấy được dùng để tài trợ chương trình trồng cây."
+    },
+    {
+      "id": "vb-p09",
+      "title": "Ứng dụng học tiếng Anh",
+      "text": "Ứng dụng học tiếng Anh LinguaPro có hai gói: gói miễn phí giới hạn 15 phút học mỗi ngày, và gói trả phí 99.000 đồng mỗi tháng không giới hạn thời gian học. Theo dữ liệu của công ty, người dùng gói trả phí học trung bình 42 phút mỗi ngày, gấp gần ba lần người dùng gói miễn phí. Công ty cũng cho biết người dùng duy trì thói quen học liên tục trên 30 ngày có điểm bài kiểm tra cuối khóa cao hơn rõ rệt."
+    },
+    {
+      "id": "vb-p10",
+      "title": "Điện mặt trời áp mái",
+      "text": "Tòa nhà văn phòng Hòa Bình lắp đặt hệ thống điện mặt trời trên mái vào đầu năm 2025 với chi phí 1,2 tỷ đồng. Hệ thống đáp ứng khoảng 20% nhu cầu điện của tòa nhà, giúp tiết kiệm trung bình 25 triệu đồng tiền điện mỗi tháng. Ban quản lý ước tính sẽ thu hồi vốn sau khoảng 4 năm. Vào những tháng mùa mưa, sản lượng điện của hệ thống giảm đáng kể."
+    }
+  ],
+  "statements": [
+    {
+      "id": "vb-001",
+      "passageId": "vb-p01",
+      "difficulty": "easy",
+      "statement": "Nhân viên bộ phận chăm sóc khách hàng của Minh Phát được làm việc từ xa ba ngày mỗi tuần.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: chính sách áp dụng cho tất cả các phòng ban, \"trừ bộ phận chăm sóc khách hàng\", nơi nhân viên phải có mặt tại văn phòng.",
+        "Nhận định trái với thông tin này. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-002",
+      "passageId": "vb-p01",
+      "difficulty": "easy",
+      "statement": "Sau một năm áp dụng chính sách, đa số nhân viên hài lòng hơn với công việc.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: khảo sát cho thấy 78% nhân viên hài lòng hơn với công việc.",
+        "78% là hơn một nửa, tức đa số. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-003",
+      "passageId": "vb-p01",
+      "difficulty": "medium",
+      "statement": "Năng suất làm việc của nhân viên Minh Phát tăng lên nhờ chính sách làm việc từ xa.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nói về mức độ hài lòng của nhân viên và số cuộc họp trực tuyến.",
+        "Không có thông tin nào về năng suất làm việc. Hài lòng hơn không có nghĩa là năng suất cao hơn.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-004",
+      "passageId": "vb-p01",
+      "difficulty": "hard",
+      "statement": "Tất cả trưởng nhóm của Minh Phát đều phàn nàn về số cuộc họp trực tuyến.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nói \"một số trưởng nhóm phàn nàn\".",
+        "\"Một số\" cho biết có người phàn nàn, nhưng không cho biết những trưởng nhóm còn lại có phàn nàn hay không, nên không khẳng định được \"tất cả\" cũng không bác bỏ được.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-005",
+      "passageId": "vb-p02",
+      "difficulty": "easy",
+      "statement": "Năm 2024, số xe máy điện đăng ký mới ở thành phố X nhiều hơn năm 2023.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: số xe máy điện đăng ký mới năm 2024 \"tăng 40% so với năm trước\".",
+        "Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-006",
+      "passageId": "vb-p02",
+      "difficulty": "hard",
+      "statement": "Năm 2023, thành phố X có khoảng 37.000 xe máy điện đăng ký mới.",
+      "answer": "true",
+      "explanationSteps": [
+        "Năm 2024 có 52.000 chiếc, tăng 40% so với năm 2023, nghĩa là 52.000 = số năm 2023 × 1,4.",
+        "Số năm 2023 = 52.000 ÷ 1,4 ≈ 37.143, tức khoảng 37.000 chiếc.",
+        "Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-007",
+      "passageId": "vb-p02",
+      "difficulty": "easy",
+      "statement": "Xe máy điện chiếm phần lớn số xe máy đăng ký mới tại thành phố X năm 2024.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: xe máy chạy xăng vẫn chiếm hơn 85% tổng số xe máy đăng ký mới.",
+        "Vậy xe máy điện chiếm chưa đến 15%, không phải phần lớn. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-008",
+      "passageId": "vb-p02",
+      "difficulty": "medium",
+      "statement": "Thành phố X đã tăng số trạm đổi pin tại các khu chung cư cũ.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nói Hiệp hội \"khuyến nghị\" thành phố tăng số trạm đổi pin.",
+        "Khuyến nghị không có nghĩa là thành phố đã làm; đoạn văn không cho biết thành phố có thực hiện hay chưa.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-009",
+      "passageId": "vb-p03",
+      "difficulty": "easy",
+      "statement": "Nghiên cứu theo dõi các nhân viên văn phòng trong nửa năm.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: nghiên cứu theo dõi 2.000 nhân viên văn phòng \"trong sáu tháng\".",
+        "Sáu tháng là nửa năm. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-010",
+      "passageId": "vb-p03",
+      "difficulty": "hard",
+      "statement": "Nghiên cứu đã chứng minh rằng thiếu ngủ khiến nhân viên dễ bị ốm hơn.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn nói rõ kết quả \"chỉ cho thấy mối liên hệ, chưa chứng minh thiếu ngủ là nguyên nhân gây bệnh\".",
+        "Nhận định nói nghiên cứu \"đã chứng minh\" quan hệ nguyên nhân, trái với đoạn văn. Đáp án: Sai.",
+        "Lưu ý: đây là bẫy hay gặp, nhầm \"có liên hệ\" thành \"là nguyên nhân\"."
+      ]
+    },
+    {
+      "id": "vb-011",
+      "passageId": "vb-p03",
+      "difficulty": "medium",
+      "statement": "Người làm việc theo ca đêm có số ngày nghỉ ốm cao hơn nhân viên làm giờ hành chính.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn: nghiên cứu \"không bao gồm người làm việc theo ca đêm\".",
+        "Vì vậy đoạn văn không có dữ liệu gì về số ngày nghỉ ốm của người làm ca đêm.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-012",
+      "passageId": "vb-p03",
+      "difficulty": "medium",
+      "statement": "Trong nghiên cứu, nhóm ngủ dưới sáu tiếng mỗi đêm có tỉ lệ làm thêm giờ cao hơn.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: \"nhóm ngủ ít cũng có tỉ lệ làm thêm giờ cao hơn\".",
+        "Nhóm ngủ ít chính là nhóm ngủ dưới sáu tiếng mỗi đêm. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-013",
+      "passageId": "vb-p04",
+      "difficulty": "easy",
+      "statement": "Ứng viên phải vượt qua bài kiểm tra năng lực trực tuyến mới được tham gia phỏng vấn nhóm.",
+      "answer": "true",
+      "explanationSteps": [
+        "Thứ tự các vòng: hồ sơ → kiểm tra năng lực → phỏng vấn nhóm → phỏng vấn ban giám đốc.",
+        "Đoạn văn: ứng viên chỉ được vào vòng tiếp theo nếu vượt qua vòng trước. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-014",
+      "passageId": "vb-p04",
+      "difficulty": "medium",
+      "statement": "Năm nay, chưa đến một phần năm số hồ sơ được mời làm bài kiểm tra năng lực.",
+      "answer": "true",
+      "explanationSteps": [
+        "Có 1.200 trên 6.500 hồ sơ được mời làm bài kiểm tra.",
+        "Một phần năm của 6.500 là 1.300. Vì 1.200 < 1.300 (khoảng 18,5%), nên đúng là chưa đến một phần năm.",
+        "Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-015",
+      "passageId": "vb-p04",
+      "difficulty": "hard",
+      "statement": "Một người đã tốt nghiệp ba năm vẫn có thể nộp hồ sơ nếu có kinh nghiệm quản lý.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: ứng viên đã tốt nghiệp quá hai năm không đủ điều kiện nộp hồ sơ.",
+        "Đoạn văn nêu quy định này mà không có ngoại lệ nào; tốt nghiệp ba năm là quá hai năm.",
+        "Nhận định đưa ra ngoại lệ trái với quy định. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-016",
+      "passageId": "vb-p04",
+      "difficulty": "hard",
+      "statement": "Năm nay có 1.200 ứng viên vào vòng phỏng vấn nhóm.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "1.200 là số ứng viên được MỜI LÀM BÀI KIỂM TRA năng lực, không phải số người vào phỏng vấn nhóm.",
+        "Phải vượt qua bài kiểm tra mới vào phỏng vấn nhóm, nhưng đoạn văn không cho biết bao nhiêu người vượt qua.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-017",
+      "passageId": "vb-p05",
+      "difficulty": "easy",
+      "statement": "Hạn hán là nguyên nhân khiến sản lượng cà phê của tỉnh Y giảm trong năm 2024.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: sản lượng cà phê giảm khoảng 10% \"do hạn hán kéo dài trong mùa khô\".",
+        "Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-018",
+      "passageId": "vb-p05",
+      "difficulty": "medium",
+      "statement": "Năm 2024, thu nhập của mọi nông dân trồng cà phê ở tỉnh Y đều tăng.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nói tổng doanh thu xuất khẩu cà phê của cả tỉnh tăng 25%.",
+        "Tổng doanh thu cả tỉnh tăng không cho biết thu nhập của từng nông dân; có thể có người tăng, có người giảm.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-019",
+      "passageId": "vb-p05",
+      "difficulty": "easy",
+      "statement": "Phần lớn diện tích trồng cà phê của tỉnh Y đã dùng hệ thống tưới nhỏ giọt.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: mới khoảng 15% diện tích trồng cà phê áp dụng tưới nhỏ giọt.",
+        "15% không phải phần lớn. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-020",
+      "passageId": "vb-p05",
+      "difficulty": "hard",
+      "statement": "Năm 2024, giá bán trung bình mỗi tấn cà phê xuất khẩu của tỉnh Y tăng hơn 25% so với năm trước.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Giá mỗi tấn xuất khẩu = doanh thu xuất khẩu ÷ khối lượng XUẤT KHẨU.",
+        "Đoạn văn cho biết doanh thu xuất khẩu tăng 25% và SẢN LƯỢNG giảm 10%, nhưng không cho biết khối lượng xuất khẩu (một phần sản lượng có thể bán trong nước hoặc để tồn kho).",
+        "Không tính được giá mỗi tấn xuất khẩu. Đáp án: Không đủ thông tin.",
+        "Lưu ý: bẫy ở chỗ nhầm \"sản lượng\" với \"khối lượng xuất khẩu\"."
+      ]
+    },
+    {
+      "id": "vb-021",
+      "passageId": "vb-p06",
+      "difficulty": "easy",
+      "statement": "Bạn đọc có thể gia hạn sách điện tử thêm 14 ngày.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: mỗi lần mượn kéo dài 14 ngày \"và không được gia hạn\".",
+        "Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-022",
+      "passageId": "vb-p06",
+      "difficulty": "medium",
+      "statement": "Số lượt mượn sách in giảm vì bạn đọc chuyển sang mượn sách điện tử.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nêu hai sự việc xảy ra cùng lúc: sách điện tử được mượn 120.000 lượt, sách in giảm 8%.",
+        "Đoạn văn không nói sự việc này là nguyên nhân của sự việc kia; sách in có thể giảm vì lý do khác.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-023",
+      "passageId": "vb-p06",
+      "difficulty": "medium",
+      "statement": "Một bạn đọc có thẻ thư viện có thể giữ cùng lúc 5 sách điện tử trong 14 ngày.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: bạn đọc có thẻ được mượn tối đa 5 sách điện tử cùng lúc, mỗi lần mượn kéo dài 14 ngày.",
+        "Vậy giữ cùng lúc 5 cuốn trong 14 ngày là được phép. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-024",
+      "passageId": "vb-p06",
+      "difficulty": "hard",
+      "statement": "Năm 2025, thư viện sẽ mua số lượng sách in không ít hơn năm 2024.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nói thư viện sẽ không cắt giảm NGÂN SÁCH mua sách in.",
+        "Ngân sách giữ nguyên chưa chắc số lượng sách giữ nguyên, ví dụ nếu giá sách tăng thì mua được ít sách hơn.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-025",
+      "passageId": "vb-p07",
+      "difficulty": "easy",
+      "statement": "Hơn một nửa số doanh nghiệp được khảo sát gặp khó khăn khi tuyển nhân sự có kỹ năng phân tích dữ liệu.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: 64% doanh nghiệp cho biết khó tuyển nhân sự có kỹ năng phân tích dữ liệu.",
+        "64% là hơn một nửa. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-026",
+      "passageId": "vb-p07",
+      "difficulty": "hard",
+      "statement": "Có đúng 65% doanh nghiệp được khảo sát đã có biện pháp giải quyết tình trạng thiếu nhân sự phân tích dữ liệu.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "45% tổ chức đào tạo nội bộ, 20% hợp tác với trường đại học. Cộng lại 65% chỉ đúng khi không doanh nghiệp nào làm cả hai.",
+        "Đoạn văn không cho biết có doanh nghiệp làm cả hai hay không; cũng có thể có doanh nghiệp dùng biện pháp khác không được nêu.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-027",
+      "passageId": "vb-p07",
+      "difficulty": "medium",
+      "statement": "Thiếu ngân sách là lý do chính khiến doanh nghiệp dưới 50 nhân viên ít tổ chức đào tạo nội bộ.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: doanh nghiệp quy mô dưới 50 nhân viên ít tổ chức đào tạo nội bộ hơn, \"chủ yếu do thiếu ngân sách\".",
+        "\"Chủ yếu do\" nghĩa là lý do chính. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-028",
+      "passageId": "vb-p07",
+      "difficulty": "easy",
+      "statement": "Khảo sát được thực hiện với hơn 500 doanh nghiệp.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: khảo sát với 300 doanh nghiệp.",
+        "Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-029",
+      "passageId": "vb-p08",
+      "difficulty": "easy",
+      "statement": "Sau khi áp dụng chính sách, khách hàng vẫn có thể nhận túi nilon miễn phí ở một số cửa hàng Xanh Mart.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: Xanh Mart ngừng phát miễn phí túi nilon \"tại tất cả cửa hàng\".",
+        "Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-030",
+      "passageId": "vb-p08",
+      "difficulty": "hard",
+      "statement": "Doanh thu của Xanh Mart tăng sau khi ngừng phát túi nilon miễn phí.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ nói doanh thu trong cùng kỳ \"không giảm\".",
+        "\"Không giảm\" có thể là giữ nguyên hoặc tăng; không biết là trường hợp nào.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-031",
+      "passageId": "vb-p08",
+      "difficulty": "medium",
+      "statement": "Xanh Mart không giữ lại khoản tiền nào từ việc bán túi giấy.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: \"toàn bộ tiền bán túi giấy được dùng để tài trợ chương trình trồng cây\".",
+        "Toàn bộ dùng để tài trợ nghĩa là chuỗi không giữ lại khoản nào. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-032",
+      "passageId": "vb-p08",
+      "difficulty": "hard",
+      "statement": "Chính sách mới khiến số khách hàng mua sắm tại Xanh Mart giảm.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn chỉ cho biết một số khách hàng phản ánh bất tiện và doanh thu không giảm.",
+        "Không có thông tin về SỐ KHÁCH HÀNG. Doanh thu không giảm cũng không chứng minh số khách giữ nguyên (mỗi khách có thể mua nhiều hơn).",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-033",
+      "passageId": "vb-p09",
+      "difficulty": "easy",
+      "statement": "Người dùng gói miễn phí của LinguaPro có thể học 30 phút mỗi ngày.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: gói miễn phí giới hạn 15 phút học mỗi ngày.",
+        "30 phút vượt quá giới hạn. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-034",
+      "passageId": "vb-p09",
+      "difficulty": "medium",
+      "statement": "Người dùng gói miễn phí học trung bình khoảng 14 đến 15 phút mỗi ngày.",
+      "answer": "true",
+      "explanationSteps": [
+        "Người dùng trả phí học 42 phút, \"gấp gần ba lần\" người dùng miễn phí: 42 ÷ 3 = 14, và vì \"gần\" ba lần nên con số thực tế nhỉnh hơn 14 một chút.",
+        "Gói miễn phí lại giới hạn 15 phút mỗi ngày, nên trung bình không quá 15 phút.",
+        "Vậy trung bình khoảng 14 đến 15 phút. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-035",
+      "passageId": "vb-p09",
+      "difficulty": "hard",
+      "statement": "Chuyển sang gói trả phí giúp người dùng đạt điểm kiểm tra cuối khóa cao hơn.",
+      "answer": "cannot-say",
+      "explanationSteps": [
+        "Đoạn văn liên hệ điểm kiểm tra cao hơn với việc HỌC LIÊN TỤC trên 30 ngày, không phải với loại gói.",
+        "Đoạn văn cũng không so sánh điểm kiểm tra giữa người dùng trả phí và miễn phí.",
+        "Đáp án: Không đủ thông tin."
+      ]
+    },
+    {
+      "id": "vb-036",
+      "passageId": "vb-p09",
+      "difficulty": "easy",
+      "statement": "Gói trả phí của LinguaPro có giá dưới 100.000 đồng mỗi tháng.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: gói trả phí 99.000 đồng mỗi tháng.",
+        "99.000 < 100.000. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-037",
+      "passageId": "vb-p10",
+      "difficulty": "easy",
+      "statement": "Hệ thống điện mặt trời cung cấp phần lớn lượng điện cho tòa nhà Hòa Bình.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: hệ thống đáp ứng khoảng 20% nhu cầu điện của tòa nhà.",
+        "20% không phải phần lớn. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-038",
+      "passageId": "vb-p10",
+      "difficulty": "medium",
+      "statement": "Mỗi năm, hệ thống giúp tòa nhà tiết kiệm trung bình khoảng 300 triệu đồng tiền điện.",
+      "answer": "true",
+      "explanationSteps": [
+        "Đoạn văn: tiết kiệm trung bình 25 triệu đồng mỗi tháng.",
+        "Một năm: 25 × 12 = 300 triệu đồng. Đáp án: Đúng."
+      ]
+    },
+    {
+      "id": "vb-039",
+      "passageId": "vb-p10",
+      "difficulty": "medium",
+      "statement": "Sản lượng điện của hệ thống ổn định trong suốt cả năm.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: vào những tháng mùa mưa, sản lượng điện của hệ thống giảm đáng kể.",
+        "Vậy sản lượng không ổn định quanh năm. Đáp án: Sai."
+      ]
+    },
+    {
+      "id": "vb-040",
+      "passageId": "vb-p10",
+      "difficulty": "easy",
+      "statement": "Hệ thống điện mặt trời được lắp đặt trên mặt đất cạnh tòa nhà Hòa Bình.",
+      "answer": "false",
+      "explanationSteps": [
+        "Đoạn văn: hệ thống điện mặt trời được lắp \"trên mái\" tòa nhà.",
+        "Đáp án: Sai."
+      ]
+    }
+  ]
+}
