@@ -6,11 +6,13 @@ import {
   DEFAULTS,
   DIFFICULTY_OPTIONS,
   findSpeedId,
+  getQuestionCountChoices,
   getSecondsPerQuestion,
   getSpeedLabel,
-  QUESTION_COUNT_OPTIONS,
+  resolveQuestionCount,
   SPEED_OPTIONS,
 } from '../config/testOptions'
+import { countAvailableQuestions } from '../generators'
 import type { DifficultySetting, QuestionCategory, TestConfig } from '../types/question'
 import { formatTime } from '../utils/time'
 import './HomePage.css'
@@ -26,19 +28,30 @@ interface HomePageProps {
  * HomePage: các nhóm lựa chọn và nút bắt đầu.
  * Tổng thời gian được tính tự động = số câu × số giây mỗi câu (đã nhân hệ số của dạng bài),
  * nên đổi dạng bài thì nhãn tốc độ và tổng thời gian tự cập nhật.
+ *
+ * Với dạng dùng ngân hàng câu hỏi có hạn (Logic): lựa chọn số câu vượt quá số câu hiện có (theo độ khó)
+ * bị khóa; nếu lựa chọn đang chọn bị khóa thì tự chuyển sang lựa chọn hợp lệ gần nhất.
  */
 function HomePage({ initialConfig, onStart }: HomePageProps) {
   const [category, setCategory] = useState<QuestionCategory>(initialConfig?.category ?? DEFAULTS.category)
-  const [questionCount, setQuestionCount] = useState(initialConfig?.questionCount ?? DEFAULTS.questionCount)
+  // Số câu người dùng đã bấm chọn (có thể tạm thời không hợp lệ khi đổi dạng bài / độ khó)
+  const [preferredCount, setPreferredCount] = useState(initialConfig?.questionCount ?? DEFAULTS.questionCount)
   const [difficulty, setDifficulty] = useState<DifficultySetting>(
     initialConfig?.difficulty ?? DEFAULTS.difficulty,
   )
   const [speedId, setSpeedId] = useState(() => findSpeedId(initialConfig))
 
+  // Lựa chọn số câu (kèm trạng thái khóa) và số câu thực sự dùng
+  const available = countAvailableQuestions(category, difficulty)
+  const countChoices = getQuestionCountChoices(category, available)
+  const questionCount = resolveQuestionCount(preferredCount, countChoices)
+  const hasLockedCount = countChoices.some((c) => c.disabled)
+
   // Tính tổng thời gian từ tốc độ, dạng bài và số câu (null = không giới hạn)
   const speed = SPEED_OPTIONS.find((s) => s.id === speedId) ?? SPEED_OPTIONS[0]
   const secondsPerQuestion = getSecondsPerQuestion(speed, category)
-  const timeLimitSec = secondsPerQuestion === null ? null : secondsPerQuestion * questionCount
+  const timeLimitSec =
+    secondsPerQuestion === null || questionCount === null ? null : secondsPerQuestion * questionCount
 
   return (
     <div className="home-page">
@@ -74,9 +87,10 @@ function HomePage({ initialConfig, onStart }: HomePageProps) {
 
       <OptionGroup
         label="Số câu"
-        options={QUESTION_COUNT_OPTIONS.map((n) => ({ value: n, label: `${n} câu` }))}
-        value={questionCount}
-        onChange={setQuestionCount}
+        options={countChoices.map((c) => ({ value: c.count, label: `${c.count} câu`, disabled: c.disabled }))}
+        value={questionCount ?? 0}
+        onChange={setPreferredCount}
+        hint={hasLockedCount ? `Độ khó này hiện có ${available} câu.` : undefined}
       />
 
       <OptionGroup
@@ -102,7 +116,9 @@ function HomePage({ initialConfig, onStart }: HomePageProps) {
         <button
           type="button"
           className="button button--primary home-page__start-button"
-          onClick={() => onStart({ category, questionCount, difficulty, timeLimitSec })}
+          // Không có lựa chọn số câu nào hợp lệ (ngân hàng quá ít câu) thì không cho bắt đầu
+          disabled={questionCount === null}
+          onClick={() => questionCount !== null && onStart({ category, questionCount, difficulty, timeLimitSec })}
         >
           Bắt đầu làm bài
         </button>

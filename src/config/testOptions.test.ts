@@ -1,7 +1,14 @@
 // Kiểm thử cách tính thời gian theo mức tốc độ và hệ số của dạng bài.
 import { describe, expect, it } from 'vitest'
 import type { TestConfig } from '../types/question'
-import { findSpeedId, getSecondsPerQuestion, getSpeedLabel, SPEED_OPTIONS } from './testOptions'
+import {
+  findSpeedId,
+  getQuestionCountChoices,
+  getSecondsPerQuestion,
+  getSpeedLabel,
+  resolveQuestionCount,
+  SPEED_OPTIONS,
+} from './testOptions'
 
 /** Lấy mức tốc độ theo mã. */
 const speed = (id: string) => SPEED_OPTIONS.find((s) => s.id === id)!
@@ -46,5 +53,46 @@ describe('findSpeedId', () => {
   it('không có cấu hình cũ hoặc không khớp thì dùng mức mặc định', () => {
     expect(findSpeedId(null)).toBe('standard')
     expect(findSpeedId(config('number-series', 123))).toBe('standard')
+  })
+})
+
+describe('getQuestionCountChoices', () => {
+  it('dạng sinh bằng code: 10/20/30, không khóa lựa chọn nào', () => {
+    expect(getQuestionCountChoices('number-series', null)).toEqual([
+      { count: 10, disabled: false },
+      { count: 20, disabled: false },
+      { count: 30, disabled: false },
+    ])
+  })
+
+  it('Logic: chỉ 10/20; khóa lựa chọn vượt quá số câu hiện có', () => {
+    expect(getQuestionCountChoices('logical', 40)).toEqual([
+      { count: 10, disabled: false },
+      { count: 20, disabled: false },
+    ])
+    expect(getQuestionCountChoices('logical', 13)).toEqual([
+      { count: 10, disabled: false },
+      { count: 20, disabled: true },
+    ])
+  })
+})
+
+describe('resolveQuestionCount', () => {
+  const choices = (...items: [number, boolean][]) => items.map(([count, disabled]) => ({ count, disabled }))
+
+  it('giữ nguyên lựa chọn nếu còn hợp lệ', () => {
+    expect(resolveQuestionCount(20, choices([10, false], [20, false]))).toBe(20)
+  })
+
+  it('lựa chọn bị khóa thì lùi về lựa chọn lớn nhất còn mở (20 → 10)', () => {
+    expect(resolveQuestionCount(20, choices([10, false], [20, true]))).toBe(10)
+  })
+
+  it('lựa chọn không có trong danh sách thì lấy lựa chọn lớn nhất không vượt quá (30 → 20)', () => {
+    expect(resolveQuestionCount(30, choices([10, false], [20, false]))).toBe(20)
+  })
+
+  it('mọi lựa chọn đều bị khóa thì trả về null', () => {
+    expect(resolveQuestionCount(10, choices([10, true], [20, true]))).toBeNull()
   })
 })

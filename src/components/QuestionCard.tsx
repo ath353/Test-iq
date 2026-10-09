@@ -3,6 +3,9 @@ import type { Question } from '../types/question'
 import StimulusView from './StimulusView'
 import './QuestionCard.css'
 
+/** Lựa chọn dài hơn số ký tự này thì cả nhóm lựa chọn xếp thành danh sách dọc. */
+const LONG_OPTION_LENGTH = 20
+
 interface QuestionCardProps {
   question: Question
   /** Mã lựa chọn đang được chọn; null nếu chưa chọn. */
@@ -22,6 +25,10 @@ interface QuestionCardProps {
  * Thứ tự hiển thị: lời dẫn → dữ kiện (bảng, đoạn văn; nếu có) → đề bài → các lựa chọn.
  */
 function QuestionCard({ question, selectedOptionId, onSelect }: QuestionCardProps) {
+  // Có lựa chọn dài (cả câu, ví dụ đáp án Logic) thì xếp thành danh sách dọc, mỗi lựa chọn một dòng;
+  // lựa chọn ngắn (con số, tên người) thì xếp dạng lưới nhiều cột cho gọn
+  const hasLongOption = question.options.some((o) => o.content.length > LONG_OPTION_LENGTH)
+
   return (
     <section className={`question-card question-card--${question.category}`}>
       <p className="question-card__instruction">{question.instruction}</p>
@@ -29,7 +36,11 @@ function QuestionCard({ question, selectedOptionId, onSelect }: QuestionCardProp
       <p className="question-card__prompt">{question.prompt}</p>
 
       {/* Nhóm lựa chọn dạng radio để trình đọc màn hình hiểu "chỉ chọn một" */}
-      <div className="question-card__options" role="radiogroup" aria-label="Các lựa chọn">
+      <div
+        className={`question-card__options${hasLongOption ? ' question-card__options--list' : ''}`}
+        role="radiogroup"
+        aria-label="Các lựa chọn"
+      >
         {question.options.map((option) => {
           const isSelected = option.id === selectedOptionId
           return (

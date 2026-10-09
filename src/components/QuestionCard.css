@@ -34,6 +34,17 @@
   gap: 8px;
 }
 
+/* Lựa chọn dài (cả câu): mỗi lựa chọn một dòng, chữ căn trái, nhãn A/B/C nằm đầu dòng */
+.question-card__options--list {
+  grid-template-columns: 1fr;
+}
+
+.question-card__options--list .option {
+  align-items: flex-start;
+  font-size: 1rem;
+  text-align: left;
+}
+
 .option {
   display: flex;
   align-items: center;

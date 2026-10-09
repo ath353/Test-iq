@@ -15,6 +15,11 @@ export interface CategoryOption {
    * Ví dụ hệ số 2: mức "Chuẩn" 45 giây/câu thành 90 giây/câu.
    */
   timeMultiplier: number
+  /**
+   * Danh sách số câu riêng cho dạng này; bỏ trống thì dùng QUESTION_COUNT_OPTIONS.
+   * Dạng dùng ngân hàng câu hỏi có hạn chỉ cho chọn ít câu để đỡ lặp câu giữa các lần làm.
+   */
+  questionCounts?: number[]
 }
 
 export const CATEGORY_OPTIONS: CategoryOption[] = [
@@ -33,8 +38,17 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
     // Phải đọc bảng và tính toán: bài SHL thật cho khoảng 1–1,5 phút mỗi câu
     timeMultiplier: 2,
   },
+  {
+    id: 'logical',
+    label: 'Suy luận logic',
+    description: 'Tam đoạn luận, sắp xếp thứ tự',
+    available: true,
+    // Câu xếp chỗ ngồi khó thường mất 1–2 phút
+    timeMultiplier: 2,
+    // Ngân hàng 40 câu: chỉ cho chọn 10 hoặc 20 câu để đỡ lặp
+    questionCounts: [10, 20],
+  },
   // Các dạng chưa làm: hệ số thời gian sẽ chốt khi làm tới
-  { id: 'logical', label: 'Suy luận logic', description: 'Tam đoạn luận, sắp xếp thứ tự', available: false, timeMultiplier: 1 },
   { id: 'verbal', label: 'Suy luận ngôn ngữ', description: 'Đúng / Sai / Không đủ thông tin', available: false, timeMultiplier: 1 },
   { id: 'abstract', label: 'Suy luận hình', description: 'Ma trận hình 3x3', available: false, timeMultiplier: 1 },
 ]
@@ -83,6 +97,38 @@ export function getCategoryLabel(id: QuestionCategory): string {
 /** Lấy nhãn tiếng Việt của một mức độ khó. */
 export function getDifficultyLabel(id: DifficultySetting): string {
   return DIFFICULTY_OPTIONS.find((d) => d.id === id)?.label ?? id
+}
+
+/** Một lựa chọn số câu ở trang chủ, kèm trạng thái khóa. */
+export interface QuestionCountChoice {
+  count: number
+  /** true: ngân hàng không đủ câu cho lựa chọn này, hiện mờ và không bấm được. */
+  disabled: boolean
+}
+
+/**
+ * Danh sách lựa chọn số câu cho một dạng bài, khóa các lựa chọn vượt quá số câu hiện có.
+ * @param category Dạng bài.
+ * @param available Số câu hiện có (theo độ khó đang chọn); null nghĩa là không giới hạn.
+ */
+export function getQuestionCountChoices(category: QuestionCategory, available: number | null): QuestionCountChoice[] {
+  const counts = CATEGORY_OPTIONS.find((c) => c.id === category)?.questionCounts ?? QUESTION_COUNT_OPTIONS
+  return counts.map((count) => ({ count, disabled: available !== null && count > available }))
+}
+
+/**
+ * Chọn số câu hợp lệ: giữ nguyên lựa chọn hiện tại nếu còn dùng được.
+ * Nếu không (đổi dạng bài / độ khó làm lựa chọn cũ bị khóa hoặc không có trong danh sách):
+ * lấy lựa chọn lớn nhất còn mở mà không vượt quá số câu đang chọn; không có thì lấy lựa chọn nhỏ nhất còn mở.
+ * Ví dụ: đang chọn 30 câu Dãy số, chuyển sang Logic (10/20) → 20 câu.
+ * @returns Số câu hợp lệ, hoặc null nếu mọi lựa chọn đều bị khóa.
+ */
+export function resolveQuestionCount(current: number, choices: QuestionCountChoice[]): number | null {
+  const enabled = choices.filter((c) => !c.disabled).map((c) => c.count)
+  if (enabled.length === 0) return null
+  if (enabled.includes(current)) return current
+  const notLarger = enabled.filter((n) => n <= current)
+  return notLarger.length > 0 ? Math.max(...notLarger) : Math.min(...enabled)
 }
 
 /** Lấy hệ số thời gian của một dạng bài (không tìm thấy thì coi là 1). */

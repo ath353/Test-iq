@@ -40,12 +40,11 @@ function ReviewItem({ index, question, answer }: ReviewItemProps) {
       </summary>
 
       <div className="review-item__body">
-        {/* Câu có dữ kiện (bảng…): hiện lại dữ kiện và đề đầy đủ, vì lời giải sẽ tham chiếu tới chúng */}
-        {question.stimulus && (
-          <>
-            <StimulusView stimulus={question.stimulus} />
-            <p className="review-item__full-prompt">{question.prompt}</p>
-          </>
+        {/* Hiện lại dữ kiện (bảng…) và đề đầy đủ khi đề không vừa dòng tiêu đề:
+            câu có dữ kiện, hoặc đề nhiều dòng (các tiền đề của câu Logic). Lời giải sẽ tham chiếu tới chúng. */}
+        {question.stimulus && <StimulusView stimulus={question.stimulus} />}
+        {(question.stimulus || question.prompt.includes('\n')) && (
+          <p className="review-item__full-prompt">{question.prompt}</p>
         )}
 
         <p>

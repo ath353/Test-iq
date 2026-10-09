@@ -31,8 +31,20 @@
   cursor: pointer;
 }
 
-.option-group__item:hover {
+.option-group__item:hover:not(:disabled) {
   border-color: var(--color-primary);
+}
+
+/* Lựa chọn bị khóa (ví dụ không đủ câu): mờ đi, không bấm được */
+.option-group__item:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.option-group__hint {
+  margin: 6px 0 0;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
 }
 
 .option-group__item--selected {

@@ -1,9 +1,11 @@
-// Kiểm tra dữ liệu ngân hàng câu hỏi (file JSON soạn tay).
-// File JSON do người viết nên có thể sai sót; hàm ở đây soát từng câu và báo lỗi rõ ràng bằng tiếng Việt,
-// để test phát hiện ngay khi có câu thiếu đáp án, thiếu lời giải, trùng mã…
+// Ngân hàng câu hỏi soạn tay (file JSON): soát dữ liệu và ra đề.
+// - Soát dữ liệu: file JSON do người viết nên có thể sai sót; các hàm ở đây soát từng câu và báo lỗi rõ ràng
+//   bằng tiếng Việt, để test phát hiện ngay khi có câu thiếu đáp án, thiếu lời giải, trùng mã…
+// - Ra đề: chọn ngẫu nhiên câu theo độ khó, xáo lựa chọn, gán nhãn A–E (dùng chung cho Logic, Ngôn ngữ).
 
 import type { BankQuestion } from '../types/bank'
-import type { Difficulty } from '../types/question'
+import type { Difficulty, Option, Question, QuestionCategory } from '../types/question'
+import { shuffle } from '../utils/random'
 
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
 const MIN_OPTIONS = 3
@@ -106,4 +108,69 @@ export function loadBank(data: unknown, rules: { idPrefix: string; topics: reado
   const errors = validateBank(data, rules)
   if (errors.length > 0) throw new Error(`Ngân hàng câu hỏi có lỗi:\n${errors.join('\n')}`)
   return data as BankQuestion[]
+}
+
+// ─────────────────────────────── Ra đề ───────────────────────────────
+
+const OPTION_IDS = ['A', 'B', 'C', 'D', 'E']
+
+/**
+ * Đếm số câu có trong ngân hàng theo độ khó.
+ * @param bank Ngân hàng câu hỏi.
+ * @param difficulty Độ khó; bỏ trống (hỗn hợp) thì đếm tất cả.
+ */
+export function countBank(bank: BankQuestion[], difficulty?: Difficulty): number {
+  return difficulty ? bank.filter((q) => q.difficulty === difficulty).length : bank.length
+}
+
+/**
+ * Chuyển một câu soạn sẵn thành câu hỏi để hiển thị:
+ * xáo trộn lựa chọn (trừ khi fixedOrder), gán nhãn A–E theo thứ tự sau khi xáo, tìm lại nhãn của đáp án đúng.
+ * Mã câu giữ nguyên mã trong ngân hàng (ví dụ 'lg-012') để sau này thống kê theo từng câu.
+ * @param item Câu soạn sẵn.
+ * @param category Dạng bài.
+ * @param instruction Lời dẫn hiển thị phía trên đề.
+ */
+export function bankItemToQuestion(item: BankQuestion, category: QuestionCategory, instruction: string): Question {
+  // Đánh dấu vị trí gốc để sau khi xáo vẫn biết lựa chọn nào là đáp án đúng
+  const indexed = item.options.map((content, originalIndex) => ({ content, originalIndex }))
+  const ordered = item.fixedOrder ? indexed : shuffle(indexed)
+  const options: Option[] = ordered.map((o, i) => ({ id: OPTION_IDS[i], content: o.content }))
+  const correctPosition = ordered.findIndex((o) => o.originalIndex === item.answerIndex)
+
+  return {
+    id: item.id,
+    category,
+    difficulty: item.difficulty,
+    instruction,
+    prompt: item.prompt,
+    options,
+    correctOptionId: OPTION_IDS[correctPosition],
+    explanationSteps: item.explanationSteps,
+  }
+}
+
+/**
+ * Ra đề từ ngân hàng: chọn ngẫu nhiên `count` câu khác nhau (theo độ khó nếu có), rồi chuyển thành câu hỏi.
+ * @param bank Ngân hàng câu hỏi.
+ * @param count Số câu cần.
+ * @param difficulty Độ khó; bỏ trống (hỗn hợp) thì chọn trong toàn bộ ngân hàng.
+ * @param category Dạng bài.
+ * @param instruction Lời dẫn của dạng bài.
+ * @throws Lỗi nếu ngân hàng không đủ câu (trang chủ đã khóa lựa chọn này, lỗi chỉ xảy ra khi gọi sai).
+ */
+export function pickFromBank(
+  bank: BankQuestion[],
+  count: number,
+  difficulty: Difficulty | undefined,
+  category: QuestionCategory,
+  instruction: string,
+): Question[] {
+  const pool = difficulty ? bank.filter((q) => q.difficulty === difficulty) : bank
+  if (pool.length < count) {
+    throw new Error(`Ngân hàng chỉ có ${pool.length} câu, không đủ ${count} câu`)
+  }
+  return shuffle(pool)
+    .slice(0, count)
+    .map((item) => bankItemToQuestion(item, category, instruction))
 }

@@ -114,7 +114,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts); bank.ts: soát dữ liệu JSON
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json (sắp có verbal.json)
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
@@ -199,7 +199,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ✅ |
 | 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ✅ |
 | 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ✅ |
-| 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ⬜ |
+| 2.2c | Logic: bật trên trang chủ | Làm hết một bài dạng Logic | ✅ |
 | 2.3a | Ngôn ngữ: soạn đoạn văn + nhận định (Đúng / Sai / Không đủ thông tin), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
 | 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ⬜ |
 | 2.4a | Hình: vẽ hình bằng SVG (dạng hình, màu, số lượng, góc xoay) | Hiển thị đúng ở chế độ sáng và tối | ⬜ |
@@ -253,4 +253,8 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Dữ liệu JSON được soát bằng test; có lỗi thì không ra đề (báo lỗi rõ câu nào, trường nào) | File soạn tay dễ sai sót |
 | 2026-10-09 | Ngân hàng Logic 40 câu: 15 sắp xếp thứ tự, 13 tam đoạn luận, 12 xếp chỗ ngồi; 12 dễ, 15 trung bình, 13 khó | Đủ cho bài 10/20 câu |
 | 2026-10-09 | Câu Logic được kiểm chứng bằng chương trình vét cạn (mọi hoán vị / mọi mô hình tập hợp) trước khi đưa vào; mỗi câu chỉ có đúng 1 đáp án | Tránh câu sai hoặc có 2 đáp án |
+| 2026-10-09 | Logic: hệ số thời gian ×2 (120/90/60 giây/câu); chỉ cho chọn 10/20 câu | Câu xếp chỗ khó mất 1–2 phút; ngân hàng có hạn |
+| 2026-10-09 | Ngân hàng không đủ câu cho độ khó đang chọn thì KHÓA lựa chọn số câu đó (kèm ghi chú số câu hiện có), không bù câu độ khó khác | Đề luôn đúng độ khó người dùng chọn |
+| 2026-10-09 | Câu ra từ ngân hàng giữ nguyên mã gốc (ví dụ `lg-012`) | Để giai đoạn 3 thống kê theo từng câu, ưu tiên câu chưa làm |
+| 2026-10-09 | Lựa chọn dài hơn 20 ký tự thì xếp danh sách dọc; màn kết quả hiện lại đề đầy đủ khi đề nhiều dòng | Đáp án Logic là cả câu, đề có nhiều tiền đề |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
