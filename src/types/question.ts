@@ -70,8 +70,17 @@ export interface MatrixStimulus {
   cells: (Figure | null)[]
 }
 
+/**
+ * Dữ kiện dạng CHUỖI HÌNH (dạng Suy luận hình, kiểu SHL Inductive): các hình xếp từ trái sang phải,
+ * ô cuối là null (hình tiếp theo cần tìm "?").
+ */
+export interface SequenceStimulus {
+  type: 'sequence'
+  cells: (Figure | null)[]
+}
+
 /** Phần dữ kiện đi kèm câu hỏi, hiển thị phía trên đề bài. */
-export type Stimulus = TableStimulus | PassageStimulus | MatrixStimulus
+export type Stimulus = TableStimulus | PassageStimulus | MatrixStimulus | SequenceStimulus
 
 /** Một câu hỏi trắc nghiệm hoàn chỉnh. */
 export interface Question {

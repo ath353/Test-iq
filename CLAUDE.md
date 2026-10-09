@@ -114,7 +114,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn), figure.ts (ô hình)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage (App.tsx điều hướng)
@@ -245,7 +245,8 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 4.1b | Logic xếp chỗ ngồi sinh bằng code (hàng ngang; cạnh nhau, không cạnh, đầu hàng…) | Như trên | ✅ |
 | 4.1c | Ghép vào dạng Logic: giữ 40 câu soạn tay + câu sinh bằng code; ~1/3 tam đoạn luận; bỏ giới hạn 10/20 câu | Làm bài 30 câu Logic, không lặp câu | ✅ |
 | 4.4a | Dãy số: thêm Fibonacci, nhân rồi cộng, lập phương, hiệu tăng gấp đôi (ưu tiên mức Khó) | Mức Khó có ≥ 3 quy luật | ✅ |
-| 4.2a | Bộ sinh chuỗi 5 hình (SHL Inductive) | Mỗi câu chỉ 1 đáp án hợp lệ | 🔄 |
+| 4.2a | Bộ sinh chuỗi 5 hình (SHL Inductive) | Mỗi câu chỉ 1 đáp án hợp lệ | ✅ |
+| 4.2a+ | (Bước phụ, người dùng đề xuất) Bố cục làm bài: màn hình rộng chia 2 cột (dữ kiện trái, câu hỏi + đáp án phải), thu gọn phần đầu khi làm bài | Màn 1920×1080, zoom 100%: câu dài vẫn thấy đáp án không cần cuộn; điện thoại không đổi | 🔄 |
 | 4.2b | Hiển thị chuỗi hình; dạng Hình trộn ma trận + chuỗi | Làm hết một bài dạng Hình có cả 2 kiểu | ⬜ |
 | 4.3 | Soạn thêm 40 nhận định Ngôn ngữ (10 đoạn văn mới), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
 | 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ |
@@ -331,4 +332,6 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 2026-10-09 | Logic xếp chỗ ngồi sinh bằng code (cùng cách: thêm dữ kiện tới khi vét cạn duy nhất, bỏ dữ kiện thừa); 7 loại dữ kiện, mức cao dùng dữ kiện gián tiếp hơn; mức khó cho biết số ghế của tối đa 1 người; không hỏi người / ghế đã nói thẳng | Không giới hạn câu, luôn đúng 1 đáp án, không lộ đáp án |
 | 2026-10-09 | Bài Logic = ~1/3 tam đoạn luận (ngân hàng, ưu tiên câu ít gặp) + thứ tự / xếp chỗ (câu soạn tay CHƯA LÀM trước, hết thì sinh bằng code, xen kẽ hai loại); Logic bỏ giới hạn, cho chọn 10/20/30 câu | Tam đoạn luận cần câu chữ soạn tay; câu soạn tay có lời giải chi tiết hơn nên dùng trước |
 | 2026-10-09 | Dãy số thêm 4 quy luật: lập phương (trung bình); Fibonacci, nhân rồi cộng, hiệu tăng gấp đôi (khó) → dễ 2, trung bình 3, khó 4 quy luật | Mức Khó trước đây chỉ có 1 quy luật, làm nhiều thấy lặp |
+| 2026-10-09 | Chuỗi hình: 5 hình + tìm hình thứ 6; mỗi thuộc tính theo 1 quy luật dọc chuỗi (không đổi / chu kỳ 2 / chu kỳ 3 / xoay đều 45°–90°); độ khó = số thuộc tính thay đổi (1/2/3); dùng chung cách kiểm tra "đặt thử đáp án nhiễu" với ma trận | Bám dạng SHL Inductive; đảm bảo 1 đáp án |
+| 2026-10-09 | Mức trung bình không cho mọi thuộc tính cùng chu kỳ 2; mức khó bắt buộc có chu kỳ 3 | Tránh chuỗi lặp sau 2 hình (đáp án = hình thứ 4, chỉ cần chép) |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

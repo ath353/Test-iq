@@ -22,12 +22,12 @@ export type Attribute = 'shape' | 'fill' | 'count' | 'rotation'
 /** Các loại quy luật (xem giải thích đầu file). */
 export type RuleKind = 'constant' | 'row' | 'progression' | 'latin'
 
-const ATTRIBUTES: Attribute[] = ['shape', 'fill', 'count', 'rotation']
-const ALL_SHAPES: ShapeKind[] = ['circle', 'square', 'triangle', 'diamond', 'pentagon', 'hexagon', 'star', 'arrow']
-const ALL_FILLS: ShapeFill[] = ['solid', 'outline', 'striped']
-const ALL_COUNTS = [1, 2, 3, 4]
+export const ATTRIBUTES: Attribute[] = ['shape', 'fill', 'count', 'rotation']
+export const ALL_SHAPES: ShapeKind[] = ['circle', 'square', 'triangle', 'diamond', 'pentagon', 'hexagon', 'star', 'arrow']
+export const ALL_FILLS: ShapeFill[] = ['solid', 'outline', 'striped']
+export const ALL_COUNTS = [1, 2, 3, 4]
 /** Dạng hình dùng cho quy luật xoay: xoay 90° nhìn thấy rõ khác (tam giác, mũi tên). */
-const ROTATABLE_SHAPES: ShapeKind[] = ['arrow', 'triangle']
+export const ROTATABLE_SHAPES: ShapeKind[] = ['arrow', 'triangle']
 
 /** Số thuộc tính thay đổi theo độ khó. */
 const VARYING_COUNT: Record<Difficulty, number> = { easy: 1, medium: 2, hard: 3 }
