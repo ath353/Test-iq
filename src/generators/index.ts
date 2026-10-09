@@ -3,6 +3,7 @@
 // dùng ngân hàng câu hỏi có hạn).
 
 import type { DifficultySetting, Question, QuestionCategory, TestConfig } from '../types/question'
+import { generateAbstractQuestions } from './abstract'
 import { countLogicalQuestions, generateLogicalQuestions } from './logical'
 import { generateNumberSeriesQuestions } from './numberSeries'
 import { generateNumericalQuestions } from './numerical'
@@ -31,6 +32,8 @@ export function generateQuestions(config: TestConfig): Question[] {
       return generateLogicalQuestions(config.questionCount, difficulty)
     case 'verbal':
       return generateVerbalQuestions(config.questionCount, difficulty)
+    case 'abstract':
+      return generateAbstractQuestions(config.questionCount, difficulty)
     default:
       throw new Error(`Dạng bài "${config.category}" chưa được hỗ trợ`)
   }

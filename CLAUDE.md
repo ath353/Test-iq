@@ -116,7 +116,7 @@ src/
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
 ├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, verbal.ts, abstract.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
-├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView), mỗi component kèm file .css cùng tên
+├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình; sắp có lưu trữ)
@@ -221,7 +221,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2.3b | Ngôn ngữ: hiển thị đoạn văn + bật trên trang chủ | Làm hết một bài dạng Ngôn ngữ | ✅ |
 | 2.4a | Hình: vẽ hình bằng SVG (dạng hình, màu, số lượng, góc xoay) | Hiển thị đúng ở chế độ sáng và tối | ✅ |
 | 2.4b | Hình: bộ sinh ma trận 3x3 + đáp án nhiễu + test | Mỗi câu chỉ có đúng 1 đáp án hợp lệ | ✅ |
-| 2.4c | Hình: lựa chọn đáp án dạng hình + bật trên trang chủ | Làm hết một bài dạng Hình | ⬜ |
+| 2.4c | Hình: lựa chọn đáp án dạng hình + bật trên trang chủ | Làm hết một bài dạng Hình | ✅ |
 
 ### Giai đoạn 3: Nâng cao
 
@@ -283,4 +283,6 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | Ma trận hình: mỗi thuộc tính theo 1 quy luật theo hàng (không đổi / theo hàng / tăng dần / hoán vị); độ khó = số thuộc tính thay đổi (1/2/3); mức khó không dùng quy luật "theo hàng" | Bám dạng Raven / SHL; mức khó phải so sánh nhiều ô |
 | 2026-10-09 | Mỗi đáp án nhiễu được đặt thử vào ô trống, nếu ma trận vẫn hợp lệ theo bất kỳ quy luật nào thì loại; ưu tiên bẫy "chép ô bên trái / phía trên" và "sai đúng một đặc điểm" | Đảm bảo chỉ 1 đáp án đúng, đáp án nhiễu hợp lý |
 | 2026-10-09 | Đáp án nhiễu chỉ đổi góc xoay với tam giác / mũi tên (bội số 90°) | Hình vuông xoay 45° trông như hình thoi, dễ gây tranh cãi |
+| 2026-10-09 | Suy luận hình: thời gian ×4/3 (80 / 60 / 40 giây/câu), số giây làm tròn; số câu 10/20/30 (sinh bằng code, không giới hạn) | Bài SHL thật ~60 giây mỗi ma trận |
+| 2026-10-09 | Lựa chọn dạng hình hiển thị hình (có mô tả bằng lời cho trình đọc màn hình); màn kết quả hiện hình thu nhỏ ở "Bạn chọn / Đáp án đúng" | Dễ so sánh hình đã chọn với đáp án |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

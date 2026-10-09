@@ -1,0 +1,35 @@
+/* Giao diện ma trận hình 3 × 3. */
+
+/* Lưới 3 cột, mỗi ô vuông; bề rộng tối đa 3 × 110px, co lại trên điện thoại */
+.matrix-view {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: min(100%, 342px);
+  margin: 0 0 16px;
+}
+
+.matrix-view__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+}
+
+/* Hình co giãn theo ô (thay cho kích thước cố định mặc định của FigureView) */
+.matrix-view__cell .figure-view {
+  width: 100%;
+  height: auto;
+}
+
+/* Ô cần tìm: viền nét đứt màu chủ đạo, dấu "?" to */
+.matrix-view__cell--missing {
+  border: 2px dashed var(--color-primary);
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 700;
+}

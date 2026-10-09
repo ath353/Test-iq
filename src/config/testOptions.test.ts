@@ -21,6 +21,14 @@ describe('getSecondsPerQuestion', () => {
     expect(getSecondsPerQuestion(speed('relaxed'), 'numerical')).toBe(120)
   })
 
+  it('Suy luận hình (hệ số 4/3): 80 / 60 / 40 giây, là số nguyên', () => {
+    expect(getSecondsPerQuestion(speed('relaxed'), 'abstract')).toBe(80)
+    expect(getSecondsPerQuestion(speed('standard'), 'abstract')).toBe(60)
+    expect(getSecondsPerQuestion(speed('pressure'), 'abstract')).toBe(40)
+    expect(getSpeedLabel(speed('standard'), 'abstract')).toBe('Chuẩn · 60 giây/câu')
+    expect(findSpeedId({ category: 'abstract', questionCount: 10, difficulty: 'mixed', timeLimitSec: 400 })).toBe('pressure')
+  })
+
   it('Không giới hạn thì trả về null với mọi dạng bài', () => {
     expect(getSecondsPerQuestion(speed('unlimited'), 'numerical')).toBeNull()
   })

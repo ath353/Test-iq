@@ -58,8 +58,14 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
     // Ngân hàng 40 nhận định: chỉ cho chọn 10 hoặc 20 câu để đỡ lặp
     questionCounts: [10, 20],
   },
-  // Các dạng chưa làm: hệ số thời gian sẽ chốt khi làm tới
-  { id: 'abstract', label: 'Suy luận hình', description: 'Ma trận hình 3x3', available: false, timeMultiplier: 1 },
+  {
+    id: 'abstract',
+    label: 'Suy luận hình',
+    description: 'Ma trận hình 3x3',
+    available: true,
+    // Bài SHL thật khoảng 60 giây mỗi ma trận: ×4/3 cho ra 80 / 60 / 40 giây
+    timeMultiplier: 4 / 3,
+  },
 ]
 
 /** Các lựa chọn số câu. */
@@ -151,7 +157,9 @@ function getTimeMultiplier(category: QuestionCategory): number {
  * @returns Số giây, hoặc null nếu mức tốc độ là không giới hạn.
  */
 export function getSecondsPerQuestion(speed: SpeedOption, category: QuestionCategory): number | null {
-  return speed.baseSecondsPerQuestion === null ? null : speed.baseSecondsPerQuestion * getTimeMultiplier(category)
+  if (speed.baseSecondsPerQuestion === null) return null
+  // Làm tròn đến giây: hệ số lẻ như 4/3 nhân ra số thập phân (60 × 4/3 có thể thành 79,999…)
+  return Math.round(speed.baseSecondsPerQuestion * getTimeMultiplier(category))
 }
 
 /** Nhãn hiển thị của mức tốc độ theo dạng bài, ví dụ 'Chuẩn · 90 giây/câu'. */

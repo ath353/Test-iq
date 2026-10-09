@@ -1,5 +1,6 @@
 // Chọn cách hiển thị phần dữ kiện của câu hỏi theo loại (bảng, đoạn văn…).
 import type { Stimulus } from '../types/question'
+import MatrixView from './MatrixView'
 import PassageView from './PassageView'
 import TableView from './TableView'
 
@@ -18,8 +19,7 @@ function StimulusView({ stimulus }: StimulusViewProps) {
     case 'passage':
       return <PassageView passage={stimulus} />
     case 'matrix':
-      // Ma trận hình sẽ được hiển thị ở bước 2.4c
-      return null
+      return <MatrixView matrix={stimulus} />
   }
 }
 

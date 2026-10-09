@@ -1,6 +1,7 @@
 // Kiểm thử hàm sinh đề chung.
 import { describe, expect, it } from 'vitest'
 import { CATEGORY_OPTIONS } from '../config/testOptions'
+import type { TestConfig } from '../types/question'
 import { generateQuestions } from './index'
 
 describe('generateQuestions', () => {
@@ -41,8 +42,8 @@ describe('generateQuestions', () => {
   })
 
   it('báo lỗi với dạng bài chưa hỗ trợ', () => {
-    expect(() =>
-      generateQuestions({ category: 'abstract', questionCount: 10, difficulty: 'easy', timeLimitSec: null }),
-    ).toThrow()
+    // Mọi dạng bài đều đã hỗ trợ; dùng một mã dạng bài không tồn tại để kiểm tra nhánh báo lỗi
+    const unknown = 'unknown' as TestConfig['category']
+    expect(() => generateQuestions({ category: unknown, questionCount: 10, difficulty: 'easy', timeLimitSec: null })).toThrow()
   })
 })

@@ -71,6 +71,21 @@
   margin: 0 0 8px;
 }
 
+/* Dòng "Bạn chọn / Đáp án đúng": hai phần nằm cạnh nhau, không đủ chỗ thì xuống dòng */
+.review-item__answers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+
+/* Một lựa chọn: nhãn + hình thu nhỏ (nếu có) + nội dung, căn giữa theo chiều dọc */
+.review-item__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  vertical-align: middle;
+}
+
 /* Đề đầy đủ (khi câu có dữ kiện): giữ chỗ xuống dòng, chữ đậm để tách khỏi phần đáp án */
 .review-item__full-prompt {
   font-weight: 600;

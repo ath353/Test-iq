@@ -53,6 +53,37 @@
   text-align: left;
 }
 
+/* Lựa chọn dạng hình: ô vuông, nhãn A/B/C ở góc trên, hình ở giữa; 5 ô một hàng, điện thoại tự xuống hàng */
+.question-card__options--figures {
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+}
+
+.question-card__options--figures .option {
+  position: relative;
+  justify-content: center;
+  /* Chừa khoảng phía trên cho nhãn A/B/C ở góc, để nhãn không đè lên hình */
+  padding: 24px 8px 8px;
+}
+
+.question-card__options--figures .option__label {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+}
+
+.option__figure {
+  width: 100%;
+  max-width: 88px;
+}
+
+.option__figure .figure-view {
+  width: 100%;
+  height: auto;
+}
+
 .option {
   display: flex;
   align-items: center;

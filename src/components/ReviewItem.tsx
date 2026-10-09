@@ -1,6 +1,7 @@
 // Một dòng xem lại câu hỏi ở màn hình kết quả: đề, đáp án của người dùng, đáp án đúng, lời giải từng bước.
-import type { Question, UserAnswer } from '../types/question'
+import type { Option, Question, UserAnswer } from '../types/question'
 import { getAnswerStatus, type AnswerStatus } from '../utils/scoring'
+import FigureView from './FigureView'
 import StimulusView from './StimulusView'
 import './ReviewItem.css'
 
@@ -25,11 +26,19 @@ interface ReviewItemProps {
  */
 function ReviewItem({ index, question, answer }: ReviewItemProps) {
   const status = getAnswerStatus(question, answer)
-  // Tìm nội dung (con số) của đáp án đúng và đáp án người dùng chọn
-  const contentOf = (optionId: string | null | undefined) =>
-    question.options.find((o) => o.id === optionId)?.content
-  const correctContent = contentOf(question.correctOptionId)
-  const selectedContent = contentOf(answer?.selectedOptionId)
+  // Tìm lựa chọn đúng và lựa chọn người dùng đã chọn
+  const optionOf = (optionId: string | null | undefined) => question.options.find((o) => o.id === optionId)
+  const correctOption = optionOf(question.correctOptionId)
+  const selectedOption = optionOf(answer?.selectedOptionId)
+
+  /** Hiển thị một lựa chọn: "B." + hình thu nhỏ (nếu là lựa chọn dạng hình) + nội dung / mô tả. */
+  const renderOption = (option: Option) => (
+    <strong className="review-item__option">
+      {option.id}.
+      {option.figure && <FigureView figure={option.figure} size={40} />}
+      {option.content}
+    </strong>
+  )
 
   return (
     <details className={`review-item review-item--${status}`} open={status !== 'correct'}>
@@ -47,19 +56,9 @@ function ReviewItem({ index, question, answer }: ReviewItemProps) {
           <p className="review-item__full-prompt">{question.prompt}</p>
         )}
 
-        <p>
-          Bạn chọn:{' '}
-          {selectedContent === undefined ? (
-            <em>không chọn</em>
-          ) : (
-            <strong>
-              {answer?.selectedOptionId}. {selectedContent}
-            </strong>
-          )}
-          {' · '}Đáp án đúng:{' '}
-          <strong>
-            {question.correctOptionId}. {correctContent}
-          </strong>
+        <p className="review-item__answers">
+          <span>Bạn chọn: {selectedOption ? renderOption(selectedOption) : <em>không chọn</em>}</span>
+          <span>Đáp án đúng: {correctOption && renderOption(correctOption)}</span>
         </p>
 
         {/* Lời giải từng bước, đánh số tự động bằng thẻ <ol> */}
