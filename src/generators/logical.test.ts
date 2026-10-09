@@ -73,3 +73,34 @@ describe('generateLogicalQuestions', () => {
     }
   })
 })
+
+describe('Ghép câu soạn tay + câu sinh bằng code', () => {
+  /** Câu tam đoạn luận soạn tay (mã có trong ngân hàng, chủ đề syllogism). */
+  const syllogismIds = new Set(bank.filter((q) => q.topic === 'syllogism').map((q) => q.id))
+
+  it('khoảng 1/3 là tam đoạn luận từ ngân hàng', () => {
+    for (const count of [10, 20, 30]) {
+      const questions = generateLogicalQuestions(count)
+      expect(questions).toHaveLength(count)
+      expect(questions.filter((q) => syllogismIds.has(q.id))).toHaveLength(Math.round(count / 3))
+    }
+  })
+
+  it('chưa làm câu nào: dùng câu thứ tự / xếp chỗ soạn tay trước, chưa cần câu sinh bằng code', () => {
+    // 10 câu: 3 tam đoạn luận + 7 câu thứ tự / xếp chỗ, ngân hàng có 27 câu loại này → không cần sinh
+    const questions = generateLogicalQuestions(10)
+    expect(questions.every((q) => q.id.startsWith('lg-'))).toBe(true)
+  })
+
+  it('mức khó 30 câu: đủ câu, đúng độ khó, mã không trùng (phần thiếu được sinh bằng code)', () => {
+    for (let i = 0; i < 20; i++) {
+      const questions = generateLogicalQuestions(30, 'hard')
+      expect(questions).toHaveLength(30)
+      expect(new Set(questions.map((q) => q.id)).size).toBe(30)
+      expect(questions.every((q) => q.difficulty === 'hard' && q.category === 'logical')).toBe(true)
+      // Có cả câu sinh bằng code dạng thứ tự (lo-) và xếp chỗ (ls-)
+      expect(questions.some((q) => q.id.startsWith('lo-'))).toBe(true)
+      expect(questions.some((q) => q.id.startsWith('ls-'))).toBe(true)
+    }
+  })
+})

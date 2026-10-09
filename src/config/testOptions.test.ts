@@ -74,14 +74,22 @@ describe('getQuestionCountChoices', () => {
     ])
   })
 
-  it('Logic: chỉ 10/20; khóa lựa chọn vượt quá số câu hiện có', () => {
-    expect(getQuestionCountChoices('logical', 40)).toEqual([
+  it('Ngôn ngữ (ngân hàng có hạn): chỉ 10/20; khóa lựa chọn vượt quá số câu hiện có', () => {
+    expect(getQuestionCountChoices('verbal', 40)).toEqual([
       { count: 10, disabled: false },
       { count: 20, disabled: false },
     ])
-    expect(getQuestionCountChoices('logical', 13)).toEqual([
+    expect(getQuestionCountChoices('verbal', 11)).toEqual([
       { count: 10, disabled: false },
       { count: 20, disabled: true },
+    ])
+  })
+
+  it('Logic (có câu sinh bằng code): 10/20/30, không khóa', () => {
+    expect(getQuestionCountChoices('logical', null).map((c) => [c.count, c.disabled])).toEqual([
+      [10, false],
+      [20, false],
+      [30, false],
     ])
   })
 })

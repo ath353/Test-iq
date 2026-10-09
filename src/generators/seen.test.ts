@@ -67,14 +67,14 @@ describe('Ưu tiên câu chưa làm', () => {
     }
   })
 
-  it('Hết câu chưa làm thì lấy câu gặp ít nhất (Logic Khó 13 câu, làm 2 bài 10 câu)', () => {
+  it('Logic hết câu soạn tay chưa làm thì sinh câu mới bằng code, không lặp câu thứ tự / xếp chỗ đã làm', () => {
     for (let run = 0; run < 20; run++) {
+      // Mức khó chỉ có 9 câu thứ tự / xếp chỗ soạn tay: bài 2 phải dùng câu sinh bằng code
       const [first, second] = simulate('logical', 2, 10, 'hard')
-      const firstIds = new Set(first.map((q) => q.id))
-      // Bài 2: 3 câu chưa gặp chắc chắn có mặt, 7 câu còn lại lấy từ bài 1
-      const fresh = second.filter((q) => !firstIds.has(q.id))
-      expect(fresh).toHaveLength(3)
-      expect(new Set(second.map((q) => q.id)).size).toBe(10)
+      const firstIds = new Set(first.filter((q) => q.id.startsWith('lg-')).map((q) => q.id))
+      const repeatedNonSyllogism = second.filter((q) => firstIds.has(q.id) && !q.prompt.includes('CHẮC CHẮN'))
+      expect(repeatedNonSyllogism).toEqual([])
+      expect(second.some((q) => !q.id.startsWith('lg-'))).toBe(true)
     }
   })
 

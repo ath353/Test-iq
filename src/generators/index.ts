@@ -7,7 +7,7 @@ import type { DifficultySetting, Question, TestCategory, TestConfig } from '../t
 import { shuffle } from '../utils/random'
 import { generateAbstractQuestions } from './abstract'
 import type { SeenCounts } from './bank'
-import { countLogicalQuestions, generateLogicalQuestions } from './logical'
+import { generateLogicalQuestions } from './logical'
 import { generateNumberSeriesQuestions } from './numberSeries'
 import { generateNumericalQuestions } from './numerical'
 import { countVerbalStatements, generateVerbalQuestions } from './verbal'
@@ -60,8 +60,6 @@ export function generateQuestions(config: TestConfig, seen?: SeenCounts): Questi
  */
 export function countAvailableQuestions(category: TestCategory, difficulty: DifficultySetting): number | null {
   switch (category) {
-    case 'logical':
-      return countLogicalQuestions(toDifficulty(difficulty))
     case 'verbal':
       return countVerbalStatements(toDifficulty(difficulty))
     default:

@@ -52,8 +52,7 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
     available: true,
     // Câu xếp chỗ ngồi khó thường mất 1–2 phút
     timeMultiplier: 2,
-    // Ngân hàng 40 câu: chỉ cho chọn 10 hoặc 20 câu để đỡ lặp
-    questionCounts: [10, 20],
+    // Có câu sinh bằng code nên không giới hạn số câu (dùng lựa chọn chung 10/20/30)
   },
   {
     id: 'verbal',

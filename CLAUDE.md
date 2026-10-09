@@ -144,6 +144,7 @@ Câu hỏi?",
 
 - `id`: duy nhất, dạng `<tiền tố>-<3 chữ số>` (Logic: `lg`). `difficulty`: `easy` / `medium` / `hard`.
 - `topic` (Logic): `ordering` (sắp xếp thứ tự), `syllogism` (tam đoạn luận), `seating` (xếp chỗ ngồi).
+  Thứ tự và xếp chỗ còn được sinh thêm bằng code khi hết câu soạn tay chưa làm; tam đoạn luận chỉ có từ file này.
 - `prompt`: xuống dòng bằng `
 `, mỗi dữ kiện một dòng. `options`: 3–5 lựa chọn, không kèm nhãn A/B/C.
 - `answerIndex`: vị trí đáp án đúng, **đếm từ 0** (lựa chọn đầu tiên là 0).
@@ -242,8 +243,8 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 |------|----------|---------------------|------------|
 | 4.1a | Logic sắp xếp thứ tự sinh bằng code: thứ tự ẩn + ít dữ kiện nhất mà vẫn suy ra duy nhất | Vét cạn kiểm chứng mỗi câu đúng 1 đáp án | ✅ |
 | 4.1b | Logic xếp chỗ ngồi sinh bằng code (hàng ngang; cạnh nhau, không cạnh, đầu hàng…) | Như trên | ✅ |
-| 4.1c | Ghép vào dạng Logic: giữ 40 câu soạn tay + câu sinh bằng code; ~1/3 tam đoạn luận; bỏ giới hạn 10/20 câu | Làm bài 30 câu Logic, không lặp câu | ⬜ |
-| 4.4a | Dãy số: thêm Fibonacci, nhân rồi cộng, lập phương, hiệu tăng gấp đôi (ưu tiên mức Khó) | Mức Khó có ≥ 3 quy luật | ⬜ |
+| 4.1c | Ghép vào dạng Logic: giữ 40 câu soạn tay + câu sinh bằng code; ~1/3 tam đoạn luận; bỏ giới hạn 10/20 câu | Làm bài 30 câu Logic, không lặp câu | ✅ |
+| 4.4a | Dãy số: thêm Fibonacci, nhân rồi cộng, lập phương, hiệu tăng gấp đôi (ưu tiên mức Khó) | Mức Khó có ≥ 3 quy luật | 🔄 |
 | 4.2a | Bộ sinh chuỗi 5 hình (SHL Inductive) | Mỗi câu chỉ 1 đáp án hợp lệ | ⬜ |
 | 4.2b | Hiển thị chuỗi hình; dạng Hình trộn ma trận + chuỗi | Làm hết một bài dạng Hình có cả 2 kiểu | ⬜ |
 | 4.3 | Soạn thêm 40 nhận định Ngôn ngữ (10 đoạn văn mới), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
@@ -328,4 +329,5 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 2026-10-09 | Logic sắp xếp thứ tự sinh bằng code: thứ tự ẩn → thêm dữ kiện tới khi vét cạn còn duy nhất 1 thứ tự → bỏ dữ kiện thừa; 4 bối cảnh (chạy thi, chiều cao, xếp hàng, điểm thi); dễ 4 người (so sánh liền kề), trung bình 5, khó 6 (có "ngay trước", không cho biết đầu/cuối, có câu "thứ tự nào đúng") | Không giới hạn câu, luôn đúng 1 đáp án, ít dữ kiện nhất |
 | 2026-10-09 | Không hỏi vị trí đã được nói thẳng trong dữ kiện | Tránh câu lộ sẵn đáp án |
 | 2026-10-09 | Logic xếp chỗ ngồi sinh bằng code (cùng cách: thêm dữ kiện tới khi vét cạn duy nhất, bỏ dữ kiện thừa); 7 loại dữ kiện, mức cao dùng dữ kiện gián tiếp hơn; mức khó cho biết số ghế của tối đa 1 người; không hỏi người / ghế đã nói thẳng | Không giới hạn câu, luôn đúng 1 đáp án, không lộ đáp án |
+| 2026-10-09 | Bài Logic = ~1/3 tam đoạn luận (ngân hàng, ưu tiên câu ít gặp) + thứ tự / xếp chỗ (câu soạn tay CHƯA LÀM trước, hết thì sinh bằng code, xen kẽ hai loại); Logic bỏ giới hạn, cho chọn 10/20/30 câu | Tam đoạn luận cần câu chữ soạn tay; câu soạn tay có lời giải chi tiết hơn nên dùng trước |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
