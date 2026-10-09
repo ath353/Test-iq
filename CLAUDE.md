@@ -114,12 +114,12 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts)
 ├── data/           # Ngân hàng câu hỏi JSON (logic, verbal)
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ đếm ngược / đếm xuôi)
-└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts; sắp có lưu trữ)
+└── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN; sắp có lưu trữ)
 ```
 
 ### Lệnh thường dùng
@@ -167,7 +167,7 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 |------|----------|---------------------|------------|
 | 2.0 | Chuẩn bị nền tảng: mỗi câu có lời dẫn riêng; `Question` thêm phần "dữ kiện" (bảng, đoạn văn, hình); thẻ câu hỏi hiển thị theo từng loại | Dạng Dãy số vẫn chạy y như cũ, test đạt | ✅ |
 | 2.1a | Số liệu: hiển thị bảng số liệu trong câu hỏi | Bảng đọc được trên điện thoại | ✅ |
-| 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ⬜ |
+| 2.1b | Số liệu: bộ sinh đề (tăng trưởng %, tỉ lệ, tổng, trung bình, chênh lệch) + test | Đáp án đúng, lời giải từng bước | ✅ |
 | 2.1c | Số liệu: bật trên trang chủ | Làm hết một bài dạng Số liệu | ⬜ |
 | 2.2a | Logic: cấu trúc file JSON + test kiểm tra dữ liệu | Test bắt được câu thiếu đáp án / lời giải | ⬜ |
 | 2.2b | Logic: Claude soạn ~40 câu (sắp xếp thứ tự, tam đoạn luận, xếp chỗ ngồi), người dùng duyệt nội dung | Người dùng đồng ý từng câu | ⬜ |
@@ -218,4 +218,6 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 | 2026-10-09 | `Question` thêm `instruction` (lời dẫn) và `stimulus` (dữ kiện: bảng / đoạn văn); kiểu dữ kiện HÌNH để bước 2.4a mới định nghĩa | Cấu trúc hình phụ thuộc cách vẽ SVG, định nghĩa sớm dễ phải sửa |
 | 2026-10-09 | Thẻ câu hỏi có class theo dạng bài (`question-card--<dạng>`); đề mặc định chữ thường, giữ xuống dòng | Mỗi dạng một kiểu chữ phù hợp |
 | 2026-10-09 | Bảng số liệu: cột số căn phải; bảng rộng thì cuộn ngang trong khung; màn kết quả hiện lại bảng + đề đầy đủ | Dễ đọc trên điện thoại; lời giải tham chiếu số trong bảng |
+| 2026-10-09 | Số liệu: 4 bối cảnh (doanh thu, nhân sự, bán hàng, du lịch), bảng 4×4; dễ = chênh lệch/tổng, trung bình = % thay đổi/trung bình/tỉ trọng, khó = tăng trưởng cao nhất/dự báo | Bám sát dạng bài numerical của SHL |
+| 2026-10-09 | Số hiển thị kiểu Việt Nam (1.234,5); làm tròn "nửa ra xa số 0" như tính tay; đáp án nhiễu cách đáp án đúng ≥ 3% | Tránh hai lựa chọn chỉ lệch nhau do làm tròn |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
