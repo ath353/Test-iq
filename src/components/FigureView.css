@@ -1,0 +1,7 @@
+/* Giao diện ô hình SVG. */
+
+.figure-view {
+  display: block;
+  /* Hình dùng màu chữ (currentColor) nên tự đổi theo chế độ sáng / tối */
+  color: var(--color-text);
+}
