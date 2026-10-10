@@ -8,6 +8,8 @@ import type { Question, UserAnswer } from '../types/question'
 import './TestPage.css'
 
 interface TestPageProps {
+  /** Tên dạng bài, hiển thị ở dòng trạng thái (tiêu đề to của trang bị ẩn khi làm bài). */
+  title: string
   questions: Question[]
   /** Tổng thời gian làm bài (giây), hết giờ thì tự nộp bài; null nghĩa là không giới hạn. */
   timeLimitSec: number | null
@@ -36,6 +38,7 @@ interface TestPageProps {
  * TestPage: quản lý trạng thái bài làm (câu đang xem, đáp án đã chọn, thời gian còn lại).
  */
 function TestPage({
+  title,
   questions,
   timeLimitSec,
   startAt,
@@ -101,10 +104,11 @@ function TestPage({
 
   return (
     <div className="test-page">
-      {/* Dòng trạng thái: câu đang xem, số câu đã trả lời, thời gian còn lại */}
+      {/* Dòng trạng thái gọn: dạng bài + câu đang xem, số câu đã trả lời, thời gian còn lại */}
       <header className="test-page__header">
         <span>
-          Câu <strong>{currentIndex + 1}</strong> / {questions.length}
+          <span className="test-page__title">{title}</span> · Câu <strong>{currentIndex + 1}</strong> /{' '}
+          {questions.length}
         </span>
         <span className="test-page__answered">
           Đã trả lời: {answeredCount} / {questions.length}

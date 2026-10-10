@@ -131,10 +131,7 @@ Mỗi câu trong `src/data/*.json` có dạng:
   "id": "lg-001",
   "difficulty": "easy",
   "topic": "ordering",
-  "prompt": "Dữ kiện 1.
-Dữ kiện 2.
-
-Câu hỏi?",
+  "prompt": "Dữ kiện 1.\nDữ kiện 2.\n\nCâu hỏi?",
   "options": ["Lựa chọn 1", "Lựa chọn 2", "Lựa chọn 3"],
   "answerIndex": 0,
   "explanationSteps": ["Bước 1…", "Bước 2…"],
@@ -145,8 +142,7 @@ Câu hỏi?",
 - `id`: duy nhất, dạng `<tiền tố>-<3 chữ số>` (Logic: `lg`). `difficulty`: `easy` / `medium` / `hard`.
 - `topic` (Logic): `ordering` (sắp xếp thứ tự), `syllogism` (tam đoạn luận), `seating` (xếp chỗ ngồi).
   Thứ tự và xếp chỗ còn được sinh thêm bằng code khi hết câu soạn tay chưa làm; tam đoạn luận chỉ có từ file này.
-- `prompt`: xuống dòng bằng `
-`, mỗi dữ kiện một dòng. `options`: 3–5 lựa chọn, không kèm nhãn A/B/C.
+- `prompt`: xuống dòng bằng `\n`, mỗi dữ kiện một dòng. `options`: 3–5 lựa chọn, không kèm nhãn A/B/C.
 - `answerIndex`: vị trí đáp án đúng, **đếm từ 0** (lựa chọn đầu tiên là 0).
 - `fixedOrder` (không bắt buộc): `true` để giữ nguyên thứ tự lựa chọn (khi có lựa chọn kiểu "Không xác định được").
 - Sửa file xong chạy `npm run test`: test sẽ báo rõ câu nào sai, sai ở đâu.
@@ -246,7 +242,7 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 4.1c | Ghép vào dạng Logic: giữ 40 câu soạn tay + câu sinh bằng code; ~1/3 tam đoạn luận; bỏ giới hạn 10/20 câu | Làm bài 30 câu Logic, không lặp câu | ✅ |
 | 4.4a | Dãy số: thêm Fibonacci, nhân rồi cộng, lập phương, hiệu tăng gấp đôi (ưu tiên mức Khó) | Mức Khó có ≥ 3 quy luật | ✅ |
 | 4.2a | Bộ sinh chuỗi 5 hình (SHL Inductive) | Mỗi câu chỉ 1 đáp án hợp lệ | ✅ |
-| 4.2a+ | (Bước phụ, người dùng đề xuất) Bố cục làm bài: màn hình rộng chia 2 cột (dữ kiện trái, câu hỏi + đáp án phải), thu gọn phần đầu khi làm bài | Màn 1920×1080, zoom 100%: câu dài vẫn thấy đáp án không cần cuộn; điện thoại không đổi | 🔄 |
+| 4.2a+ | (Bước phụ, người dùng đề xuất) Bố cục làm bài: màn hình rộng chia 2 cột (dữ kiện trái, câu hỏi + đáp án phải), thu gọn phần đầu khi làm bài | Màn 1920×1080, zoom 100%: câu dài vẫn thấy đáp án không cần cuộn; điện thoại không đổi | ✅ |
 | 4.2b | Hiển thị chuỗi hình; dạng Hình trộn ma trận + chuỗi | Làm hết một bài dạng Hình có cả 2 kiểu | ⬜ |
 | 4.3 | Soạn thêm 40 nhận định Ngôn ngữ (10 đoạn văn mới), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
 | 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ |
@@ -334,4 +330,5 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 2026-10-09 | Dãy số thêm 4 quy luật: lập phương (trung bình); Fibonacci, nhân rồi cộng, hiệu tăng gấp đôi (khó) → dễ 2, trung bình 3, khó 4 quy luật | Mức Khó trước đây chỉ có 1 quy luật, làm nhiều thấy lặp |
 | 2026-10-09 | Chuỗi hình: 5 hình + tìm hình thứ 6; mỗi thuộc tính theo 1 quy luật dọc chuỗi (không đổi / chu kỳ 2 / chu kỳ 3 / xoay đều 45°–90°); độ khó = số thuộc tính thay đổi (1/2/3); dùng chung cách kiểm tra "đặt thử đáp án nhiễu" với ma trận | Bám dạng SHL Inductive; đảm bảo 1 đáp án |
 | 2026-10-09 | Mức trung bình không cho mọi thuộc tính cùng chu kỳ 2; mức khó bắt buộc có chu kỳ 3 | Tránh chuỗi lặp sau 2 hình (đáp án = hình thứ 4, chỉ cần chép) |
+| 2026-10-09 | Bố cục làm bài màn hình rộng (≥ 1024px): khung 1200px; thẻ câu hỏi chia vùng đầu / ngữ cảnh (trái) / chính (phải); câu có dữ kiện hoặc đề nhiều dòng thì chia 2 cột, Dãy số giữ 1 cột; khi làm bài ẩn tiêu đề to, tên dạng bài vào dòng trạng thái | Người dùng góp ý: câu dài phải cuộn mới thấy nút. Đo ở 1920×940: Số liệu từ 997px (tràn) còn 539px; điện thoại giữ nguyên |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

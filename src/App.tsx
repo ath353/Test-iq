@@ -87,9 +87,12 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  // Khi làm bài: khung rộng hơn (màn hình lớn chia 2 cột) và ẩn tiêu đề to để câu hỏi vừa một màn hình
+  const isTesting = screen.name === 'test'
+
   return (
-    <main className="app">
-      <h1>Luyện Test IQ</h1>
+    <main className={`app${isTesting ? ' app--wide' : ''}`}>
+      {!isTesting && <h1>Luyện Test IQ</h1>}
 
       {screen.name === 'home' && (
         <>
@@ -115,9 +118,9 @@ function App() {
 
       {screen.name === 'test' && (
         <>
-          <p className="app__subtitle">Dạng bài: {getCategoryLabel(screen.test.config.category)}</p>
           <TestPage
             key={screen.attempt}
+            title={getCategoryLabel(screen.test.config.category)}
             questions={screen.test.questions}
             timeLimitSec={screen.test.config.timeLimitSec}
             startAt={screen.test.startAt}

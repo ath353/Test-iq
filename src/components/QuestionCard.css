@@ -7,6 +7,42 @@
   background: var(--color-surface);
 }
 
+/* Bố cục 2 cột trên màn hình rộng: "đầu" trải hết bề ngang, "ngữ cảnh" bên trái, "chính" bên phải.
+   Màn hình hẹp (điện thoại) không áp dụng: các vùng xếp dọc như bình thường. */
+@media (min-width: 1024px) {
+  .question-card--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-areas:
+      'head head'
+      'context main';
+    column-gap: 28px;
+    align-items: start;
+  }
+
+  .question-card--split .question-card__head {
+    grid-area: head;
+  }
+
+  .question-card--split .question-card__context {
+    grid-area: context;
+  }
+
+  .question-card--split .question-card__main {
+    grid-area: main;
+  }
+
+  /* Trong cột phải hẹp hơn: đề bài không cần chừa nhiều khoảng trống phía dưới */
+  .question-card--split .question-card__main .question-card__prompt {
+    margin-bottom: 16px;
+  }
+}
+
+/* Dữ kiện trong cột trái: bỏ khoảng trống thừa phía dưới (đề bài đã ở cột phải) */
+.question-card__context > :last-child {
+  margin-bottom: 16px;
+}
+
 /* Nhãn dạng bài (bài thi thử tổng hợp): dạng viên thuốc nhỏ ở đầu thẻ */
 .question-card__category {
   display: inline-block;

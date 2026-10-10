@@ -50,6 +50,14 @@ body {
   color: var(--color-muted);
 }
 
+/* Khi làm bài trên màn hình rộng: khung rộng hơn để chia 2 cột (dữ kiện | câu hỏi), bớt khoảng trống phía trên */
+@media (min-width: 1024px) {
+  .app--wide {
+    max-width: 1200px;
+    padding-top: 20px;
+  }
+}
+
 /* Dòng giới thiệu ở trang chủ: câu giới thiệu + nút "Xem lịch sử"; hẹp thì xuống dòng */
 .app__intro {
   display: flex;

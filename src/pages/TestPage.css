@@ -13,6 +13,10 @@
   gap: 8px;
 }
 
+.test-page__title {
+  font-weight: 600;
+}
+
 .test-page__answered {
   color: var(--color-muted);
 }

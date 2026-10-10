@@ -27,6 +27,13 @@ interface QuestionCardProps {
  * dãy số chữ to đậm, các dạng có đề dài (logic, số liệu) chữ thường.
  *
  * Thứ tự hiển thị: lời dẫn → dữ kiện (bảng, đoạn văn; nếu có) → đề bài → các lựa chọn.
+ *
+ * Bố cục 2 cột trên màn hình rộng (≥ 1024px, xem QuestionCard.css) để câu dài vẫn vừa một màn hình:
+ * thẻ chia 3 vùng: "đầu" (nhãn dạng bài + lời dẫn, trải hết bề ngang), "ngữ cảnh" (cột trái) và "chính" (cột phải).
+ * - Câu có dữ kiện (bảng, đoạn văn, ma trận, chuỗi hình): ngữ cảnh = dữ kiện; chính = đề bài + lựa chọn.
+ * - Câu đề nhiều dòng không có dữ kiện (các tiền đề của câu Logic): ngữ cảnh = đề bài; chính = lựa chọn.
+ * - Câu ngắn (Dãy số): không chia cột.
+ * Trên điện thoại, 3 vùng xếp dọc theo đúng thứ tự trên nên nhìn giống hệt khi không chia cột.
  */
 function QuestionCard({ question, selectedOptionId, onSelect, showCategory = false }: QuestionCardProps) {
   // Cách xếp lựa chọn:
@@ -41,15 +48,30 @@ function QuestionCard({ question, selectedOptionId, onSelect, showCategory = fal
       ? ' question-card__options--list'
       : ''
 
-  return (
-    <section className={`question-card question-card--${question.category}`}>
-      {showCategory && <span className="question-card__category">{getCategoryLabel(question.category)}</span>}
-      <p className="question-card__instruction">{question.instruction}</p>
-      {question.stimulus && <StimulusView stimulus={question.stimulus} />}
-      <p className="question-card__prompt">{question.prompt}</p>
+  // Chia 2 cột khi có dữ kiện, hoặc đề nhiều dòng (tiền đề Logic) — xem chú thích đầu component
+  const hasStimulus = question.stimulus !== undefined
+  const promptAsContext = !hasStimulus && question.prompt.includes('\n')
+  const split = hasStimulus || promptAsContext
+  const prompt = <p className="question-card__prompt">{question.prompt}</p>
 
-      {/* Nhóm lựa chọn dạng radio để trình đọc màn hình hiểu "chỉ chọn một" */}
-      <div className={`question-card__options${layoutClass}`} role="radiogroup" aria-label="Các lựa chọn">
+  return (
+    <section className={`question-card question-card--${question.category}${split ? ' question-card--split' : ''}`}>
+      <div className="question-card__head">
+        {showCategory && <span className="question-card__category">{getCategoryLabel(question.category)}</span>}
+        <p className="question-card__instruction">{question.instruction}</p>
+      </div>
+
+      {split && (
+        <div className="question-card__context">
+          {hasStimulus ? <StimulusView stimulus={question.stimulus!} /> : prompt}
+        </div>
+      )}
+
+      <div className="question-card__main">
+        {!promptAsContext && prompt}
+
+        {/* Nhóm lựa chọn dạng radio để trình đọc màn hình hiểu "chỉ chọn một" */}
+        <div className={`question-card__options${layoutClass}`} role="radiogroup" aria-label="Các lựa chọn">
         {question.options.map((option) => {
           const isSelected = option.id === selectedOptionId
           return (
@@ -74,6 +96,7 @@ function QuestionCard({ question, selectedOptionId, onSelect, showCategory = fal
             </button>
           )
         })}
+        </div>
       </div>
     </section>
   )
