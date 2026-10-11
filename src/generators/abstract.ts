@@ -388,22 +388,3 @@ export function generateAbstractQuestion(id: string, difficulty: Difficulty): Qu
   }
 }
 
-/**
- * Sinh một bộ câu hỏi Suy luận hình, không có hai ma trận trùng nhau.
- * @param count Số câu.
- * @param difficulty Độ khó cố định; bỏ trống thì mỗi câu lấy độ khó ngẫu nhiên.
- * @returns Danh sách câu hỏi với mã 'ab-1', 'ab-2', …
- */
-export function generateAbstractQuestions(count: number, difficulty?: Difficulty): Question[] {
-  const questions: Question[] = []
-  const used = new Set<string>()
-  const difficulties: Difficulty[] = ['easy', 'medium', 'hard']
-  while (questions.length < count) {
-    const question = generateAbstractQuestion(`ab-${questions.length + 1}`, difficulty ?? pickOne(difficulties))
-    const key = JSON.stringify(question.stimulus)
-    if (used.has(key)) continue
-    used.add(key)
-    questions.push(question)
-  }
-  return questions
-}

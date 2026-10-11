@@ -2,6 +2,7 @@
 import type { Stimulus } from '../types/question'
 import MatrixView from './MatrixView'
 import PassageView from './PassageView'
+import SequenceView from './SequenceView'
 import TableView from './TableView'
 
 interface StimulusViewProps {
@@ -21,8 +22,7 @@ function StimulusView({ stimulus }: StimulusViewProps) {
     case 'matrix':
       return <MatrixView matrix={stimulus} />
     case 'sequence':
-      // Chuỗi hình sẽ được hiển thị ở bước 4.2b
-      return null
+      return <SequenceView sequence={stimulus} />
   }
 }
 

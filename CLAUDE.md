@@ -114,9 +114,9 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn), figure.ts (ô hình)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts, abstractMix.ts: trộn ma trận + chuỗi); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
-├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
+├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, SequenceView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ; useElementWidth: đo bề rộng cho biểu đồ)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm, history.ts: lịch sử kết quả, stats.ts: thống kê, permutations.ts: liệt kê hoán vị cho vét cạn)
@@ -243,7 +243,8 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 4.4a | Dãy số: thêm Fibonacci, nhân rồi cộng, lập phương, hiệu tăng gấp đôi (ưu tiên mức Khó) | Mức Khó có ≥ 3 quy luật | ✅ |
 | 4.2a | Bộ sinh chuỗi 5 hình (SHL Inductive) | Mỗi câu chỉ 1 đáp án hợp lệ | ✅ |
 | 4.2a+ | (Bước phụ, người dùng đề xuất) Bố cục làm bài: màn hình rộng chia 2 cột (dữ kiện trái, câu hỏi + đáp án phải), thu gọn phần đầu khi làm bài | Màn 1920×1080, zoom 100%: câu dài vẫn thấy đáp án không cần cuộn; điện thoại không đổi | ✅ |
-| 4.2b | Hiển thị chuỗi hình; dạng Hình trộn ma trận + chuỗi | Làm hết một bài dạng Hình có cả 2 kiểu | ⬜ |
+| 4.2b | Hiển thị chuỗi hình; dạng Hình trộn ma trận + chuỗi | Làm hết một bài dạng Hình có cả 2 kiểu | ✅ |
+| 4.2b+ | (Bước phụ, người dùng đề xuất) Trang chủ: thanh dính đáy màn hình gồm "Tổng thời gian" + nút "Bắt đầu làm bài" | Mở trang chủ (máy tính 1920×940 và điện thoại) thấy nút ngay, không cần cuộn | 🔄 |
 | 4.3 | Soạn thêm 40 nhận định Ngôn ngữ (10 đoạn văn mới), người dùng duyệt | Người dùng đồng ý nội dung | ⬜ |
 | 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ |
 | 4.4c | Hình ma trận: thêm quy luật theo cột | Mỗi câu vẫn chỉ 1 đáp án hợp lệ | ⬜ |
@@ -331,4 +332,6 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 2026-10-09 | Chuỗi hình: 5 hình + tìm hình thứ 6; mỗi thuộc tính theo 1 quy luật dọc chuỗi (không đổi / chu kỳ 2 / chu kỳ 3 / xoay đều 45°–90°); độ khó = số thuộc tính thay đổi (1/2/3); dùng chung cách kiểm tra "đặt thử đáp án nhiễu" với ma trận | Bám dạng SHL Inductive; đảm bảo 1 đáp án |
 | 2026-10-09 | Mức trung bình không cho mọi thuộc tính cùng chu kỳ 2; mức khó bắt buộc có chu kỳ 3 | Tránh chuỗi lặp sau 2 hình (đáp án = hình thứ 4, chỉ cần chép) |
 | 2026-10-09 | Bố cục làm bài màn hình rộng (≥ 1024px): khung 1200px; thẻ câu hỏi chia vùng đầu / ngữ cảnh (trái) / chính (phải); câu có dữ kiện hoặc đề nhiều dòng thì chia 2 cột, Dãy số giữ 1 cột; khi làm bài ẩn tiêu đề to, tên dạng bài vào dòng trạng thái | Người dùng góp ý: câu dài phải cuộn mới thấy nút. Đo ở 1920×940: Số liệu từ 997px (tràn) còn 539px; điện thoại giữ nguyên |
+| 2026-10-10 | Dạng Hình: mỗi câu ngẫu nhiên ma trận hoặc chuỗi, tỉ lệ 50/50 (`SERIES_SHARE`); phần trộn để file riêng `abstractMix.ts` | Tránh import vòng tròn giữa hai bộ sinh; tỉ lệ cân bằng (kế hoạch chưa nêu) |
+| 2026-10-10 | Chuỗi hình hiển thị 6 ô trên MỘT hàng (có mũi tên › giữa các ô), ô tự co theo bề rộng | Giữ chiều đọc trái → phải liền mạch |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

@@ -5,7 +5,7 @@
 import { MIXED_CATEGORIES, MIXED_QUESTIONS_PER_CATEGORY } from '../config/testOptions'
 import type { DifficultySetting, Question, TestCategory, TestConfig } from '../types/question'
 import { shuffle } from '../utils/random'
-import { generateAbstractQuestions } from './abstract'
+import { generateAbstractQuestions } from './abstractMix'
 import type { SeenCounts } from './bank'
 import { generateLogicalQuestions } from './logical'
 import { generateNumberSeriesQuestions } from './numberSeries'

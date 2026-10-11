@@ -9,7 +9,6 @@ import {
   buildCells,
   buildFigureDistractors,
   generateAbstractQuestion,
-  generateAbstractQuestions,
   isValidMatrix,
   matchingRules,
   planMatrix,
@@ -163,16 +162,6 @@ describe('generateAbstractQuestion', () => {
     const positions = new Set<string>()
     for (let i = 0; i < RUNS; i++) positions.add(generateAbstractQuestion('q', 'easy').correctOptionId)
     expect(positions.size).toBe(5)
-  })
-})
-
-describe('generateAbstractQuestions', () => {
-  it('sinh đúng số câu, mã không trùng, ma trận không trùng, giữ đúng độ khó', () => {
-    const questions = generateAbstractQuestions(30, 'hard')
-    expect(questions).toHaveLength(30)
-    expect(new Set(questions.map((q) => q.id)).size).toBe(30)
-    expect(new Set(questions.map((q) => JSON.stringify(q.stimulus))).size).toBe(30)
-    expect(questions.every((q) => q.difficulty === 'hard')).toBe(true)
   })
 })
 

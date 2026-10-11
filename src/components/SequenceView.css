@@ -1,0 +1,47 @@
+/* Giao diện chuỗi hình: một hàng ngang các ô vuông, có mũi tên nhỏ giữa các ô. */
+
+.sequence-view {
+  display: grid;
+  /* Mỗi ô chia đều bề rộng (tối đa ~96px), nên 6 ô luôn vừa một hàng, kể cả trên điện thoại */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 96px);
+  column-gap: 14px; /* chừa chỗ cho mũi tên giữa các ô */
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.sequence-view__cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-bg);
+}
+
+/* Mũi tên nhỏ giữa hai ô liền nhau (thể hiện chiều đọc trái → phải) */
+.sequence-view__cell + .sequence-view__cell::before {
+  content: '›';
+  position: absolute;
+  left: -12px;
+  color: var(--color-muted);
+  font-size: 1rem;
+}
+
+/* Hình co giãn theo ô */
+.sequence-view__cell .figure-view {
+  width: 100%;
+  height: auto;
+}
+
+/* Ô cần tìm: viền nét đứt màu chủ đạo, dấu "?" to (giống ô trống của ma trận) */
+.sequence-view__cell--missing {
+  border: 2px dashed var(--color-primary);
+  color: var(--color-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
