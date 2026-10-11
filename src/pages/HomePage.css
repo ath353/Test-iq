@@ -69,14 +69,22 @@
 }
 
 /* Khối tóm tắt + nút bắt đầu */
+/* Thanh "Tổng thời gian + Bắt đầu": dính mép dưới màn hình (sticky) để luôn bấm được mà không cần cuộn.
+   Cuộn tới cuối trang thì nằm đúng chỗ của nó; nền + viền trên để tách khỏi nội dung phía sau. */
 .home-page__start {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding-top: 16px;
+  padding: 12px 0;
+  /* Chừa vùng an toàn dưới đáy trên điện thoại có "tai thỏ" / thanh điều hướng */
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
   border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
 }
 
 .home-page__summary {
