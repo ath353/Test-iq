@@ -115,7 +115,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn), figure.ts (ô hình)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts, abstractMix.ts: trộn ma trận + chuỗi); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts, abstractMix.ts: trộn ma trận + chuỗi, wordProblems.ts: toán đố); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, SequenceView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage (App.tsx điều hướng)
@@ -250,7 +250,7 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 4.3 | Soạn thêm 40 nhận định Ngôn ngữ (10 đoạn văn mới), người dùng duyệt | Người dùng đồng ý nội dung | ✅ |
 | 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ (tạm gác) |
 | 4.4c | Hình ma trận: thêm quy luật theo cột | Mỗi câu vẫn chỉ 1 đáp án hợp lệ | ⬜ (tạm gác) |
-| 4.5a | Toán đố: bộ sinh đề (phần trăm, chia tỉ lệ, tuổi, năng suất, chuyển động, vòi nước…) + test | Test tự tính lại đáp án; đáp án là số đẹp; lời giải từng bước | ⬜ |
+| 4.5a | Toán đố: bộ sinh đề (phần trăm, chia tỉ lệ, tuổi, năng suất, chuyển động, vòi nước…) + test | Test tự tính lại đáp án; đáp án là số đẹp; lời giải từng bước | ✅ |
 | 4.5b | Toán đố: bật trên trang chủ + đưa vào Thi thử tổng hợp | Làm hết một bài dạng Toán đố | ⬜ |
 | 4.6 | Dãy số: thêm dãy chữ cái (A, C, F, J, ?) dùng lại các quy luật sẵn có | Đáp án đúng, lời giải nêu vị trí chữ cái | ⬜ |
 
@@ -342,4 +342,8 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 2026-10-11 | Trang chủ: thanh "Tổng thời gian + Bắt đầu làm bài" dính đáy màn hình (CSS sticky, có nền + viền trên, chừa vùng an toàn dưới đáy điện thoại) | Người dùng góp ý: nút bắt đầu bị khuất dưới mép màn hình |
 | 2026-10-11 | Ngân hàng Ngôn ngữ thêm 10 đoạn văn (vb-p11 → vb-p20) × 4 nhận định = 80 câu; đáp án tổng 30 Đúng / 25 Sai / 25 Không đủ thông tin; độ khó 29 dễ / 28 trung bình / 23 khó | Mức khó trước chỉ có 11 nhận định, nay 23 → mở được bài 20 câu Khó |
 | 2026-10-11 | Đổi lộ trình: tạm gác 4.4b (Số liệu) + 4.4c (Ma trận theo cột); thêm 4.5 Toán đố, 4.6 Dãy chữ cái | Người dùng nhắm FPT / Viettel / VNPT: đề IQ tiếng Việt hay có toán đố và dãy chữ cái, ít bảng số liệu; Số liệu và Ma trận hiện đã đủ dùng |
+| 2026-10-11 | Toán đố: 12 kiểu bài (dễ: phần trăm, chia tỉ lệ, tuổi 1 mốc, trung bình điểm; trung bình: năng suất chung, gặp nhau, tuổi 2 mốc, lãi – lỗ; khó: đuổi kịp, vòi chảy vào + xả ra, giảm giá liên tiếp, vận tốc trung bình); chọn đáp án đẹp trước rồi tính ngược ra đề; đáp án nhiễu = lỗi sai thường gặp | Đề tính tay được như thi thật; bẫy đúng chỗ người làm hay sai |
+| 2026-10-11 | Toán đố: test giải lại bằng công thức riêng từ các số trong đề, và kiểm tra các số đó thật sự có trong đề; bài chuyển động dùng địa điểm chung chung (A – B) | Quãng đường ngẫu nhiên có thể trái thực tế nếu dùng tên thành phố thật |
+| 2026-10-11 | Toán đố: hệ số thời gian ×2 (120 / 90 / 60 giây/câu); Thi thử tổng hợp thành 6 dạng × 5 = 30 câu (làm ở 4.5b) | Người dùng duyệt kế hoạch |
+| 2026-10-11 | `buildNumericDistractors` thêm tham số `max` (không bắt buộc) | Đáp án nhiễu "11,4 điểm" trên thang 10 bị loại ngay, không còn là bẫy |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

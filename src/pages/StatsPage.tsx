@@ -24,6 +24,7 @@ const SHORT_LABELS: Record<QuestionCategory, string> = {
   logical: 'Logic',
   verbal: 'Ngôn ngữ',
   abstract: 'Hình',
+  'word-problem': 'Toán đố',
 }
 
 /** Hiển thị một ô % theo độ khó: "80% (8/10)", hoặc "–" nếu chưa có câu nào. */

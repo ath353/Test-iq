@@ -10,6 +10,7 @@ export type QuestionCategory =
   | 'numerical' // Suy luận số liệu
   | 'verbal' // Suy luận ngôn ngữ
   | 'abstract' // Suy luận hình
+  | 'word-problem' // Toán đố
 
 /**
  * Loại bài làm người dùng chọn ở trang chủ: một dạng bài, hoặc 'mixed' (thi thử tổng hợp: trộn đủ 5 dạng).

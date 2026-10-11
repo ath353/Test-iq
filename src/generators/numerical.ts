@@ -168,6 +168,7 @@ export interface QuestionParts {
  * @param mistakes Các lỗi sai thường gặp (chưa làm tròn).
  * @param decimals Số chữ số thập phân khi hiển thị.
  * @param format Hàm định dạng để hiển thị (số hoặc phần trăm).
+ * @param max Giá trị lớn nhất được phép (không bắt buộc), ví dụ 10 với điểm thang 10.
  * @returns 4 chuỗi đáp án nhiễu.
  */
 export function buildNumericDistractors(
@@ -175,16 +176,17 @@ export function buildNumericDistractors(
   mistakes: number[],
   decimals: number,
   format: (n: number) => string,
+  max = Infinity,
 ): string[] {
   const minGap = Math.max(3 * 10 ** -decimals, Math.abs(answer) * 0.03)
   const used = new Set([format(answer)])
   const result: string[] = []
 
-  /** Thêm một số nếu hợp lệ: dương, đủ xa đáp án, chưa trùng (sau khi định dạng). */
+  /** Thêm một số nếu hợp lệ: dương, không vượt max, đủ xa đáp án, chưa trùng (sau khi định dạng). */
   const tryAdd = (n: number) => {
     const value = roundTo(n, decimals)
     const text = format(value)
-    if (result.length >= 4 || !Number.isFinite(value) || value <= 0) return
+    if (result.length >= 4 || !Number.isFinite(value) || value <= 0 || value > max) return
     if (Math.abs(value - answer) < minGap || used.has(text)) return
     used.add(text)
     result.push(text)

@@ -94,7 +94,21 @@ describe('buildNumericDistractors', () => {
       expect(result).not.toContain(formatPercent(answer))
     }
   })
+
+  it('có giới hạn max thì không đáp án nhiễu nào vượt max', () => {
+    for (let i = 0; i < RUNS; i++) {
+      const answer = 8 + randomStep()
+      const result = buildNumericDistractors(answer, [11.4, 12, answer * 2], 1, (n) => formatNumber(n, 1), 10)
+      expect(result).toHaveLength(4)
+      for (const text of result) expect(Number(text.replace(',', '.'))).toBeLessThanOrEqual(10)
+    }
+  })
 })
+
+/** Số ngẫu nhiên 0,0 – 2,0 (bước 0,1). */
+function randomStep(): number {
+  return Math.round(Math.random() * 20) / 10
+}
 
 describe('Chênh lệch', () => {
   it('đáp án = |kỳ sau − kỳ trước| của đúng dòng được hỏi', () => {
