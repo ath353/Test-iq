@@ -33,6 +33,7 @@ Vercel tự build và cập nhật web mỗi khi push lên nhánh `main`.
 | 5 | Suy luận hình (Abstract / Matrix) | Code tự sinh + SVG | 2 |
 | 6 | Sơ đồ biến đổi (Diagrammatic) | Code tự sinh + SVG | Sau MVP |
 | 7 | Xoay hình (Spatial) | Code tự sinh + SVG | Sau MVP |
+| 8 | Toán đố (Word problems) | Code tự sinh | 4 |
 
 **Nguyên tắc dữ liệu:**
 - Không sao chép đề có bản quyền (SHL, sách luyện thi…). Chỉ tham khảo dạng bài và tự tạo.
@@ -233,7 +234,8 @@ Thứ tự: Số liệu → Logic → Ngôn ngữ → Hình (dạng sinh bằng 
 
 ### Giai đoạn 4: Mở rộng đề
 
-Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
+Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.5 → 4.6 (4.4b, 4.4c tạm gác, xem nhật ký 2026-10-11).
+Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đề tiếng Việt: dãy số, hình, logic, toán đố).
 
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
@@ -246,8 +248,11 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 4.2b | Hiển thị chuỗi hình; dạng Hình trộn ma trận + chuỗi | Làm hết một bài dạng Hình có cả 2 kiểu | ✅ |
 | 4.2b+ | (Bước phụ, người dùng đề xuất) Trang chủ: thanh dính đáy màn hình gồm "Tổng thời gian" + nút "Bắt đầu làm bài" | Mở trang chủ (máy tính 1920×940 và điện thoại) thấy nút ngay, không cần cuộn | ✅ |
 | 4.3 | Soạn thêm 40 nhận định Ngôn ngữ (10 đoạn văn mới), người dùng duyệt | Người dùng đồng ý nội dung | ✅ |
-| 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ |
-| 4.4c | Hình ma trận: thêm quy luật theo cột | Mỗi câu vẫn chỉ 1 đáp án hợp lệ | ⬜ |
+| 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ (tạm gác) |
+| 4.4c | Hình ma trận: thêm quy luật theo cột | Mỗi câu vẫn chỉ 1 đáp án hợp lệ | ⬜ (tạm gác) |
+| 4.5a | Toán đố: bộ sinh đề (phần trăm, chia tỉ lệ, tuổi, năng suất, chuyển động, vòi nước…) + test | Test tự tính lại đáp án; đáp án là số đẹp; lời giải từng bước | ⬜ |
+| 4.5b | Toán đố: bật trên trang chủ + đưa vào Thi thử tổng hợp | Làm hết một bài dạng Toán đố | ⬜ |
+| 4.6 | Dãy số: thêm dãy chữ cái (A, C, F, J, ?) dùng lại các quy luật sẵn có | Đáp án đúng, lời giải nêu vị trí chữ cái | ⬜ |
 
 ### Ý tưởng để sau (chưa đưa vào lộ trình)
 
@@ -336,4 +341,5 @@ Thứ tự làm: 4.1 → 4.4a → 4.2 → 4.3 → 4.4b → 4.4c.
 | 2026-10-10 | Chuỗi hình hiển thị 6 ô trên MỘT hàng (có mũi tên › giữa các ô), ô tự co theo bề rộng | Giữ chiều đọc trái → phải liền mạch |
 | 2026-10-11 | Trang chủ: thanh "Tổng thời gian + Bắt đầu làm bài" dính đáy màn hình (CSS sticky, có nền + viền trên, chừa vùng an toàn dưới đáy điện thoại) | Người dùng góp ý: nút bắt đầu bị khuất dưới mép màn hình |
 | 2026-10-11 | Ngân hàng Ngôn ngữ thêm 10 đoạn văn (vb-p11 → vb-p20) × 4 nhận định = 80 câu; đáp án tổng 30 Đúng / 25 Sai / 25 Không đủ thông tin; độ khó 29 dễ / 28 trung bình / 23 khó | Mức khó trước chỉ có 11 nhận định, nay 23 → mở được bài 20 câu Khó |
+| 2026-10-11 | Đổi lộ trình: tạm gác 4.4b (Số liệu) + 4.4c (Ma trận theo cột); thêm 4.5 Toán đố, 4.6 Dãy chữ cái | Người dùng nhắm FPT / Viettel / VNPT: đề IQ tiếng Việt hay có toán đố và dãy chữ cái, ít bảng số liệu; Số liệu và Ma trận hiện đã đủ dùng |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
