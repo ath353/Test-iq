@@ -40,7 +40,7 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
   {
     id: 'number-series',
     label: 'Dãy số',
-    description: 'Tìm quy luật, điền số tiếp theo',
+    description: 'Tìm số / chữ cái tiếp theo của dãy',
     available: true,
     timeMultiplier: 1,
   },

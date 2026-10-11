@@ -115,7 +115,7 @@ Mong muốn: <kết quả đúng phải ra sao>
 src/
 ├── types/          # Kiểu dữ liệu dùng chung: question.ts (Question, TestConfig, TestResult…), bank.ts (câu hỏi soạn sẵn), figure.ts (ô hình)
 ├── config/         # Danh sách lựa chọn ở trang chủ + nhãn tiếng Việt (testOptions.ts)
-├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts, numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts, abstractMix.ts: trộn ma trận + chuỗi, wordProblems.ts: toán đố); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
+├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts (+ letterSeries.ts: dãy chữ cái), numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts, abstractMix.ts: trộn ma trận + chuỗi, wordProblems.ts: toán đố); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, SequenceView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
 ├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage (App.tsx điều hướng)
@@ -252,7 +252,7 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 4.4c | Hình ma trận: thêm quy luật theo cột | Mỗi câu vẫn chỉ 1 đáp án hợp lệ | ⬜ (tạm gác) |
 | 4.5a | Toán đố: bộ sinh đề (phần trăm, chia tỉ lệ, tuổi, năng suất, chuyển động, vòi nước…) + test | Test tự tính lại đáp án; đáp án là số đẹp; lời giải từng bước | ✅ |
 | 4.5b | Toán đố: bật trên trang chủ + đưa vào Thi thử tổng hợp | Làm hết một bài dạng Toán đố | ✅ |
-| 4.6 | Dãy số: thêm dãy chữ cái (A, C, F, J, ?) dùng lại các quy luật sẵn có | Đáp án đúng, lời giải nêu vị trí chữ cái | ⬜ |
+| 4.6 | Dãy số: thêm dãy chữ cái (A, C, F, J, ?) dùng lại các quy luật sẵn có | Đáp án đúng, lời giải nêu vị trí chữ cái | ✅ |
 
 ### Ý tưởng để sau (chưa đưa vào lộ trình)
 
@@ -347,4 +347,5 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 2026-10-11 | Toán đố: hệ số thời gian ×2 (120 / 90 / 60 giây/câu); Thi thử tổng hợp thành 6 dạng × 5 = 30 câu (làm ở 4.5b) | Người dùng duyệt kế hoạch |
 | 2026-10-11 | `buildNumericDistractors` thêm tham số `max` (không bắt buộc) | Đáp án nhiễu "11,4 điểm" trên thang 10 bị loại ngay, không còn là bẫy |
 | 2026-10-11 | Toán đố bài tiền: đơn vị ghi trong câu hỏi ("bao nhiêu nghìn đồng?"), lựa chọn chỉ ghi số; test bắt buộc mọi lựa chọn ≤ 10 ký tự | "550 nghìn đồng" bị xuống dòng trong lưới 2 cột trên điện thoại; không đổi quy tắc xếp lựa chọn chung để khỏi ảnh hưởng dạng khác |
+| 2026-10-11 | Dãy chữ cái: tính trên số thứ tự (A = 1 … Z = 26, bảng chữ cái tiếng Anh), không vòng lại Z → A; dễ = cách đều bước 2–3, trung bình = cách đều bước 4–5 / hiệu tăng dần, khó = xen kẽ hai dãy / cộng hai chữ trước; ~1/4 số câu dạng Dãy số (`LETTER_SHARE`), không tách thành dạng riêng | Giống đề IQ tuyển dụng VN; bước 1 (A, B, C, D, E) quá hiển nhiên; vòng lại Z → A dễ gây tranh cãi |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

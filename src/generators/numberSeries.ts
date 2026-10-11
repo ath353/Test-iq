@@ -4,6 +4,7 @@
 
 import type { Difficulty, Option, Question } from '../types/question'
 import { pickOne, randomInt, shuffle } from '../utils/random'
+import { generateLetterSeriesQuestion } from './letterSeries'
 
 /** Dữ liệu thô do một quy luật sinh ra, trước khi ghép thành câu hỏi. */
 export interface SeriesData {
@@ -362,8 +363,12 @@ export function generateNumberSeriesQuestion(id: string, difficulty: Difficulty)
   }
 }
 
+/** Tỉ lệ câu DÃY CHỮ CÁI trong dạng Dãy số (còn lại là dãy số), xem letterSeries.ts. */
+export const LETTER_SHARE = 0.25
+
 /**
  * Sinh một bộ câu hỏi dãy số, không có hai câu trùng đề.
+ * Khoảng 1/4 số câu là dãy chữ cái (A, C, F, J, ?), giống đề IQ tuyển dụng ở Việt Nam.
  * @param count Số câu hỏi.
  * @param difficulty Độ khó cố định; bỏ trống thì mỗi câu lấy độ khó ngẫu nhiên.
  * @returns Danh sách câu hỏi với mã 'ns-1', 'ns-2', …
@@ -375,7 +380,9 @@ export function generateNumberSeriesQuestions(count: number, difficulty?: Diffic
 
   while (questions.length < count) {
     const level = difficulty ?? pickOne(difficulties)
-    const question = generateNumberSeriesQuestion(`ns-${questions.length + 1}`, level)
+    const id = `ns-${questions.length + 1}`
+    const question =
+      Math.random() < LETTER_SHARE ? generateLetterSeriesQuestion(id, level) : generateNumberSeriesQuestion(id, level)
     // Trùng đề thì bỏ, sinh lại (xác suất trùng rất nhỏ vì tham số ngẫu nhiên nhiều)
     if (usedPrompts.has(question.prompt)) continue
     usedPrompts.add(question.prompt)
