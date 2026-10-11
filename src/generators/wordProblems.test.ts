@@ -104,6 +104,8 @@ describe('partsToQuestion', () => {
       expect(q.category).toBe('word-problem')
       expect(q.options.map((o) => o.id)).toEqual(['A', 'B', 'C', 'D', 'E'])
       expect(new Set(q.options.map((o) => o.content)).size).toBe(5)
+      // Lựa chọn ngắn (≤ 10 ký tự, ví dụ "125 km/h") để vừa lưới 2 cột trên điện thoại, không xuống dòng
+      for (const o of q.options) expect(o.content.length).toBeLessThanOrEqual(10)
       const correct = q.options.find((o) => o.id === q.correctOptionId)!
       expect(correct.content).toBe(formatAnswer(SOLVERS[parts.kind](parts.params), parts))
       expect(q.explanationSteps[q.explanationSteps.length - 1]).toBe(`Đáp án: ${correct.content}.`)

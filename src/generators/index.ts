@@ -11,6 +11,7 @@ import { generateLogicalQuestions } from './logical'
 import { generateNumberSeriesQuestions } from './numberSeries'
 import { generateNumericalQuestions } from './numerical'
 import { countVerbalStatements, generateVerbalQuestions } from './verbal'
+import { generateWordProblems } from './wordProblems'
 
 /** Đổi 'mixed' (hỗn hợp) thành undefined: bộ sinh hiểu là không cố định độ khó. */
 function toDifficulty(setting: DifficultySetting) {
@@ -39,6 +40,8 @@ export function generateQuestions(config: TestConfig, seen?: SeenCounts): Questi
       return generateVerbalQuestions(config.questionCount, difficulty, seen)
     case 'abstract':
       return generateAbstractQuestions(config.questionCount, difficulty)
+    case 'word-problem':
+      return generateWordProblems(config.questionCount, difficulty)
     case 'mixed':
       // Thi thử tổng hợp: mỗi dạng một số câu cố định (cùng độ khó đã chọn), rồi trộn lẫn ngẫu nhiên
       return shuffle(

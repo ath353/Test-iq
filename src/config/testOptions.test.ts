@@ -116,14 +116,14 @@ describe('resolveQuestionCount', () => {
 
 describe('Thi thử tổng hợp', () => {
   it('tổng thời gian = cộng theo hệ số dạng bài của từng câu (5 câu mỗi dạng)', () => {
-    // Chuẩn: 5 × (45 + 90 + 90 + 45 + 60) = 1650 giây = 27:30
-    expect(getTimeLimitSec(speed('standard'), 'mixed', 25)).toBe(1650)
-    expect(getSpeedLabel(speed('standard'), 'mixed', 25)).toBe('Chuẩn · 27:30')
-    expect(getTimeLimitSec(speed('unlimited'), 'mixed', 25)).toBeNull()
-    expect(findSpeedId({ category: 'mixed', questionCount: 25, difficulty: 'mixed', timeLimitSec: 1650 })).toBe('standard')
+    // Chuẩn: 5 × (45 + 90 + 90 + 45 + 60 + 90) = 2100 giây = 35:00 (Toán đố ×2 = 90 giây)
+    expect(getTimeLimitSec(speed('standard'), 'mixed', 30)).toBe(2100)
+    expect(getSpeedLabel(speed('standard'), 'mixed', 30)).toBe('Chuẩn · 35:00')
+    expect(getTimeLimitSec(speed('unlimited'), 'mixed', 30)).toBeNull()
+    expect(findSpeedId({ category: 'mixed', questionCount: 30, difficulty: 'mixed', timeLimitSec: 2100 })).toBe('standard')
   })
 
-  it('chỉ có một lựa chọn số câu: 25', () => {
-    expect(getQuestionCountChoices('mixed', null)).toEqual([{ count: 25, disabled: false }])
+  it('chỉ có một lựa chọn số câu: 30 (6 dạng × 5)', () => {
+    expect(getQuestionCountChoices('mixed', null)).toEqual([{ count: 30, disabled: false }])
   })
 })

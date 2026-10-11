@@ -251,7 +251,7 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 4.4b | Số liệu: thêm bối cảnh (lợi nhuận, chi phí…) + kiểu câu (tăng trưởng nhiều kỳ, so sánh 2 dòng) | Có test tự tính lại đáp án | ⬜ (tạm gác) |
 | 4.4c | Hình ma trận: thêm quy luật theo cột | Mỗi câu vẫn chỉ 1 đáp án hợp lệ | ⬜ (tạm gác) |
 | 4.5a | Toán đố: bộ sinh đề (phần trăm, chia tỉ lệ, tuổi, năng suất, chuyển động, vòi nước…) + test | Test tự tính lại đáp án; đáp án là số đẹp; lời giải từng bước | ✅ |
-| 4.5b | Toán đố: bật trên trang chủ + đưa vào Thi thử tổng hợp | Làm hết một bài dạng Toán đố | ⬜ |
+| 4.5b | Toán đố: bật trên trang chủ + đưa vào Thi thử tổng hợp | Làm hết một bài dạng Toán đố | ✅ |
 | 4.6 | Dãy số: thêm dãy chữ cái (A, C, F, J, ?) dùng lại các quy luật sẵn có | Đáp án đúng, lời giải nêu vị trí chữ cái | ⬜ |
 
 ### Ý tưởng để sau (chưa đưa vào lộ trình)
@@ -346,4 +346,5 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 2026-10-11 | Toán đố: test giải lại bằng công thức riêng từ các số trong đề, và kiểm tra các số đó thật sự có trong đề; bài chuyển động dùng địa điểm chung chung (A – B) | Quãng đường ngẫu nhiên có thể trái thực tế nếu dùng tên thành phố thật |
 | 2026-10-11 | Toán đố: hệ số thời gian ×2 (120 / 90 / 60 giây/câu); Thi thử tổng hợp thành 6 dạng × 5 = 30 câu (làm ở 4.5b) | Người dùng duyệt kế hoạch |
 | 2026-10-11 | `buildNumericDistractors` thêm tham số `max` (không bắt buộc) | Đáp án nhiễu "11,4 điểm" trên thang 10 bị loại ngay, không còn là bẫy |
+| 2026-10-11 | Toán đố bài tiền: đơn vị ghi trong câu hỏi ("bao nhiêu nghìn đồng?"), lựa chọn chỉ ghi số; test bắt buộc mọi lựa chọn ≤ 10 ký tự | "550 nghìn đồng" bị xuống dòng trong lưới 2 cột trên điện thoại; không đổi quy tắc xếp lựa chọn chung để khỏi ảnh hưởng dạng khác |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |

@@ -10,7 +10,14 @@ import type { HistoryEntry } from './history'
 import { getAnswerStatus } from './scoring'
 
 /** Thứ tự cố định của các dạng bài trong thống kê (giống trang chủ). */
-export const STATS_CATEGORIES: QuestionCategory[] = ['number-series', 'numerical', 'logical', 'verbal', 'abstract']
+export const STATS_CATEGORIES: QuestionCategory[] = [
+  'number-series',
+  'numerical',
+  'logical',
+  'verbal',
+  'abstract',
+  'word-problem',
+]
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard']
 
 /** Một dạng phải làm ít nhất ngần này câu mới được xét là "dạng yếu nhất" (ít câu quá thì % chưa đáng tin). */

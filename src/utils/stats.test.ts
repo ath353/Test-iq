@@ -52,7 +52,7 @@ describe('computeStats', () => {
     expect(s.attempts).toBe(0)
     expect(s.accuracy).toBeNull()
     expect(s.weakest).toBeNull()
-    expect(s.categories).toHaveLength(5)
+    expect(s.categories).toHaveLength(6)
     expect(s.categories.every((c) => c.accuracy === null && c.avgSecondsPerQuestion === null)).toBe(true)
   })
 

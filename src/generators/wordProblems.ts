@@ -36,7 +36,7 @@ export interface WordProblemParts {
   decimals: number
   /** Giá trị lớn nhất hợp lý của đáp án nhiễu (không bắt buộc), ví dụ 10 với điểm thang 10. */
   max?: number
-  /** Đơn vị ghi sau số, ví dụ 'tuổi', 'giờ', '%'. */
+  /** Đơn vị ghi sau số, ví dụ 'tuổi', 'giờ', '%'; rỗng nếu đơn vị đã nêu trong câu hỏi (tiền: "bao nhiêu nghìn đồng?"). */
   unit: string
   /** Kết quả của các lỗi sai thường gặp (chưa làm tròn), dùng làm đáp án nhiễu. */
   mistakes: number[]
@@ -49,8 +49,9 @@ export function fmt(n: number): string {
   return formatNumber(n, Number.isInteger(n * 10) ? 1 : 2)
 }
 
-/** Ghép số với đơn vị: '%' viết liền, đơn vị khác cách một dấu cách. */
+/** Ghép số với đơn vị: '%' viết liền, đơn vị khác cách một dấu cách, không có đơn vị thì giữ nguyên số. */
 export function withUnit(text: string, unit: string): string {
+  if (unit === '') return text
   return unit === '%' ? `${text}%` : `${text} ${unit}`
 }
 
@@ -133,10 +134,10 @@ export function percentDiscount(): WordProblemParts {
   return {
     kind: 'percent-discount',
     params: { price, d },
-    prompt: `Một ${pickOne(ITEMS)} có giá niêm yết ${fmt(price)} nghìn đồng, nay được giảm giá ${d}%. Giá bán sau khi giảm là bao nhiêu?`,
+    prompt: `Một ${pickOne(ITEMS)} có giá niêm yết ${fmt(price)} nghìn đồng, nay được giảm giá ${d}%. Giá bán sau khi giảm là bao nhiêu nghìn đồng?`,
     answer,
     decimals: 0,
-    unit: 'nghìn đồng',
+    unit: '', // đơn vị đã nêu trong câu hỏi; lựa chọn chỉ ghi số cho gọn ("550" thay vì "550 nghìn đồng")
     mistakes: [off, price + off, price - d],
     steps: [
       `Số tiền được giảm: ${fmt(price)} × ${d}% = ${fmt(off)} nghìn đồng.`,
@@ -164,10 +165,10 @@ export function ratioSplit(): WordProblemParts {
   return {
     kind: 'ratio-split',
     params: { total, a, b },
-    prompt: `Chia ${fmt(total)} nghìn đồng cho ${first} và ${second} theo tỉ lệ ${a} : ${b}. ${second} nhận được bao nhiêu?`,
+    prompt: `Chia ${fmt(total)} nghìn đồng cho ${first} và ${second} theo tỉ lệ ${a} : ${b}. ${second} nhận được bao nhiêu nghìn đồng?`,
     answer,
     decimals: 0,
-    unit: 'nghìn đồng',
+    unit: '', // đơn vị đã nêu trong câu hỏi; lựa chọn chỉ ghi số cho gọn ("550" thay vì "550 nghìn đồng")
     mistakes: [a * unitValue, total / 2, (total * b) / a],
     steps: [
       `Tổng số phần bằng nhau: ${a} + ${b} = ${a + b} phần.`,
@@ -351,10 +352,10 @@ export function costFromProfit(): WordProblemParts {
   return {
     kind: 'cost-from-profit',
     params: { sell, p },
-    prompt: `Một cửa hàng bán ${pickOne(ITEMS)} với giá ${fmt(sell)} nghìn đồng và lãi ${p}% so với giá vốn. Giá vốn của mặt hàng này là bao nhiêu?`,
+    prompt: `Một cửa hàng bán ${pickOne(ITEMS)} với giá ${fmt(sell)} nghìn đồng và lãi ${p}% so với giá vốn. Giá vốn của mặt hàng này là bao nhiêu nghìn đồng?`,
     answer: cost,
     decimals: 0,
-    unit: 'nghìn đồng',
+    unit: '', // đơn vị đã nêu trong câu hỏi; lựa chọn chỉ ghi số cho gọn ("550" thay vì "550 nghìn đồng")
     mistakes: [(sell * (100 - p)) / 100, sell - p, (sell * (100 + p)) / 100],
     steps: [
       `Lãi ${p}% so với giá vốn nghĩa là: giá bán = giá vốn × (100% + ${p}%) = giá vốn × ${fmt((100 + p) / 100)}.`,

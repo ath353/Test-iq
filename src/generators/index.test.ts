@@ -9,7 +9,7 @@ describe('generateQuestions', () => {
   // tránh trường hợp bật trên giao diện nhưng quên đăng ký bộ sinh đề
   for (const category of CATEGORY_OPTIONS.filter((c) => c.available)) {
     it(`dạng "${category.label}" đã bật trên trang chủ thì sinh được đề đúng dạng`, () => {
-      // Dùng lựa chọn số câu đầu tiên của dạng đó (thi thử tổng hợp chỉ có 25 câu)
+      // Dùng lựa chọn số câu đầu tiên của dạng đó (thi thử tổng hợp chỉ có 30 câu)
       const questionCount = category.questionCounts?.[0] ?? 10
       const questions = generateQuestions({ category: category.id, questionCount, difficulty: 'mixed', timeLimitSec: null })
       expect(questions).toHaveLength(questionCount)
@@ -28,7 +28,7 @@ describe('generateQuestions', () => {
   it('thi thử tổng hợp: trộn lẫn ngẫu nhiên (không xếp liền theo từng dạng), giữ đúng độ khó đã chọn', () => {
     let grouped = 0
     for (let i = 0; i < 20; i++) {
-      const questions = generateQuestions({ category: 'mixed', questionCount: 25, difficulty: 'hard', timeLimitSec: null })
+      const questions = generateQuestions({ category: 'mixed', questionCount: 30, difficulty: 'hard', timeLimitSec: null })
       expect(questions.every((q) => q.difficulty === 'hard')).toBe(true)
       // Đếm số lần đổi dạng giữa hai câu liền nhau; nếu xếp liền theo dạng thì chỉ đổi đúng 4 lần
       const switches = questions.slice(1).filter((q, k) => q.category !== questions[k].category).length

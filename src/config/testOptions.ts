@@ -27,7 +27,14 @@ export interface CategoryOption {
 export const MIXED_QUESTIONS_PER_CATEGORY = 5
 
 /** Các dạng bài có trong bài thi thử tổng hợp. */
-export const MIXED_CATEGORIES: QuestionCategory[] = ['number-series', 'numerical', 'logical', 'verbal', 'abstract']
+export const MIXED_CATEGORIES: QuestionCategory[] = [
+  'number-series',
+  'numerical',
+  'logical',
+  'verbal',
+  'abstract',
+  'word-problem',
+]
 
 export const CATEGORY_OPTIONS: CategoryOption[] = [
   {
@@ -73,13 +80,21 @@ export const CATEGORY_OPTIONS: CategoryOption[] = [
     timeMultiplier: 4 / 3,
   },
   {
+    id: 'word-problem',
+    label: 'Toán đố',
+    description: 'Phần trăm, tuổi, năng suất, chuyển động',
+    available: true,
+    // Phải đọc đề và tính tay như Số liệu: ×2 cho ra 120 / 90 / 60 giây mỗi câu
+    timeMultiplier: 2,
+  },
+  {
     id: 'mixed',
     label: 'Thi thử tổng hợp',
-    description: `${MIXED_QUESTIONS_PER_CATEGORY * 5} câu, trộn đủ 5 dạng`,
+    description: `${MIXED_QUESTIONS_PER_CATEGORY * MIXED_CATEGORIES.length} câu, trộn đủ ${MIXED_CATEGORIES.length} dạng`,
     available: true,
     // Không dùng: thời gian bài tổng hợp tính theo hệ số của dạng bài của TỪNG CÂU (xem getTimeLimitSec)
     timeMultiplier: 1,
-    questionCounts: [MIXED_QUESTIONS_PER_CATEGORY * 5],
+    questionCounts: [MIXED_QUESTIONS_PER_CATEGORY * MIXED_CATEGORIES.length],
   },
 ]
 
@@ -198,7 +213,7 @@ export function getTimeLimitSec(speed: SpeedOption, category: TestCategory, ques
 /**
  * Nhãn hiển thị của mức tốc độ.
  * Một dạng bài: số giây mỗi câu, ví dụ 'Chuẩn · 90 giây/câu'.
- * Thi thử tổng hợp (mỗi dạng một tốc độ riêng): tổng thời gian, ví dụ 'Chuẩn · 27:30'.
+ * Thi thử tổng hợp (mỗi dạng một tốc độ riêng): tổng thời gian, ví dụ 'Chuẩn · 35:00'.
  */
 export function getSpeedLabel(speed: SpeedOption, category: TestCategory, questionCount = 0): string {
   if (speed.baseSecondsPerQuestion === null) return speed.name
