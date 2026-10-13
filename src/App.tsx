@@ -1,4 +1,4 @@
-// Component gốc của ứng dụng: điều hướng giữa các màn hình Trang chủ → Làm bài → Kết quả, Lịch sử, Thống kê;
+// Component gốc của ứng dụng: điều hướng giữa các màn hình Trang chủ → Làm bài → Kết quả, Lịch sử, Thống kê, Bí kíp;
 // lưu / khôi phục bài đang làm để tải lại trang (F5) không mất bài, và lưu kết quả vào lịch sử.
 import { useState } from 'react'
 import { getCategoryLabel } from './config/testOptions'
@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage'
 import StatsPage from './pages/StatsPage'
 import ResultPage from './pages/ResultPage'
 import TestPage from './pages/TestPage'
+import TipsPage from './pages/TipsPage'
 import type { QuestionCategory, TestConfig, TestResult } from './types/question'
 import { type ActiveTest, clearActiveTest, loadActiveTest, saveActiveTest } from './utils/activeTest'
 import { addToHistory, clearHistory, countSeenQuestions, type HistoryEntry, loadHistory } from './utils/history'
@@ -25,6 +26,7 @@ type Screen =
   | { name: 'result'; result: TestResult; fromHistory?: boolean }
   | { name: 'history'; entries: HistoryEntry[] }
   | { name: 'stats'; entries: HistoryEntry[] }
+  | { name: 'tips' }
 
 /**
  * Màn hình lúc mở web: nếu còn bài đang làm dở (đã lưu trước khi tải lại trang) thì vào thẳng bài đó.
@@ -81,6 +83,12 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+  /** Mở trang Bí kíp. */
+  function openTips() {
+    setScreen({ name: 'tips' })
+    window.scrollTo(0, 0)
+  }
+
   /** Mở trang lịch sử (đọc lại từ bộ nhớ để luôn mới nhất). */
   function openHistory() {
     setScreen({ name: 'history', entries: loadHistory() })
@@ -101,16 +109,22 @@ function App() {
               Luyện các dạng bài test năng lực khi tuyển dụng.
               {historyCount > 0 && ` Bạn đã hoàn thành ${historyCount} bài.`}
             </p>
-            {historyCount > 0 && (
-              <div className="app__intro-actions">
-                <button type="button" className="button" onClick={openHistory}>
-                  Xem lịch sử
-                </button>
-                <button type="button" className="button" onClick={openStats}>
-                  Thống kê
-                </button>
-              </div>
-            )}
+            <div className="app__intro-actions">
+              {/* Lịch sử / Thống kê chỉ có ý nghĩa khi đã làm bài; Bí kíp luôn hiện (người mới cần nhất) */}
+              {historyCount > 0 && (
+                <>
+                  <button type="button" className="button" onClick={openHistory}>
+                    Xem lịch sử
+                  </button>
+                  <button type="button" className="button" onClick={openStats}>
+                    Thống kê
+                  </button>
+                </>
+              )}
+              <button type="button" className="button" onClick={openTips}>
+                Bí kíp
+              </button>
+            </div>
           </div>
           <HomePage initialConfig={lastConfig} initialCategory={preferredCategory} onStart={startTest} />
         </>
@@ -183,6 +197,8 @@ function App() {
           onHome={goHome}
         />
       )}
+
+      {screen.name === 'tips' && <TipsPage onHome={goHome} />}
     </main>
   )
 }

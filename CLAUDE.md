@@ -118,7 +118,7 @@ src/
 ├── generators/     # Bộ sinh đề: index.ts (điểm vào chung theo dạng bài) + mỗi dạng một file (numberSeries.ts (+ letterSeries.ts: dãy chữ cái), numerical.ts, logical.ts, logicOrdering.ts, logicSeating.ts, verbal.ts, abstract.ts, abstractSeries.ts, abstractMix.ts: trộn ma trận + chuỗi, wordProblems.ts: toán đố); bank.ts: soát dữ liệu JSON + ra đề từ ngân hàng (dùng chung)
 ├── data/           # Ngân hàng câu hỏi JSON soạn tay: logical.json, verbal.json; nội dung trang Bí kíp: tips.json (kiểu ở types/tips.ts, soát + nạp ở utils/tips.ts)
 ├── components/     # Component giao diện dùng lại (QuestionCard, QuestionNavigator, Timer, ReviewItem, OptionGroup, StimulusView, TableView, PassageView, FigureView, MatrixView, SequenceView, AccuracyBars, ProgressChart), mỗi component kèm file .css cùng tên
-├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage (App.tsx điều hướng)
+├── pages/          # Các màn hình: HomePage → TestPage → ResultPage; HistoryPage, StatsPage, TipsPage (App.tsx điều hướng)
 ├── hooks/          # Custom hooks (useTestTimer: đồng hồ; useElementWidth: đo bề rộng cho biểu đồ)
 └── utils/          # Hàm tiện ích (random.ts, time.ts, scoring.ts: chấm điểm, table.ts, format.ts: định dạng số kiểu VN, figure.ts: hình học của ô hình, storage.ts: đọc/ghi localStorage an toàn, activeTest.ts: lưu bài đang làm, history.ts: lịch sử kết quả, stats.ts: thống kê, permutations.ts: liệt kê hoán vị cho vét cạn)
 ```
@@ -259,7 +259,7 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | Bước | Nội dung | Tiêu chí hoàn thành | Trạng thái |
 |------|----------|---------------------|------------|
 | 5.1a | Soạn nội dung: lộ trình cho người mới + bí kíp 6 dạng (nhận dạng, quy trình giải, mẹo nhanh, bẫy, cách luyện) + bí kíp chung; lưu `src/data/tips.json` + test soát dữ liệu | Người dùng đồng ý nội dung | ✅ |
-| 5.1b | Trang "Bí kíp" (lộ trình ở đầu trang, mỗi dạng mở / đóng được) + nút ở trang chủ | Đọc được trên máy tính và điện thoại | ⬜ |
+| 5.1b | Trang "Bí kíp" (lộ trình ở đầu trang, mỗi dạng mở / đóng được) + nút ở trang chủ | Đọc được trên máy tính và điện thoại | ✅ |
 | 5.1c | Link "Xem bí kíp dạng này" từ trang Thống kê và màn kết quả | Bấm link mở đúng phần bí kíp của dạng đó | ⬜ |
 | 5.1d | Nút "Làm bài này" trong lộ trình, tự chọn sẵn dạng / độ khó / tốc độ | — | Bỏ (người dùng không chọn) |
 
@@ -360,4 +360,5 @@ Mục tiêu người dùng: bài IQ tuyển dụng của FPT, Viettel, VNPT (đ�
 | 2026-10-13 | Giai đoạn 5 "Bí kíp ôn thi": lộ trình 2 tuần cho người mới (+ bản rút gọn 3–5 ngày, dấu hiệu sẵn sàng) + bí kíp chung + bí kíp 6 dạng, mỗi dạng 5 nhóm cố định (nhận dạng, quy trình, mẹo nhanh, bẫy, cách luyện); nội dung ở `tips.json`, có test soát (mọi dạng trên trang chủ phải có bí kíp) | Người dùng đề xuất; lời giải chỉ giải từng câu, bí kíp dạy cách nghĩ chung cho cả dạng; tách nội dung khỏi code để dễ sửa |
 | 2026-10-13 | Mốc "sẵn sàng" (≥ 70% thi thử Hỗn hợp, tốc độ Chuẩn) ghi rõ chỉ để tham khảo, không phải điểm chuẩn công ty | Không có dữ liệu điểm chuẩn thật; tránh gây hiểu nhầm |
 | 2026-10-13 | Bỏ bước 5.1d (nút "Làm bài này" trong lộ trình); bí kíp KHÔNG hiện trong lúc làm bài | Người dùng chọn; xem bí kíp khi đang thi mất tác dụng luyện tập |
+| 2026-10-13 | Trang Bí kíp: mỗi phần là khối `<details>` của trình duyệt (mở / đóng bằng chuột hoặc bàn phím); lộ trình mở sẵn, các dạng đóng sẵn, thứ tự dạng theo lộ trình học; mỗi dạng có mã `tips-<dạng>` để bước 5.1c link tới; nút "Bí kíp" ở trang chủ LUÔN hiện (Lịch sử / Thống kê chỉ hiện khi đã làm bài) | Không cần thư viện, dễ dùng cho mọi người; người mới chưa làm bài là người cần bí kíp nhất |
 | 2026-10-08 | Thêm `.gitattributes` ép ký tự xuống dòng LF | Tránh lệch CRLF/LF giữa Windows và Vercel (Linux) |
