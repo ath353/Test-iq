@@ -1,0 +1,481 @@
+{
+  "beginnerPlan": {
+    "intro": "Lộ trình 2 tuần, mỗi ngày khoảng 30–60 phút, đi từ làm quen → nắm từng dạng → tăng độ khó → luyện tốc độ. Không cần làm đúng từng ngày; chưa đạt mục tiêu của giai đoạn nào thì ở lại giai đoạn đó thêm vài ngày.",
+    "phases": [
+      {
+        "id": "day-1",
+        "days": "Ngày 1",
+        "title": "Làm quen",
+        "goal": "Biết đề trông như thế nào và mình đang đứng ở đâu.",
+        "tasks": [
+          "Làm 1 bài Thi thử tổng hợp, độ khó Hỗn hợp, tốc độ Không giới hạn. Chưa cần lo thời gian.",
+          "Nộp bài xong, đọc lời giải của TẤT CẢ các câu, kể cả câu làm đúng (có thể bạn đúng nhờ may mắn).",
+          "Ghi lại điểm và thời gian làm bài vào sổ để so sánh vào ngày cuối.",
+          "Đọc phần “Bí kíp chung” ở cuối trang."
+        ]
+      },
+      {
+        "id": "day-2-5",
+        "days": "Ngày 2–5",
+        "title": "Nắm từng dạng",
+        "goal": "Nhận ra được các quy luật / kiểu bài cơ bản của cả 6 dạng.",
+        "tasks": [
+          "Mỗi ngày học 1–2 dạng: đọc bí kíp của dạng đó trước, rồi làm 1 bài 10 câu, độ khó Dễ, tốc độ Thoải mái.",
+          "Thứ tự gợi ý: Dãy số → Toán đố → Suy luận hình → Suy luận logic → Suy luận số liệu → Suy luận ngôn ngữ.",
+          "Câu nào sai: đọc lời giải, rồi tự giải lại từ đầu mà không nhìn lời giải.",
+          "Mục tiêu: đạt ≥ 80% ở mức Dễ cho mỗi dạng trước khi sang giai đoạn sau."
+        ]
+      },
+      {
+        "id": "day-6-9",
+        "days": "Ngày 6–9",
+        "title": "Tăng độ khó",
+        "goal": "Làm được câu Trung bình / Khó và biết mình yếu dạng nào.",
+        "tasks": [
+          "Chuyển sang độ khó Hỗn hợp, tốc độ Chuẩn.",
+          "Mỗi ngày: 1 bài 20 câu của dạng yếu nhất + 1 bài 10 câu của một dạng khác.",
+          "Vào trang Thống kê sau mỗi 2–3 bài: xem dạng nào % đúng thấp nhất, bấm “Luyện dạng này”.",
+          "Lập “sổ lỗi”: ghi lại quy luật / kiểu bài đã làm sai và vì sao sai (tính nhầm, hiểu sai đề, chưa biết quy luật)."
+        ]
+      },
+      {
+        "id": "day-10-13",
+        "days": "Ngày 10–13",
+        "title": "Luyện tốc độ",
+        "goal": "Làm đúng trong áp lực thời gian như thi thật.",
+        "tasks": [
+          "Mỗi ngày 1 bài Thi thử tổng hợp, độ khó Hỗn hợp, tốc độ Chuẩn.",
+          "Thêm 1 bài 10 câu độ khó Khó, tốc độ Áp lực cho dạng yếu nhất.",
+          "Tập bỏ qua câu khó: quá thời gian trung bình mỗi câu thì chọn tạm một đáp án, làm câu khác, cuối bài quay lại (bấm số câu ở thanh điều hướng).",
+          "Đọc lại sổ lỗi trước mỗi buổi."
+        ]
+      },
+      {
+        "id": "day-14",
+        "days": "Ngày 14",
+        "title": "Tổng duyệt",
+        "goal": "Kiểm tra mức sẵn sàng và giữ sức cho ngày thi.",
+        "tasks": [
+          "Làm 1 bài Thi thử tổng hợp, độ khó Hỗn hợp, tốc độ Chuẩn, trong điều kiện như thi thật: phòng yên tĩnh, tắt điện thoại, có giấy nháp.",
+          "So sánh điểm và thời gian với Ngày 1 (xem trang Lịch sử).",
+          "Ngày trước hôm thi: chỉ đọc lại sổ lỗi và bí kíp, không làm thêm bài mới, ngủ đủ giấc."
+        ]
+      }
+    ],
+    "readiness": {
+      "id": "readiness",
+      "title": "Dấu hiệu đã sẵn sàng đi thi",
+      "items": [
+        "Thi thử tổng hợp, Hỗn hợp, tốc độ Chuẩn: đạt ≥ 70% trong 2–3 bài liên tiếp.",
+        "Không còn dạng nào dưới 50% trong trang Thống kê.",
+        "Làm xong bài thi thử mà vẫn còn thời gian xem lại vài câu.",
+        "Các mốc trên chỉ để tham khảo khi tự luyện, KHÔNG phải điểm chuẩn của công ty nào: mỗi công ty, mỗi vị trí có yêu cầu khác nhau."
+      ]
+    },
+    "shortPlan": {
+      "id": "short-plan",
+      "title": "Chỉ còn 3–5 ngày?",
+      "items": [
+        "Ngày 1: Thi thử tổng hợp (tốc độ Không giới hạn) + đọc Bí kíp chung + đọc bí kíp 2 dạng có điểm thấp nhất.",
+        "Các ngày giữa: chỉ tập trung vào 2–3 dạng yếu nhất, mỗi dạng 1 bài 20 câu Hỗn hợp, tốc độ Chuẩn mỗi ngày. Ưu tiên dạng gặp nhiều trong đề (Dãy số, Hình, Toán đố, Logic).",
+        "Ngày cuối: 1 bài Thi thử tổng hợp tốc độ Chuẩn, đọc lại các câu sai, rồi nghỉ ngơi."
+      ]
+    }
+  },
+  "general": [
+    {
+      "id": "time",
+      "title": "Quản lý thời gian",
+      "items": [
+        "Trước khi làm, chia tổng thời gian cho số câu để biết mỗi câu có bao nhiêu giây.",
+        "Một câu đã tốn gấp rưỡi thời gian trung bình mà chưa ra: chọn tạm đáp án hợp lý nhất, chuyển câu, cuối bài quay lại nếu còn giờ.",
+        "Đừng để một câu khó “ăn” mất thời gian của 3 câu dễ phía sau: mỗi câu đều được tính điểm như nhau.",
+        "Nhìn đồng hồ ở các mốc 1/4, 1/2, 3/4 bài để biết mình đang nhanh hay chậm."
+      ]
+    },
+    {
+      "id": "guessing",
+      "title": "Khi không chắc chắn",
+      "items": [
+        "Đọc kỹ hướng dẫn của bài thi: nếu KHÔNG trừ điểm câu sai thì đừng bỏ trống câu nào, sắp hết giờ thì chọn hết các câu còn lại.",
+        "Loại trừ trước, chọn sau: loại được 2–3 đáp án vô lý thì xác suất đoán đúng tăng gấp đôi, gấp ba.",
+        "Ước lượng: nhiều câu chỉ cần tính gần đúng là đủ để thấy đáp án nào hợp lý.",
+        "Nếu bài thi có trừ điểm câu sai: chỉ đoán khi đã loại được ít nhất 1–2 đáp án."
+      ]
+    },
+    {
+      "id": "habits",
+      "title": "Thói quen khi làm bài",
+      "items": [
+        "Luôn có giấy nháp và bút: vẽ sơ đồ, ghi số ra giấy nhanh và ít sai hơn tính trong đầu.",
+        "Đọc câu hỏi thật kỹ, đặc biệt các từ “không”, “ít nhất”, “nhiều nhất”, “ngay trước”, “so với”.",
+        "Kiểm tra đơn vị (nghìn / triệu, %, giờ / phút) trước khi chọn đáp án.",
+        "Tính xong thì so lại với đề một lần: đáp án có hợp lý không (tuổi âm, giá trị lớn hơn tổng…)."
+      ]
+    },
+    {
+      "id": "exam-day",
+      "title": "Trước và trong ngày thi",
+      "items": [
+        "Thi online: kiểm tra mạng, máy tính, sạc pin, trình duyệt từ trước; chọn phòng yên tĩnh; tắt thông báo điện thoại.",
+        "Hỏi rõ (hoặc đọc kỹ email mời thi) bài thi có cho dùng máy tính cầm tay, giấy nháp hay không; luyện tập theo đúng điều kiện đó.",
+        "Ngủ đủ đêm hôm trước; ăn nhẹ trước khi thi; không ôn dồn vào tối trước.",
+        "Gặp câu quá khó đừng hoảng: bài test tuyển dụng thường được thiết kế để rất ít người làm đúng hết trong thời gian cho phép."
+      ]
+    },
+    {
+      "id": "after-practice",
+      "title": "Sau mỗi bài luyện",
+      "items": [
+        "Xem lại câu sai NGAY khi còn nhớ mình đã nghĩ gì.",
+        "Phân loại lỗi: chưa biết quy luật / hiểu sai đề / tính nhầm / hết giờ. Mỗi loại có cách sửa khác nhau.",
+        "Ghi vào sổ lỗi những quy luật mới gặp; trước mỗi buổi luyện đọc lại sổ lỗi 5 phút."
+      ]
+    }
+  ],
+  "categories": {
+    "number-series": {
+      "summary": "Tìm số (hoặc chữ cái) tiếp theo của một dãy theo một quy luật ẩn.",
+      "sections": [
+        {
+          "id": "recognize",
+          "title": "Nhận dạng nhanh",
+          "items": [
+            "Tăng hoặc giảm đều → tính hiệu các số liền kề (dãy cộng đều).",
+            "Tăng rất nhanh, mỗi số gấp số trước một số lần → thử chia số sau cho số trước (dãy nhân đều).",
+            "Hiệu không đều nhưng hiệu lại tăng đều → tính “hiệu của hiệu” (cộng tăng dần).",
+            "Các số gần 1, 4, 9, 16, 25… hoặc 1, 8, 27, 64… → bình phương / lập phương cộng hoặc trừ một số cố định.",
+            "Dãy lên xuống thất thường → tách riêng các số ở vị trí lẻ và vị trí chẵn (hai dãy xen kẽ).",
+            "Mỗi số bằng tổng hai số đứng trước → kiểu Fibonacci.",
+            "Mỗi số xấp xỉ gấp đôi (gấp ba) số trước, lệch thêm một chút → “nhân rồi cộng” (ví dụ ×2 + 1).",
+            "Hiệu gấp đôi sau mỗi bước (2, 4, 8, 16…) → hiệu tăng gấp đôi.",
+            "Dãy chữ cái → đổi sang số thứ tự (A = 1 … Z = 26) rồi làm như dãy số."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Quy trình giải",
+          "items": [
+            "Bước 1: nhìn xu hướng chung (tăng / giảm / lên xuống) và tốc độ tăng.",
+            "Bước 2: tính hiệu các số liền kề, viết ngay dưới dãy.",
+            "Bước 3: hiệu không đều → tính tiếp hiệu của hiệu, hoặc tỉ số giữa các số.",
+            "Bước 4: vẫn chưa ra → thử xen kẽ, Fibonacci, bình phương / lập phương, nhân rồi cộng.",
+            "Bước 5: kiểm tra quy luật với TẤT CẢ các số trong dãy trước khi chọn, không chỉ 2–3 số đầu."
+          ]
+        },
+        {
+          "id": "speed",
+          "title": "Mẹo tính nhanh",
+          "items": [
+            "Thuộc lòng bình phương từ 1 đến 20, lập phương từ 1 đến 10, lũy thừa của 2 đến 1024.",
+            "Dãy chữ cái: nhớ các mốc E = 5, J = 10, O = 15, T = 20, Y = 25 (đọc là “EJOTY”) để đổi chữ sang số trong vài giây.",
+            "Không nghĩ ra quy luật? Thử lần lượt từng đáp án vào cuối dãy, xem đáp án nào làm dãy “đẹp” (hiệu hoặc tỉ số đều).",
+            "Hiệu là các số lẻ liên tiếp 3, 5, 7, 9… → rất có thể là bình phương (4, 9, 16, 25…). Hiệu tăng đều nhưng không phải số lẻ liên tiếp → cộng tăng dần."
+          ]
+        },
+        {
+          "id": "traps",
+          "title": "Bẫy hay gặp",
+          "items": [
+            "Đáp án nhiễu thường lệch đáp án đúng đúng 1 đơn vị hoặc đúng một bước của quy luật: tính cẩn thận bước cuối.",
+            "Dãy xen kẽ: nếu tính hiệu liền kề cho cả dãy sẽ không thấy quy luật; số cần tìm thuộc dãy lẻ hay dãy chẵn phụ thuộc vị trí của nó.",
+            "Quy luật đúng với 3 số đầu nhưng sai ở số thứ 4 → chưa phải quy luật đúng.",
+            "Dãy giảm vẫn có thể là “cộng một số âm” hoặc “chia đều”, đừng chỉ nghĩ đến phép trừ."
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Cách luyện",
+          "items": [
+            "Mục tiêu: nhìn dãy trong 10–15 giây là đoán được nên thử loại quy luật nào.",
+            "Luyện mức Khó nhiều hơn: mức Khó có 4 quy luật (xen kẽ, Fibonacci, nhân rồi cộng, hiệu gấp đôi).",
+            "Mỗi quy luật làm sai, ghi 1 ví dụ vào sổ lỗi kèm cách nhận ra nó."
+          ]
+        }
+      ]
+    },
+    "word-problem": {
+      "summary": "Bài toán có lời: phần trăm, tỉ lệ, tuổi, năng suất, chuyển động, vòi nước… Cần dịch lời văn thành phép tính.",
+      "sections": [
+        {
+          "id": "recognize",
+          "title": "Nhận dạng và công thức chính",
+          "items": [
+            "Giảm giá d%: giá sau giảm = giá gốc × (1 − d%).",
+            "Giảm giá liên tiếp: NHÂN các hệ số, không cộng phần trăm. Giảm 20% rồi 20% = còn 0,8 × 0,8 = 64% → giảm 36%, không phải 40%.",
+            "Bán lãi p% so với giá vốn: giá vốn = giá bán : (1 + p%). Không lấy giá bán trừ p% của chính nó.",
+            "Chia theo tỉ lệ a : b: tổng số phần = a + b → giá trị 1 phần = tổng : (a + b) → nhân với số phần cần tìm.",
+            "Tuổi: HIỆU số tuổi của hai người không bao giờ đổi. Bài “gấp k lần” thì coi tuổi người nhỏ là 1 phần.",
+            "Năng suất: A làm xong trong a ngày → mỗi ngày làm 1/a việc. Cùng làm: 1/a + 1/b mỗi ngày.",
+            "Vòi chảy vào a giờ, vòi xả b giờ: mỗi giờ bể tăng 1/a − 1/b.",
+            "Hai xe ngược chiều gặp nhau: thời gian = quãng đường : TỔNG vận tốc. Đuổi kịp cùng chiều: khoảng cách : HIỆU vận tốc.",
+            "Vận tốc trung bình đi – về cùng quãng đường = 2 × v1 × v2 : (v1 + v2), KHÔNG phải (v1 + v2) : 2.",
+            "Điểm trung bình cần đạt: điểm bài mới = trung bình mục tiêu × tổng số bài − tổng điểm đã có."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Quy trình giải",
+          "items": [
+            "Bước 1: đọc câu hỏi cuối đề trước để biết cần tìm gì và đơn vị gì.",
+            "Bước 2: gạch ra các số đã cho, nhận dạng kiểu bài (xem công thức ở trên).",
+            "Bước 3: viết phép tính ra giấy, tính.",
+            "Bước 4: kiểm tra lại: kết quả có hợp lý không (tuổi con nhỏ hơn tuổi bố, thời gian cùng làm ngắn hơn người nhanh nhất…)."
+          ]
+        },
+        {
+          "id": "speed",
+          "title": "Mẹo tính nhanh",
+          "items": [
+            "Thử ngược đáp án: với bài tuổi, bài chia phần, thay từng đáp án vào đề xem có khớp không. Thường nhanh hơn lập phương trình.",
+            "Phần trăm nhẩm: 10% = dời dấu phẩy 1 chữ số; 5% = nửa của 10%; 15% = 10% + 5%; 25% = chia 4.",
+            "Bài năng suất với số đẹp: “cùng làm” luôn nhanh hơn người nhanh nhất, nên loại ngay các đáp án lớn hơn số ngày của người nhanh nhất.",
+            "Hai vòi (vào – ra): kết quả luôn LÂU HƠN thời gian của vòi chảy vào, loại ngay đáp án nhỏ hơn."
+          ]
+        },
+        {
+          "id": "traps",
+          "title": "Bẫy hay gặp",
+          "items": [
+            "Cộng phần trăm của các lần giảm / tăng liên tiếp.",
+            "Lấy trung bình cộng hai vận tốc.",
+            "Bài tuổi: tìm ra tuổi SAU k năm nhưng đề hỏi tuổi HIỆN NAY (hoặc ngược lại); tìm tuổi bố nhưng đề hỏi tuổi con.",
+            "Bài chia phần: tính ra phần của người thứ nhất trong khi đề hỏi người thứ hai.",
+            "Bài đuổi kịp: tính thời gian kể từ lúc người đi trước xuất phát, trong khi đề hỏi từ lúc người đi sau xuất phát."
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Cách luyện",
+          "items": [
+            "Chép các công thức ở mục “Nhận dạng” ra một tờ giấy, đọc lại trước mỗi buổi luyện cho tới khi thuộc.",
+            "Khi luyện, tự giải ra giấy rồi mới chọn đáp án, không “ngắm” đáp án trước: đáp án nhiễu được làm từ đúng các lỗi sai hay gặp.",
+            "Làm sai câu nào thì xác định mình sai ở bẫy nào trong mục “Bẫy hay gặp”."
+          ]
+        }
+      ]
+    },
+    "abstract": {
+      "summary": "Tìm hình còn thiếu trong ma trận 3 × 3 hoặc hình tiếp theo trong chuỗi hình.",
+      "sections": [
+        {
+          "id": "recognize",
+          "title": "Nhận dạng: 4 đặc điểm cần soi",
+          "items": [
+            "Hình dạng (tròn, vuông, tam giác, sao…).",
+            "Kiểu tô (tô đặc, để rỗng, kẻ sọc).",
+            "Số lượng hình trong ô (1–4).",
+            "Góc xoay (dễ thấy nhất ở mũi tên, tam giác).",
+            "Mỗi đặc điểm có quy luật RIÊNG. Xét từng đặc điểm một, đừng cố nhìn cả hình cùng lúc."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Quy trình giải",
+          "items": [
+            "Ma trận 3 × 3: đọc theo HÀNG. Với mỗi đặc điểm, hỏi: cả hàng giống nhau? mỗi hàng có đủ 3 loại khác nhau (mỗi loại xuất hiện một lần)? tăng dần từ trái sang phải?",
+            "Chuỗi hình: với mỗi đặc điểm, hỏi: không đổi? lặp lại sau 2 hình? lặp lại sau 3 hình? xoay đều một góc mỗi bước?",
+            "Tìm được quy luật của một đặc điểm → loại ngay các đáp án sai đặc điểm đó → chuyển sang đặc điểm tiếp theo.",
+            "Thường chỉ cần 2–3 đặc điểm là còn lại đúng 1 đáp án."
+          ]
+        },
+        {
+          "id": "speed",
+          "title": "Mẹo làm nhanh",
+          "items": [
+            "Loại trừ nhanh hơn tìm trọn quy luật: không cần hiểu hết mọi đặc điểm, chỉ cần loại được 4 đáp án sai.",
+            "Bắt đầu từ đặc điểm dễ thấy nhất (thường là số lượng hoặc kiểu tô), để góc xoay lại sau.",
+            "Ma trận: hàng 1 và hàng 2 đã cho đủ, dùng chúng để đoán quy luật rồi áp vào hàng 3.",
+            "Chuỗi: đánh số các hình 1–5, hình cần tìm là số 6. Đặc điểm nào lặp lại sau 2 hình thì ở hình 6 nó giống hình 4; lặp lại sau 3 hình thì giống hình 3."
+          ]
+        },
+        {
+          "id": "traps",
+          "title": "Bẫy hay gặp",
+          "items": [
+            "Đáp án “chép ô bên trái / phía trên”: trông rất hợp lý nhưng sai một đặc điểm.",
+            "Đáp án “sai đúng một đặc điểm”: đúng hình, đúng kiểu tô nhưng sai số lượng hoặc sai góc xoay. Kiểm tra cả 4 đặc điểm trước khi chọn.",
+            "Hình tròn xoay bao nhiêu cũng như cũ, hình vuông xoay 90° cũng như cũ: với những hình này, đừng tìm quy luật góc xoay.",
+            "Đếm nhầm số lượng khi các hình nằm sát nhau."
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Cách luyện",
+          "items": [
+            "Ở mức Dễ, chỉ 1 đặc điểm thay đổi: dùng để tập thói quen soi từng đặc điểm.",
+            "Mức Khó có 3 đặc điểm cùng thay đổi: tập ghi nhanh ra nháp, ví dụ “số lượng: 1-2-3; tô: hoán vị”.",
+            "Xem lại lời giải: lời giải nêu rõ quy luật của từng đặc điểm, đối chiếu với cách mình đã nghĩ."
+          ]
+        }
+      ]
+    },
+    "logical": {
+      "summary": "Suy luận từ các dữ kiện cho sẵn: sắp xếp thứ tự, xếp chỗ ngồi, tam đoạn luận (“Mọi A là B…”).",
+      "sections": [
+        {
+          "id": "recognize",
+          "title": "Nhận dạng 3 kiểu bài",
+          "items": [
+            "Sắp xếp thứ tự: ai cao hơn ai, ai về trước ai… → vẽ một trục từ cao xuống thấp (hoặc từ đầu đến cuối).",
+            "Xếp chỗ ngồi: n người ngồi một hàng ghế → vẽ n ô ghế đánh số 1 → n.",
+            "Tam đoạn luận: các câu “Mọi…”, “Một số…”, “Không… nào” → vẽ các vòng tròn lồng / giao nhau."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Quy trình giải",
+          "items": [
+            "Viết tắt dữ kiện ra nháp: “A > B”, “C ngay trước D”, “E ở ghế 1”.",
+            "Đặt các dữ kiện CHẮC CHẮN trước: vị trí đầu / cuối hàng, số ghế cụ thể.",
+            "Ghép các dữ kiện “ngay cạnh”, “ngay trước” thành một khối người dính liền.",
+            "Thử các trường hợp còn lại, dùng dữ kiện “không cạnh nhau”, “không ở đầu” để loại.",
+            "Tam đoạn luận: một kết luận chỉ ĐÚNG khi nó đúng với MỌI cách vẽ có thể. Tìm được một cách vẽ làm nó sai là loại."
+          ]
+        },
+        {
+          "id": "speed",
+          "title": "Mẹo làm nhanh",
+          "items": [
+            "Đọc câu hỏi trước: nhiều câu chỉ hỏi vị trí của 1 người, không cần xếp xong cả hàng.",
+            "Dùng đáp án để kiểm tra ngược: với câu “thứ tự nào đúng?”, lấy từng đáp án đối chiếu với từng dữ kiện, sai một dữ kiện là loại.",
+            "Xếp chỗ ngồi: “A cạnh B” có 2 khả năng (AB hoặc BA), vẽ cả hai ngay từ đầu.",
+            "“Mọi A là B” vẽ vòng A nằm trong vòng B; “Một số A là B” vẽ hai vòng giao nhau; “Không A nào là B” vẽ hai vòng tách rời."
+          ]
+        },
+        {
+          "id": "traps",
+          "title": "Bẫy hay gặp",
+          "items": [
+            "Dùng hiểu biết thực tế thay vì dữ kiện trong đề: chỉ được suy ra từ những gì đề cho.",
+            "“Một số A là B” KHÔNG có nghĩa là “một số A không phải B”.",
+            "“Mọi A là B” KHÔNG có nghĩa là “mọi B là A”.",
+            "“A đứng trước B” khác “A đứng NGAY trước B”.",
+            "Quên trường hợp đối xứng (đảo chiều) khi xếp chỗ ngồi."
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Cách luyện",
+          "items": [
+            "LUÔN vẽ ra giấy, kể cả câu dễ: tạo thói quen để câu khó không bị rối.",
+            "Tam đoạn luận dễ sai nhất vì “nghe có vẻ đúng”: luyện vẽ vòng tròn cho tới khi thành phản xạ.",
+            "Làm sai câu nào thì đọc lại lời giải để biết mình bỏ sót dữ kiện nào."
+          ]
+        }
+      ]
+    },
+    "numerical": {
+      "summary": "Đọc bảng số liệu và tính: chênh lệch, tổng, phần trăm thay đổi, tỉ trọng, trung bình, dự báo.",
+      "sections": [
+        {
+          "id": "recognize",
+          "title": "Nhận dạng và công thức chính",
+          "items": [
+            "Chênh lệch: số sau − số trước.",
+            "Phần trăm thay đổi = (mới − cũ) : cũ × 100%. Luôn chia cho số CŨ.",
+            "Tỉ trọng (chiếm bao nhiêu %) = phần : tổng × 100%.",
+            "Trung bình = tổng : số kỳ (hoặc số đối tượng).",
+            "Dự báo theo tốc độ tăng r% mỗi kỳ: kỳ sau = kỳ này × (1 + r%)."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Quy trình giải",
+          "items": [
+            "Bước 1: đọc câu hỏi TRƯỚC khi đọc bảng: cần dòng nào, cột (kỳ) nào, phép tính gì.",
+            "Bước 2: đọc tên bảng và ghi chú đơn vị dưới bảng.",
+            "Bước 3: lấy đúng các ô cần dùng, ghi ra nháp.",
+            "Bước 4: ước lượng kết quả trước, so với các đáp án; đáp án khác xa ước lượng thì loại.",
+            "Bước 5: các đáp án còn lại sát nhau thì mới tính chính xác."
+          ]
+        },
+        {
+          "id": "speed",
+          "title": "Mẹo tính nhanh",
+          "items": [
+            "Làm tròn số trong bảng để ước lượng, ví dụ 487 ≈ 500, 1.215 ≈ 1.200. Đáp án sai trên web cách đáp án đúng ít nhất 3%, nên ước lượng thường đủ để loại phần lớn.",
+            "Nhẩm phần trăm: 10% = dời dấu phẩy; 1% = dời 2 chữ số; 12% = 10% + 2 × 1%.",
+            "So sánh tốc độ tăng của nhiều dòng: không cần tính hết, so “tăng thêm bao nhiêu so với số ban đầu” bằng ước lượng.",
+            "Hỏi về một dòng thì dùng thước hoặc ngón tay giữ đúng dòng đó, tránh đọc nhầm dòng."
+          ]
+        },
+        {
+          "id": "traps",
+          "title": "Bẫy hay gặp",
+          "items": [
+            "Chia cho số MỚI thay vì số CŨ khi tính phần trăm thay đổi.",
+            "Nhầm “tăng bao nhiêu” (hiệu, có đơn vị) với “tăng bao nhiêu phần trăm”.",
+            "Lấy nhầm kỳ (quý 2 thay vì quý 3) hoặc nhầm dòng.",
+            "Quên đơn vị (tỷ đồng, nghìn lượt…) hoặc ghi chú dưới bảng.",
+            "Dự báo nhiều kỳ: nhân hệ số liên tiếp, không cộng phần trăm."
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Cách luyện",
+          "items": [
+            "Đây là dạng tốn thời gian nhất: luyện nhẩm và ước lượng mỗi ngày.",
+            "Hỏi rõ bài thi thật có cho dùng máy tính cầm tay không; luyện đúng theo điều kiện đó (nếu được dùng, luyện bấm máy nhanh và chính xác).",
+            "Câu sai: xác định mình sai ở bước nào (đọc nhầm ô, nhầm công thức hay tính nhầm)."
+          ]
+        }
+      ]
+    },
+    "verbal": {
+      "summary": "Đọc đoạn văn, đánh giá mỗi nhận định là Đúng, Sai hay Không đủ thông tin, CHỈ dựa vào đoạn văn.",
+      "sections": [
+        {
+          "id": "recognize",
+          "title": "Hiểu đúng 3 đáp án",
+          "items": [
+            "Đúng: đoạn văn nói rõ điều đó, hoặc suy ra trực tiếp chắc chắn từ đoạn văn.",
+            "Sai: đoạn văn nói NGƯỢC LẠI điều đó (mâu thuẫn rõ ràng).",
+            "Không đủ thông tin: đoạn văn không nhắc tới, hoặc có nhắc nhưng không đủ để khẳng định đúng hay sai.",
+            "Chỉ dựa vào đoạn văn: dù nhận định đúng ngoài đời, nếu đoạn văn không nói thì vẫn là “Không đủ thông tin”."
+          ]
+        },
+        {
+          "id": "process",
+          "title": "Quy trình giải",
+          "items": [
+            "Bước 1: đọc lướt đoạn văn một lần để nắm ý chính.",
+            "Bước 2: đọc nhận định, tìm từ khóa (tên, số liệu, thời gian).",
+            "Bước 3: tìm câu trong đoạn văn có từ khóa đó, so từng chữ với nhận định.",
+            "Bước 4: tự hỏi “đoạn văn có nói ngược lại không?”. Có → Sai. Không nói ngược nhưng cũng không khẳng định → Không đủ thông tin."
+          ]
+        },
+        {
+          "id": "speed",
+          "title": "Từ khóa cần soi kỹ",
+          "items": [
+            "Từ tuyệt đối: “tất cả”, “luôn luôn”, “chỉ”, “duy nhất”, “không bao giờ”: nhận định dùng các từ này thường mạnh hơn đoạn văn.",
+            "Từ giới hạn: “một số”, “thường”, “chủ yếu”, “phần lớn”: “chủ yếu đọc sách in” KHÔNG có nghĩa là “không đọc sách điện tử”.",
+            "Tỉ lệ khác số lượng: tỉ lệ giảm không có nghĩa số người giảm.",
+            "Tương quan khác nguyên nhân: hai việc xảy ra cùng lúc chưa chắc việc này gây ra việc kia.",
+            "So sánh: “tăng”, “nhiều hơn”: phải xác định so với cái gì, thời điểm nào."
+          ]
+        },
+        {
+          "id": "traps",
+          "title": "Bẫy hay gặp",
+          "items": [
+            "Dùng kiến thức bên ngoài để chọn Đúng / Sai.",
+            "Chọn “Sai” khi đoạn văn chỉ đơn giản là KHÔNG nhắc tới: trường hợp đó là “Không đủ thông tin”.",
+            "Nhận định dùng từ gần nghĩa nhưng khác nghĩa: “được mời” khác “đã ký”, “chuyển công việc” khác “cho nghỉ việc”, “số đơn hàng” khác “doanh thu”.",
+            "Đọc lướt bỏ qua các con số và điều kiện (“từ năm 2020”, “đối với sinh viên năm cuối”)."
+          ]
+        },
+        {
+          "id": "practice",
+          "title": "Cách luyện",
+          "items": [
+            "Mỗi câu sai: tìm ra ĐÚNG câu trong đoạn văn quyết định đáp án, và từ nào mình đã đọc lướt.",
+            "Tập phân biệt “Sai” và “Không đủ thông tin”: đây là nơi mất điểm nhiều nhất.",
+            "Bài luyện trên web có 80 nhận định soạn sẵn, ưu tiên câu chưa làm; làm hết thì đọc thêm báo, tin tức và tự đặt nhận định để tập."
+          ]
+        }
+      ]
+    }
+  }
+}
